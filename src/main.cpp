@@ -1,15 +1,15 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
+#include "stb/stb_image.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
-#include <glm/matrix.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "glm/matrix.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 
 #include <string>
 #include <fstream>
@@ -33,7 +33,7 @@ void handleInput(GLFWwindow *window)
 		glfwSetWindowShouldClose(window, true);
 }
 
-int main(int argc, char *argv)
+int main(int argc, char **argv)
 {
 	//-------------------------------------------------------------------------
 	GLFWwindow *window;
@@ -49,6 +49,9 @@ int main(int argc, char *argv)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	window = glfwCreateWindow(960, 540, "Train Vis", nullptr, nullptr);
 
