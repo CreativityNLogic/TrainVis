@@ -599,7 +599,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+<<<<<<< HEAD:src/Graphics/Glad/glad.c
 #include "glad.h"
+=======
+#include "glad/glad.h"
+>>>>>>> da04c17ffbc494c16b33a6f74a88bd038f94b31b:src/glad.c
 
 static void* get_proc(const char *namez);
 
