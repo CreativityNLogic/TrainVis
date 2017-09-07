@@ -1,6 +1,6 @@
 # Train Vis
 
-A basic train simulation that simulates a train moving from one location to another.
+A basic train visualisation that display a train moving from one location to another.
 
 ## Getting Started
 
@@ -17,10 +17,10 @@ CMake - https://cmake.org/
 
 Create a /dep folder inside the project and download the following into that folder. Image loading (stb_image) and OpenGL extensions (GLAD) is already embedded into the project.
 
-GLFW (Source) - http://www.glfw.org/download.html
+GLFW (version 3.2.1) - http://www.glfw.org/download.html
 * Compile Guide - http://www.glfw.org/docs/latest/compile_guide.html
 
-ASSIMP (Source) - https://github.com/assimp/assimp/releases/tag/v3.3.1/
+ASSIMP (version 3.3.1) - https://github.com/assimp/assimp/releases/tag/v3.3.1/
 * Compile Guide - http://assimp.sourceforge.net/lib_html/cmake_build.html
 ```
 
@@ -32,7 +32,7 @@ ASSIMP (Source) - https://github.com/assimp/assimp/releases/tag/v3.3.1/
 ## Authors
 
 * **Fiona Mallett** - *Graphics*
-* **Ashley Robinson** - **
+* **Ashley Robinson** - *Physics, Core*
 * **Mitchell Burley** - *Graphics*
 * **Lachie Sainsbury** - *Graphics*
 * **Trent Jones** - *Physics*
