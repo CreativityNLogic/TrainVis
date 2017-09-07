@@ -128,8 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\glad.c" />
-    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Application.cpp" />
+    <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
+    <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Application.h" />
+    <ClInclude Include="..\..\src\Core\BaseApplication.h" />
+    <ClInclude Include="..\..\src\Core\Input.h" />
+    <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
+    <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
+    <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

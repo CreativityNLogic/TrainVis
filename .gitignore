@@ -4,3 +4,9 @@ obj/
 /dev
 /builds/msvc2015/*.db
 /builds/msvc2015/*.opendb
+/tools
+/doc
+/lib/msvc2017
+/lib/msvc2015
+/bin/msvc2015
+/bin/msvc2017
