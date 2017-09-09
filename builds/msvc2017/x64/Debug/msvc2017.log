@@ -1,19 +1,7 @@
 ﻿  RenderWindow.cpp
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C2059: syntax error: '<<'
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C2143: syntax error: missing ';' before '/'
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(668): error C2059: syntax error: '=='
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(669): fatal error C1083: Cannot open include file: 'KHR/khrplatform.h': No such file or directory
+c:\users\trent\desktop\physics\trainvis\src\graphics\renderwindow.h(8): fatal error C1083: Cannot open include file: 'GLFW/glfw3.h': No such file or directory
   BaseApplication.cpp
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C2059: syntax error: '<<'
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C2143: syntax error: missing ';' before '/'
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(668): error C2059: syntax error: '=='
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(669): fatal error C1083: Cannot open include file: 'KHR/khrplatform.h': No such file or directory
+c:\users\trent\desktop\physics\trainvis\src\graphics\renderwindow.h(8): fatal error C1083: Cannot open include file: 'GLFW/glfw3.h': No such file or directory
   Application.cpp
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C2059: syntax error: '<<'
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C2143: syntax error: missing ';' before '/'
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(666): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(668): error C2059: syntax error: '=='
-c:\users\user\documents\queens\oz modules\graphics\group project\trainvis\trainvis\src\graphics\glad\glad.h(669): fatal error C1083: Cannot open include file: 'KHR/khrplatform.h': No such file or directory
+c:\users\trent\desktop\physics\trainvis\src\graphics\renderwindow.h(8): fatal error C1083: Cannot open include file: 'GLFW/glfw3.h': No such file or directory
   Generating Code...
