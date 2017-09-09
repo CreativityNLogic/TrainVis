@@ -131,7 +131,10 @@
     <ClCompile Include="..\..\src\Application.cpp" />
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
+    <ClCompile Include="..\..\src\Graphics\Mesh.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Model.cpp" />
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h" />
@@ -139,7 +142,10 @@
     <ClInclude Include="..\..\src\Core\Input.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
+    <ClInclude Include="..\..\src\Graphics\Mesh.h" />
+    <ClInclude Include="..\..\src\Graphics\Model.h" />
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
+    <ClInclude Include="..\..\src\Graphics\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
