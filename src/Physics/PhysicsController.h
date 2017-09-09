@@ -2,7 +2,7 @@
 #define PHYSICS_CONTROLLER
 
 #include <JSON/json.hpp>
-#include <glm\common.hpp>
+#include <glm/common.hpp>
 #include "RigidBody.h"
 
 class PhysicsController {

@@ -51,6 +51,15 @@
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c">
       <Filter>Source Files\Graphics\Glad</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\PhysicsController.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
@@ -70,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
       <Filter>Header Files\Graphics\Glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\PhysicsController.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\RigidBody.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\RigidWorld.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

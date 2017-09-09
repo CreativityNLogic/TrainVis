@@ -1,8 +1,12 @@
-#pragma once
+#ifndef RIGIDWORLD_H_
+#define RIGIDWORLD_H_
+
+#include <bullet/btBulletCollisionCommon.h>
+#include <bullet/btBulletDynamicsCommon.h>
+#include <glm/common.hpp>
+
 #include "RigidBody.h"
-#include "bullet\btBulletCollisionCommon.h"
-#include "bullet\btBulletDynamicsCommon.h"
-#include "glm\common.hpp"
+
 class RigidWorld
 {
 private:
@@ -16,3 +20,4 @@ public:
 	virtual ~RigidWorld();
 };
 
+#endif // RIGIDWORLD_H_
