@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Graphics\Glad">
       <UniqueIdentifier>{adfa77d3-4e9b-4dc1-a9b8-4a7d04f9d5a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{3aa27a5d-274b-483b-bfd2-de384c8e3790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{93191894-4004-4fbf-a880-11e3e55a3f4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">

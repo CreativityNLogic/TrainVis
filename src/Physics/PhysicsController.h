@@ -1,7 +1,7 @@
 #ifndef PHYSICS_CONTROLLER
 #define PHYSICS_CONTROLLER
 
-#include <JSON/src/json.hpp>
+#include <JSON/json.hpp>
 #include <glm\common.hpp>
 #include "RigidBody.h"
 
