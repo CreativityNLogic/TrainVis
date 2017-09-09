@@ -38,3 +38,4 @@ ASSIMP (version 3.3.1) - https://github.com/assimp/assimp/releases/tag/v3.3.1/
 * **Trent Jones** - *Physics*
 * **Nathan Dos** - *Initial setup, Core*
 * **Donovan Carthew** - *Physics*
+
