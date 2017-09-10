@@ -1,54 +1,26 @@
-#pragma once
-
-#include <stb/stb_image.h>
-
-#include "Glad/glad.h"
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/matrix.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
-#include <stdio.h>
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
 #include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <streambuf>
-#include <iostream>
 
 using namespace std;
 
-class Texture {
-
+class Texture 
+{
 public:
-
-	string filename;
-	unsigned int textureID;
-	unsigned int id;
-	string type;
-	aiString path;
-
 	Texture();
 	~Texture();
 	Texture(const char *path, const string &directory, bool gamma);
 	
-
-	int getTextureID();
-
-	int getID();
-
+	int GetTextureID() const;
 	void Bind();
 
-
 private:
-	
+	string mFilename;
 
-
+	unsigned char *mData;
+	unsigned int mTextureID;
+	unsigned int mID;
 };
+
+#endif // TEXTURE_H
