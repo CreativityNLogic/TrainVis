@@ -1,10 +1,7 @@
 #include "RigidBody.h"
 
 
-
-/*
-	int shape needs to be redefined in each method as a mesh object; not sure what the type is that we're using for that
-*/
+// ** int shape needs to be redefined in each method as a mesh object; not sure what the type is that we're using for that **
 RigidBody::RigidBody(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin)
 {
 	holder = constructHelper(shape, inertia, inMass, origin);
@@ -12,8 +9,9 @@ RigidBody::RigidBody(int shape, glm::vec3* inertia, float inMass, glm::vec3* ori
 
 btRigidBody* RigidBody::constructHelper(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin)
 {
-	btCollisionShape* mesh = new btConvexHullShape(shape);
 
+	btCollisionShape* mesh = new btConvexHullShape();
+	 
 	btTransform meshTransform;
 	meshTransform.setIdentity();
 	meshTransform.setOrigin(btVector3(origin->x, origin->y, origin->z));
@@ -39,11 +37,10 @@ RigidBody* RigidBody::rebuildBody(int shape, glm::vec3* inertia, float inMass, g
 	return this;
 }
 
-glm::vec3* RigidBody::getOrigin()
+glm::vec3 RigidBody::getOrigin() const
 {
 	btVector3 pos = holder->getCenterOfMassPosition();
-	glm::vec3* returnable = new glm::vec3(pos.getX(), pos.getY(), pos.getZ());
-	return returnable;
+	return glm::vec3(pos.getX(), pos.getY(), pos.getZ());
 }
 
 btMotionState* RigidBody::getMotionState()

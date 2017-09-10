@@ -1,7 +1,7 @@
 #ifndef PHYSICS_CONTROLLER
 #define PHYSICS_CONTROLLER
 
-#include <JSON/json.hpp>
+#include <json/json.hpp>
 #include <glm/common.hpp>
 #include "RigidBody.h"
 
@@ -12,4 +12,4 @@ private:
 	RigidBody getRigidBody(nlohmann::json body); //Return a rigidBodywrapper object with the information from the json file.
 };
 
-#endif PHYSICS_CONTROLLER
+#endif // PHYSICS_CONTROLLER

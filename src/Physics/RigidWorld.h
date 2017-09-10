@@ -1,5 +1,5 @@
-#ifndef RIGIDWORLD_H_
-#define RIGIDWORLD_H_
+#ifndef RIGIDWORLD_H
+#define RIGIDWORLD_H
 
 #include <bullet/btBulletCollisionCommon.h>
 #include <bullet/btBulletDynamicsCommon.h>
@@ -9,8 +9,6 @@
 
 class RigidWorld
 {
-private:
-	btDiscreteDynamicsWorld* holder;
 public:
 	RigidWorld(glm::vec3* gravity);
 	void addRigidBody(RigidBody* container);
@@ -18,6 +16,9 @@ public:
 	void removeRigidBody(RigidBody* toBeRemoved);
 	void stepSimulation(float framerate, float step);
 	virtual ~RigidWorld();
+
+private:
+	btDiscreteDynamicsWorld* holder;
 };
 
-#endif // RIGIDWORLD_H_
+#endif // RIGIDWORLD_H
