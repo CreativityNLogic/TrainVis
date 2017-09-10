@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shader.h"
+#include "Texture.h"
 
 #include <stb/stb_image.h>
 
@@ -33,12 +34,6 @@ struct Vertex {
 	glm::vec2 TexCoords;
 };
 
-struct Texture {
-	unsigned int id;
-	string type;
-	aiString path;  // we store the path of the texture to compare with other textures
-};
-
 class Mesh {
 	public:
 		/*  Mesh Data  */
@@ -48,6 +43,7 @@ class Mesh {
 
 		/*  Functions  */
 		Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+		~Mesh();
 
 		void Draw(Shader &shader);
 

@@ -10,6 +10,13 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 	setupMesh();
 }
 
+
+Mesh::~Mesh() {
+
+
+}
+
+
 void Mesh::Draw(Shader &shader)
 {
 	unsigned int diffuseNr = 1;
