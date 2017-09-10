@@ -22,8 +22,8 @@ bool Application::Initialise()
 	// Place declaration variables or initialise objects that need error checking eg if(!obj.init())
 	//===============================================
 
-	mTrainShader.reset(new Shader("assets/shaders/base.vs", "assets/shaders/base.fs"));
-	mTrainModel.reset(new Model("assets/models/Train.fbx"));
+	mTrainShader.reset(new Shader("../../assets/shaders/base.vs", "../../assets/shaders/base.fs"));
+	mTrainModel.reset(new Model("../../assets/models/Train.fbx"));
 
 	//===============================================
 	return true;
