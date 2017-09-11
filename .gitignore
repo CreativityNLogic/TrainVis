@@ -11,3 +11,4 @@ obj/
 /bin/msvc2015
 /bin/msvc2017
 /lib/xcode
+builds/msvc2017/x64/Debug/
