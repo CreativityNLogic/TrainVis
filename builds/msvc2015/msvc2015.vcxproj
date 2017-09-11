@@ -18,6 +18,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Application.cpp" />
+    <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
+    <ClCompile Include="..\..\src\Graphics\Mesh.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Model.cpp" />
+    <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Application.h" />
+    <ClInclude Include="..\..\src\Core\BaseApplication.h" />
+    <ClInclude Include="..\..\src\Core\Input.h" />
+    <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
+    <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
+    <ClInclude Include="..\..\src\Graphics\Mesh.h" />
+    <ClInclude Include="..\..\src\Graphics\Model.h" />
+    <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
+    <ClInclude Include="..\..\src\Graphics\Shader.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{05A9B67A-0644-4A0D-869B-B7EE75218994}</ProjectGuid>
     <RootNamespace>msvc2015</RootNamespace>
@@ -87,7 +107,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\lib\msvc2017\$(Configuration);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp.lib;zlibstatic.lib;opengl32.lib;glu32.lib;glfw3_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp_d.lib;zlibstaticd.lib;opengl32.lib;glu32.lib;glfw3_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,10 +146,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\glad.c" />
-    <ClCompile Include="..\..\src\main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

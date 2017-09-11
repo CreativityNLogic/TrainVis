@@ -66,6 +66,18 @@
     <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
       <Filter>Source Files\Physics\DebugDraw</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Shader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Mesh.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Model.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
@@ -97,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
       <Filter>Source Files\Physics\DebugDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Shader.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Model.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Mesh.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Texture.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

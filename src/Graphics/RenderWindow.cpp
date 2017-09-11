@@ -51,6 +51,9 @@ bool RenderWindow::Initialise(const std::string &windowName, const int &width, c
     }
 
     glfwMakeContextCurrent(mRenderWindow);
+	// Callbacks
+	glfwSetFramebufferSizeCallback(mRenderWindow, ResizeCallback);
+	glfwSetWindowCloseCallback(mRenderWindow, CloseWindowCallback);
 
 	// Set up context with GLAD
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -59,10 +62,6 @@ bool RenderWindow::Initialise(const std::string &windowName, const int &width, c
 		glfwTerminate();
 		return false;
 	}
-
-	// Callbacks
-	glfwSetFramebufferSizeCallback(mRenderWindow, ResizeCallback);
-    glfwSetWindowCloseCallback(mRenderWindow, CloseWindowCallback);
 
 	// Enable certain opengl params
     glEnable(GL_DEPTH_TEST);

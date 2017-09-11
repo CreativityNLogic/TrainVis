@@ -1,6 +1,8 @@
 #ifndef _APPLCATION_H_
 #define _APPLCATION_H_
 
+#include <memory>
+
 #include "Core/BaseApplication.h"
 
 //*********************************************
@@ -13,6 +15,9 @@
 //	eg class SomeApplication : public BaseApplication
 //*********************************************
 
+#include "Graphics/Shader.h"
+#include "Graphics/Model.h"
+
 class Application : public BaseApplication
 {
 public:
@@ -24,6 +29,10 @@ public:
 	void Terminate();
 	// Update application per frame
 	void Update(double deltaTime);
+
+private:
+	std::unique_ptr<Model> mTrainModel;
+	std::unique_ptr<Shader> mTrainShader;
 };
 
 #endif // _APPLCATION_H_
