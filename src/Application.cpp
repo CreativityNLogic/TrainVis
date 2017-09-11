@@ -1,7 +1,17 @@
 #include "Application.h"
 #include "Graphics/RenderWindow.h"
-
+#include "Graphics\Camera.h"
 #include <iostream>
+
+// camera
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 25.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+
+// timing
+float deltaTime = 0.0f;	// time between current frame and last frame
+float lastFrame = 0.0f;
 
 Application::Application()
 {
@@ -42,6 +52,22 @@ void Application::Update(double deltaTime)
 {
 	if (mRenderWindow->IsKeyPressed(Key::ESCAPE))
 		Quit();
+	
+	//----Camera 
+
+			float cameraSpeed = 6.5f * deltaTime; // adjust accordingly
+			if (mRenderWindow->IsKeyPressed(Key::W))
+				cameraPos += cameraSpeed * cameraFront;
+			if (mRenderWindow->IsKeyPressed(Key::S))
+				cameraPos -= cameraSpeed * cameraFront;
+			if (mRenderWindow->IsKeyPressed(Key::A))
+				cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+			if (mRenderWindow->IsKeyPressed(Key::D))
+				cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	
+	
+
+
 
 	mRenderWindow->Clear(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -66,7 +92,7 @@ void Application::Update(double deltaTime)
 	// glm::vec3(3, 0, 3) - Position of camera
 	// glm::vec3(0, 0, 0) - Look at target
 	// glm::vec3(0, 1, 0) - Up vector
-	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 25.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 	//-----------------------------------
 	// ModelMatrix
