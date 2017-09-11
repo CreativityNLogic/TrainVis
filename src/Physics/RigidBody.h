@@ -8,10 +8,10 @@
 class RigidBody
 {
 public:
-	RigidBody(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin);
+	RigidBody(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin);
 	virtual ~RigidBody();
 
-	RigidBody* rebuildBody(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin);
+	RigidBody* rebuildBody(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin);
 	
 	glm::vec3 getOrigin() const;
 	btMotionState* getMotionState();
@@ -19,7 +19,7 @@ public:
 
 private:
 	btRigidBody* holder;
-	btRigidBody* constructHelper(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin);
+	btRigidBody* constructHelper(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin);
 };
 
 #endif // RIGIDBODY_H

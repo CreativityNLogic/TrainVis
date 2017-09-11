@@ -5,20 +5,26 @@
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/common.hpp>
 
+#include <memory>
+
 #include "RigidBody.h"
 
 class RigidWorld
 {
 public:
-	RigidWorld(glm::vec3* gravity);
+	RigidWorld(const glm::vec3 &gravity);
 	void addRigidBody(RigidBody* container);
 	void removeAllBodies();
 	void removeRigidBody(RigidBody* toBeRemoved);
-	void stepSimulation(float framerate, float step);
+	void stepSimulation(float framerate, int step);
 	virtual ~RigidWorld();
 
 private:
-	btDiscreteDynamicsWorld* holder;
+	std::unique_ptr<btDiscreteDynamicsWorld> mPhysicsWorld;
+	std::unique_ptr<btDefaultCollisionConfiguration>  mCollisionConfig;
+	std::unique_ptr<btCollisionDispatcher> mCollisionDispatcher;
+	std::unique_ptr<btBroadphaseInterface>	mBroadphase;
+	std::unique_ptr<btSequentialImpulseConstraintSolver> mSolver;
 };
 
 #endif // RIGIDWORLD_H

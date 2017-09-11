@@ -1,27 +1,25 @@
 #include "RigidBody.h"
 
-
 // ** int shape needs to be redefined in each method as a mesh object; not sure what the type is that we're using for that **
-RigidBody::RigidBody(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin)
+RigidBody::RigidBody(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin)
 {
 	holder = constructHelper(shape, inertia, inMass, origin);
 }
 
-btRigidBody* RigidBody::constructHelper(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin)
+btRigidBody* RigidBody::constructHelper(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin)
 {
-
 	btCollisionShape* mesh = new btConvexHullShape();
 	 
 	btTransform meshTransform;
 	meshTransform.setIdentity();
-	meshTransform.setOrigin(btVector3(origin->x, origin->y, origin->z));
+	meshTransform.setOrigin(btVector3(origin.x, origin.y, origin.z));
 
 	btScalar mass(inMass);
 
 	//rigidbody is dynamic if and only if mass is non zero, otherwise static
 	bool isDynamic = (mass != 0.f);
 
-	btVector3 localInertia(inertia->x, inertia->y, inertia->z);
+	btVector3 localInertia(inertia.x, inertia.y, inertia.z);
 	if (isDynamic)
 		mesh->calculateLocalInertia(mass, localInertia);
 
@@ -30,7 +28,7 @@ btRigidBody* RigidBody::constructHelper(int shape, glm::vec3* inertia, float inM
 	return new btRigidBody(rbInfo);
 }
 
-RigidBody* RigidBody::rebuildBody(int shape, glm::vec3* inertia, float inMass, glm::vec3* origin)
+RigidBody* RigidBody::rebuildBody(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin)
 {
 	delete holder;
 	holder = constructHelper(shape, inertia, inMass, origin);
