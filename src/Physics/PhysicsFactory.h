@@ -8,13 +8,11 @@
 
 class PhysicsFactory {
 public:
-	PhysicsFactory(std::unique_ptr<RigidWorld> rWorld);
+	PhysicsFactory(RigidWorld *world);
 private:
-	RigidBody createRigidBody(nlohmann::json body); //Return a rigidBodywrapper object with the information from the json file.
-	void setWorld(std::unique_ptr<RigidWorld> rWorld);
-	RigidWorld getWorld();
+	RigidBody* createRigidBody(nlohmann::json body); //Return a rigidBodywrapper object with the information from the json file.
 
-	std::unique_ptr<RigidWorld> factoryWorld;
+	RigidWorld *mPhysicsWorld;
 };
 
 #endif // PHYSICS_CONTROLLER

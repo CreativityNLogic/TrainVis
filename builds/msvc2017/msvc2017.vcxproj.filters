@@ -57,7 +57,7 @@
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Physics\PhysicsController.cpp">
+    <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>

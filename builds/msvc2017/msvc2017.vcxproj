@@ -132,7 +132,7 @@
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
-    <ClCompile Include="..\..\src\Physics\PhysicsController.cpp" />
+    <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp" />
   </ItemGroup>

@@ -1,38 +1,34 @@
 #include "PhysicsFactory.h"
 
 //Constructor.
-PhysicsFactory::PhysicsFactory(std::unique_ptr<RigidWorld> rWorld)
+PhysicsFactory::PhysicsFactory(RigidWorld *world)
 {
-	setWorld(rWorld);
-}
-
-//The the world that the factory places the rigidBody in.
-void PhysicsFactory::setWorld(std::unique_ptr<RigidWorld> rWorld)
-{
-	std::make_unique<RigidWorld>(rWorld);
-}
-
-//Return the world the factory is currently acting upon.
-RigidWorld PhysicsFactory::getWorld()
-{
-	return factoryWorld.get();
+	mPhysicsWorld = world;
 }
 
 //Takes as input the body json file and then returns a rigidbody.
-RigidBody PhysicsFactory::createRigidBody(nlohmann::json body) 
+RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body) 
 { 
 	int shapeType = 0; //Get the value that determines the shape.
 	if (!body["Shape"].is_null()) 
 	{
-		btCollisionShape shape;
-		if (body["Shape"] == "Box") {
-			 shape = new btBoxShape();
+		btCollisionShape *shape = nullptr;
+		if (body["Shape"] == "Box") 
+		{
+			 //shape = new btBoxShape();
 		}
-		else if (body["Shape"] == "Circle") {
-			shape = new btSphereShape();
+		else if (body["Shape"] == "Circle") 
+		{
+			//shape = new btSphereShape();
 		}
-		if (body["Shape"] == "Convex")
-			shapeType = 2;
+		else if (body["Shape"] == "Convex")
+		{
+
+		}
+		else
+		{
+			// Make default shape...
+		}
 	}
 
 	glm::vec3 inertia; //Get the inertia value.
@@ -57,6 +53,13 @@ RigidBody PhysicsFactory::createRigidBody(nlohmann::json body)
 
 	btCollisionShape* shape = new btConvexHullShape(); //Shape will always be a convex?
 
+	// eg for JSON
+	/*
+	"Transform" : {
+		"Position" : [],
+		"Rotation" : []
+	}
+	*/
 	btTransform meshTransform; //??
 	meshTransform.setIdentity();
 	meshTransform.setOrigin(btVector3(origin.x, origin.y, origin.z));
@@ -69,7 +72,8 @@ RigidBody PhysicsFactory::createRigidBody(nlohmann::json body)
 		shape->calculateLocalInertia(mass, localInertia);
 
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(meshTransform);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, shape, localInertia); //All the information needed to construct the rigidbody in the wrapper.
 
-	return RigidBody::RigidBody(rbInfo, factoryWorld); //Return the rigidbody wrapper object.
+	RigidBody *rigidBody = new RigidBody(mass, myMotionState, shape, inertia);
+	mPhysicsWorld->addRigidBody(rigidBody);
+	return rigidBody; //Return the rigidbody wrapper object.
 }
