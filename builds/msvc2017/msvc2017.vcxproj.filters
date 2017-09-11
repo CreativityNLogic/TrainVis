@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Physics">
       <UniqueIdentifier>{93191894-4004-4fbf-a880-11e3e55a3f4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics\DebugDraw">
+      <UniqueIdentifier>{1468765b-f86b-46f0-bef3-811088e03ab1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
@@ -59,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
+      <Filter>Source Files\Physics\DebugDraw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\PhysicsFactory.h">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
+      <Filter>Source Files\Physics\DebugDraw</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

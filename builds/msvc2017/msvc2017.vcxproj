@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
+    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp" />
     <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp" />
@@ -143,6 +144,9 @@
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
+    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="..\..\src\Physics\PhysicsFactory.h" />
     <ClInclude Include="..\..\src\Physics\RigidBody.h" />
     <ClInclude Include="..\..\src\Physics\RigidWorld.h" />
