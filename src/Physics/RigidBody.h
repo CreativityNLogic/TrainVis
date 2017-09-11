@@ -4,11 +4,12 @@
 #include <bullet/btBulletCollisionCommon.h>
 #include <bullet/btBulletDynamicsCommon.h>
 #include <glm/common.hpp>
+#include "RigidWorld.h"
 
 class RigidBody
 {
 public:
-	RigidBody(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin);
+	RigidBody(btRigidBody::btRigidBodyConstructionInfo info, RigidWorld world);
 	virtual ~RigidBody();
 
 	RigidBody* rebuildBody(int shape, const glm::vec3 &inertia, float inMass, const glm::vec3 &origin);

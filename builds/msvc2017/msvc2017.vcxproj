@@ -143,7 +143,7 @@
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
-    <ClInclude Include="..\..\src\Physics\PhysicsController.h" />
+    <ClInclude Include="..\..\src\Physics\PhysicsFactory.h" />
     <ClInclude Include="..\..\src\Physics\RigidBody.h" />
     <ClInclude Include="..\..\src\Physics\RigidWorld.h" />
   </ItemGroup>

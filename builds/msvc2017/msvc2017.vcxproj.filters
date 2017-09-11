@@ -80,13 +80,13 @@
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
       <Filter>Header Files\Graphics\Glad</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Physics\PhysicsController.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidBody.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidWorld.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\PhysicsFactory.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
