@@ -1,72 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{b79efe5d-63fd-4b53-bc09-8da4f3d47074}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{2d32229d-154e-4f14-9772-92e271133ac7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{0f2b1a43-32bb-4a2a-ac6c-001e3cdf2170}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Core">
-      <UniqueIdentifier>{bb3b8259-c3f2-47cf-958d-98662969ed11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics\Glad">
-      <UniqueIdentifier>{26126b01-9eb5-4980-97e0-7c09ae9317ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\Glad">
-      <UniqueIdentifier>{adfa77d3-4e9b-4dc1-a9b8-4a7d04f9d5a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{2e1807e9-2809-4e4d-968c-c814c510b655}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Systems">
-      <UniqueIdentifier>{041c37dc-20dd-4877-b764-35e26b397cd8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Physics">
-      <UniqueIdentifier>{530272e4-87f5-406c-876b-45796b007b11}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Core\BaseApplication.cpp">
-      <Filter>Source Files\Core</Filter>
+    <ClCompile Include="..\..\src\Physics\RigidWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c">
       <Filter>Source Files\Graphics\Glad</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Core\BaseApplication.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Application.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\BaseApplication.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\Input.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h">
       <Filter>Header Files\Graphics\Glad</Filter>
@@ -74,17 +36,76 @@
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
       <Filter>Header Files\Graphics\Glad</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Systems\PhysicSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Components\TransformComponent.h">
-      <Filter>Header Files\Components</Filter>
+    <ClInclude Include="..\..\src\Physics\RigidBody.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Components\RigidBodyComponent.h">
-      <Filter>Header Files\Components</Filter>
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\RigidWorld.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\PhysicsFactory.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\MotionState.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Core\BaseApplication.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\TransformComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Input.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Systems\PhysicSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{97fff3d6-d7ef-4352-b323-c6e2f47b08c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{bbff7ad3-977e-4bb3-b8d0-0371e8afe4d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{83f210e1-8182-4e9a-b6e0-b51d96b2593e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{233d1ce6-2ef7-48c3-8aee-803e4babc402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{259bcf14-2d98-4de0-b2ef-40f1f98879c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{63f537b3-4bd3-48a7-9540-ef54e86e3af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Glad">
+      <UniqueIdentifier>{9cce8f39-1e95-45bd-884d-dfcfbdaecb2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Glad">
+      <UniqueIdentifier>{52091369-713c-4f53-a5e9-d5dadd765eef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{535f2edb-9b4d-4898-81b7-c45e5b01abca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{d03086fe-a30b-4800-91f5-430584ebf967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{0113370a-050d-4094-ac3d-f443b05c5014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{7483d5b3-f94b-4194-be40-847f8bd67725}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
