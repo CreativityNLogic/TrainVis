@@ -1,47 +1,80 @@
-#pragma once
-
 #include "Model.h"
-
-#include <glm/glm.hpp>
-#include <glm/matrix.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
 
 /*  Functions   */
-Model::Model(char *path)
+Model::Model() :
+	mTransform(glm::mat4(1.0f)),
+	mView(glm::mat4(1.0f)),
+	mProjection(glm::mat4(1.0f))
 {
-	loadModel(path);
-}
-
-Model::Model() {
-
 
 }
 
-Model::~Model() {
-
-
-}
-
-void Model::Draw(Shader &shader)
+Model::Model(const std::string &filename) :
+	mTransform(glm::mat4(1.0f)),
+	mView(glm::mat4(1.0f)),
+	mProjection(glm::mat4(1.0f))
 {
-	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+	loadModel(filename);
 }
 
-void Model::loadModel(string path)
+Model::~Model() 
+{
+
+}
+
+void Model::Draw()
+{
+	for (unsigned int i = 0; i < mMeshes.size(); i++)
+	{
+		if (i < mMaterials.size())
+		{
+			mMaterials[i].setTransform(mTransform);
+			mMaterials[i].setView(mView);
+			mMaterials[i].setProjection(mProjection);
+			mMaterials[i].Bind();
+		}
+
+		mMeshes[i].Draw();
+	}
+		
+}
+
+void Model::SetPosition(glm::vec3 position)
+{
+	mTransform = glm::translate(mTransform, position);
+}
+
+void Model::SetRotation(glm::vec3 rotation)
+{
+	mTransform = glm::rotate(mTransform, rotation.x, glm::vec3(1, 0, 0));
+	mTransform = glm::rotate(mTransform, rotation.y, glm::vec3(0, 1, 0));
+	mTransform = glm::rotate(mTransform, rotation.z, glm::vec3(0, 0, 1));
+}
+
+void Model::SetView(glm::mat4 view)
+{
+	mView = view;
+}
+
+void Model::SetProjection(glm::mat4 projection)
+{
+	mProjection = projection;
+}
+
+void Model::loadModel(const std::string &filename)
 {
 	Assimp::Importer import;
-	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene *scene = import.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
+		std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
 		return;
 	}
-	directory = path.substr(0, path.find_last_of('/'));
+
+	mDirectory = filename.substr(0, filename.find_last_of('/'));
 
 	processNode(scene->mRootNode, scene);
 }
@@ -52,7 +85,7 @@ void Model::processNode(aiNode *node, const aiScene *scene)
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh(mesh, scene));
+		mMeshes.push_back(processMesh(mesh, scene));
 	}
 
 	// then do the same for each of its children
@@ -64,9 +97,9 @@ void Model::processNode(aiNode *node, const aiScene *scene)
 
 Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 {
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
-	vector<Texture> textures;
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
@@ -112,15 +145,25 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		
+		aiColor3D diffuse;
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
 
-		// IMPLEMENT THIS WHEN MATERIAL CLASS IS CREATED!!
+		aiColor3D specular;
+		material->Get(AI_MATKEY_COLOR_SPECULAR, specular);
 
-		//vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-		//textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+		aiColor3D ambient;
+		material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
 
-		//vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-		//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+		Material mat("../../assets/shaders/default.vs", "../../assets/shaders/default.fs");
+		mat.setDiffuseColour(glm::vec4(diffuse.r, diffuse.g, diffuse.b, 1.0));
+		mat.setSpecularColour(glm::vec4(specular.r, specular.g, specular.b, 1.0));
+		mat.setAmbientColour(glm::vec4(ambient.r, ambient.g, ambient.b, 1.0));
+
+		mMaterials.push_back(mat);
+
+		// GET DIFFUSE/SPECULAR/NORMAL TEXTURES
 	}
 
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices);
 }

@@ -17,6 +17,7 @@
 
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"
+#include "Graphics/Material.h"
 
 class Application : public BaseApplication
 {
@@ -32,7 +33,7 @@ public:
 
 private:
 	std::unique_ptr<Model> mTrainModel;
-	std::unique_ptr<Shader> mTrainShader;
+	std::unique_ptr<Material> mTrainMaterial;
 };
 
 #endif // _APPLCATION_H_

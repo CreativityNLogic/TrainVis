@@ -1,42 +1,47 @@
-#pragma once
+#ifndef MODEL_H
+#define MODEL_H
 
-#include "Mesh.h"
-#include "Shader.h"
-#include "Texture.h"
+#include <string>
+#include <vector>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <string>
-#include <vector>
+#include <glm/glm.hpp>
 
-using namespace std;
+#include "Mesh.h"
+#include "Material.h"
 
 class Model 
 {
-	public:
-		vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-		bool gammaCorrection;
+public:
+	/*  Functions   */
+	Model();
+	Model(const std::string &filename);
+	~Model();
 
-		/*  Functions   */
-		Model(char *path);
-		Model();
-		~Model();
+	void Draw();
+	void SetPosition(glm::vec3 position);
+	void SetRotation(glm::vec3 rotation);
+	void SetView(glm::mat4 view);
+	void SetProjection(glm::mat4 projection);
 
-		void Draw(Shader &shader);
+private:
+	/*  Functions   */
+	void loadModel(const std::string &filename);
+	void processNode(aiNode *node, const aiScene *scene);
+	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 
-	private:
-		/*  Model Data  */
-		vector<Mesh> meshes;
-		string directory;
+private:
+	glm::mat4 mTransform;
+	glm::mat4 mView;
+	glm::mat4 mProjection;
 
-		/*  Functions   */
-		void loadModel(string path);
-
-		void processNode(aiNode *node, const aiScene *scene);
-
-		Mesh processMesh(aiMesh *mesh, const aiScene *scene);
-
-		vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
+	/*  Model Data  */
+	std::vector<Mesh> mMeshes;
+	std::vector<Material> mMaterials;
+	std::string mDirectory;
 };
+
+#endif // MODEL_H
