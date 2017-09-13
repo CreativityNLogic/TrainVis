@@ -1,5 +1,5 @@
 #include "RenderWindow.h"
-
+#include <glm/glm.hpp>
 #include <iostream>
 
 RenderWindow::RenderWindow() :
@@ -42,18 +42,23 @@ bool RenderWindow::Initialise(const std::string &windowName, const int &width, c
         mRenderWindow = glfwCreateWindow(width, height, windowName.c_str(), glfwGetPrimaryMonitor(), nullptr);
     else
         mRenderWindow = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
+	
 
-    if(!mRenderWindow)
+	if(!mRenderWindow)
     {
 		std::cout << "Cannot initialise window!" << std::endl;
         glfwTerminate();
         return false;
     }
 
-    glfwMakeContextCurrent(mRenderWindow);
+     glfwMakeContextCurrent(mRenderWindow);
+
 	// Callbacks
 	glfwSetFramebufferSizeCallback(mRenderWindow, ResizeCallback);
 	glfwSetWindowCloseCallback(mRenderWindow, CloseWindowCallback);
+	
+	// tell GLFW to capture our mouse
+	glfwSetInputMode(mRenderWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set up context with GLAD
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -107,6 +112,15 @@ void RenderWindow::ResizeCallback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
+
+
+
+glm::vec2 RenderWindow::GetMousePosition() {
+	double x; double y; 
+	glfwGetCursorPos(mRenderWindow, &x, &y); 
+	return glm::vec2(x, y); 
+}
+
 bool RenderWindow::IsKeyPressed(Key key)
 {
     if (glfwGetKey(mRenderWindow, key) == GLFW_PRESS)
@@ -138,3 +152,4 @@ bool RenderWindow::IsMouseReleased(Mouse button)
 	else
 		return false;
 }
+

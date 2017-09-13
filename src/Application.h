@@ -30,10 +30,12 @@ public:
 	void Terminate();
 	// Update application per frame
 	void Update(double deltaTime);
+	void mouse_callback(double xpos, double ypos);
 
 private:
 	std::unique_ptr<Model> mTrainModel;
 	std::unique_ptr<Material> mTrainMaterial;
+	glm::vec2 mOldMousePos;
 };
 
 #endif // _APPLCATION_H_
