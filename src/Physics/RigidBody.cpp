@@ -1,11 +1,21 @@
 #include "RigidBody.h"
 #include "MotionState.h"
 
-// ** int shape needs to be redefined in each method as a mesh object; not sure what the type is that we're using for that **
+RigidBody::RigidBody()
+{
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(1.0f, new btDefaultMotionState(), new btSphereShape(1.0f), btVector3()); //All the information needed to construct the rigidbody in the wrapper.
+	mRigidBody = new btRigidBody(rbInfo);
+}
+
 RigidBody::RigidBody(float mass, btMotionState *motionState, btCollisionShape *shape, glm::vec3 localInertia)
 {
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(btScalar(mass), motionState, shape, btVector3(localInertia.x, localInertia.y, localInertia.z)); //All the information needed to construct the rigidbody in the wrapper.
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, motionState, shape, btVector3(localInertia.x, localInertia.y, localInertia.z)); //All the information needed to construct the rigidbody in the wrapper.
 	mRigidBody = new btRigidBody(rbInfo);
+}
+
+RigidBody::~RigidBody()
+{
+	delete mRigidBody;
 }
 
 glm::vec3 RigidBody::getOrigin() const
@@ -22,9 +32,4 @@ btMotionState* RigidBody::getMotionState()
 btRigidBody* RigidBody::getRigidBody()
 {
 	return mRigidBody;
-}
-
-RigidBody::~RigidBody()
-{
-	delete mRigidBody;
 }

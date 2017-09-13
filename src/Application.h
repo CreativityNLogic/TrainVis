@@ -2,8 +2,11 @@
 #define _APPLCATION_H_
 
 #include <entityx/entityx.h>
+#include <memory>
 
 #include "Core/BaseApplication.h"
+#include "Graphics/Model.h"
+#include "Physics/RigidWorld.h"
 
 //*********************************************
 //	Application
@@ -29,6 +32,11 @@ public:
 
 private:
 	entityx::EntityX mEntityWorld;
+	std::unique_ptr<RigidWorld> mPhysicWorld;
+	std::unique_ptr<Model> mTrainModel;
+	std::unique_ptr<Model> mCubeModel;
+	std::unique_ptr<Model> mGroundModel;
+	glm::vec2 mOldMousePos;
 };
 
 #endif // _APPLCATION_H_

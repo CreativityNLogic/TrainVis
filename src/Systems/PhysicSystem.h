@@ -7,36 +7,21 @@
 
 #include "../Physics/MotionState.h"
 
-class PhysicSystem : public entityx::System<PhysicSystem>, public entityx::Receiver<PhysicSystem>
+class PhysicSystem : public entityx::System<PhysicSystem>
 {
 public:
 	PhysicSystem() {}
 	~PhysicSystem() {}
 
-	void configure(entityx::EventManager &event_manager) 
-	{
-		event_manager.subscribe<entityx::ComponentAddedEvent<RigidBodyComponent>>(*this);
-		event_manager.subscribe<entityx::ComponentRemovedEvent<RigidBodyComponent>>(*this);
-	}
-
-	void receive(entityx::ComponentAddedEvent<const RigidBodyComponent>& entity)
-	{
-		std::cout << "HELLO" << std::endl;
-
-		//if (entity.entity.has_component<TransformComponent>())
-			//entity.component->Body.getMotionState()->SetTransformComponent(entity.entity.component<TransformComponent>().get());
-	}
-
-	void receive(const entityx::ComponentRemovedEvent<RigidBodyComponent>& entity)
-	{
-
-	}
-
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
 		es.each<TransformComponent, RigidBodyComponent>([dt](entityx::Entity entity, TransformComponent &transform, RigidBodyComponent &body)
 		{
+			btTransform trans;
+			body.Body->getMotionState()->getWorldTransform(trans);
 
+			transform.Position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+			transform.Rotation = glm::quat(trans.getRotation().w(), trans.getRotation().x(), trans.getRotation().y(), trans.getRotation().z());
 		});
 	};
 };

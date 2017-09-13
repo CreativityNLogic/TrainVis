@@ -6,7 +6,7 @@
 
 #include "Glad/glad.h"
 #include <GLFW/glfw3.h>
-
+#include <glm/glm.hpp>
 #include <string>
 
 #include "../Core/Input.h"
@@ -39,13 +39,14 @@ public:
     static void ErrorCallback(int error, const char *description);
 	static void CloseWindowCallback(GLFWwindow* window);
 	static void ResizeCallback(GLFWwindow* window, int width, int height);
+	glm::vec2 GetMousePosition();
 
 	// Input
     bool IsKeyPressed(Key key);
 	bool IsKeyReleased(Key key);
 	bool IsMousePressed(Mouse button);
 	bool IsMouseReleased(Mouse button);
-
+	
 private:
     GLFWwindow          *mRenderWindow;
 };

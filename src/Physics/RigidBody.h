@@ -8,8 +8,9 @@
 class RigidBody
 {
 public:
+	RigidBody();
 	RigidBody(float mass, btMotionState *motionState, btCollisionShape *shape, glm::vec3 localInertia);
-	virtual ~RigidBody();
+	~RigidBody();
 
 	glm::vec3 getOrigin() const;
 	btMotionState* getMotionState();

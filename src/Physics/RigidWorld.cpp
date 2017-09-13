@@ -1,5 +1,20 @@
 #include "RigidWorld.h"
 
+RigidWorld::RigidWorld()
+{
+	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+	mCollisionConfig = std::make_unique<btDefaultCollisionConfiguration>();
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	mCollisionDispatcher = std::make_unique<btCollisionDispatcher>(mCollisionConfig.get());
+	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep
+	mBroadphase = std::make_unique<btDbvtBroadphase>();
+	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+	mSolver = std::make_unique<btSequentialImpulseConstraintSolver>();
+
+	mPhysicsWorld = std::make_unique<btDiscreteDynamicsWorld>(mCollisionDispatcher.get(), mBroadphase.get(), mSolver.get(), mCollisionConfig.get());
+	mPhysicsWorld->setGravity(btVector3(0.0f, -9.81f, 0.0f));
+}
+
 RigidWorld::RigidWorld(const glm::vec3 &gravity)
 {
 	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
@@ -62,8 +77,8 @@ void RigidWorld::removeRigidBody(RigidBody* toBeRemoved)
 	}
 }
 
-void RigidWorld::stepSimulation(float framerate, int step)
+void RigidWorld::stepSimulation(double framerate, int maxSubSteps, double fixedTimestep)
 {
 	if(mPhysicsWorld != nullptr)
-		mPhysicsWorld->stepSimulation(framerate, step);
+		mPhysicsWorld->stepSimulation((float)framerate, maxSubSteps, fixedTimestep);
 }

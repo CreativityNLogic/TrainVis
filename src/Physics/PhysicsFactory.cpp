@@ -10,17 +10,20 @@ PhysicsFactory::PhysicsFactory(RigidWorld *world)
 //Takes as input the body json file and then returns a rigidbody.
 RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body) 
 { 
-	int shapeType = 0; //Get the value that determines the shape.
+	btCollisionShape *shape = nullptr;
+
 	if (!body["Shape"].is_null()) 
 	{
-		btCollisionShape *shape = nullptr;
 		if (body["Shape"] == "Box") 
 		{
-			 //shape = new btBoxShape();
+			std::vector<float> boxExtent = body["Shape"]["Radius"];
+			if (boxExtent.size() == 3)
+				shape = new btBoxShape(btVector3(boxExtent[0], boxExtent[1], boxExtent[2]));
 		}
 		else if (body["Shape"] == "Circle") 
 		{
-			//shape = new btSphereShape();
+			float radius = body["Shape"]["Radius"];
+			shape = new btSphereShape(radius);
 		}
 		else if (body["Shape"] == "Convex")
 		{
@@ -28,7 +31,7 @@ RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body)
 		}
 		else
 		{
-			// Make default shape...
+			shape = new btSphereShape(1.0f);
 		}
 	}
 
@@ -44,16 +47,7 @@ RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body)
 	if (body["Mass"].is_number())
 		mass = body["Mass"];
 
-	btCollisionShape* shape = new btConvexHullShape(); //Shape will always be a convex?
-	
-													   /*
-	btTransform shapeTransform; //Create a transform object.
-	shapeTransform.setIdentity(); //Needed?
-	shapeTransform.setOrigin(btVector3(body["Transform"]["Origin"][0], body["Transform"]["Origin"][1], body["Transform"]["Origin"][2])); //Set position.
-	
-	btQuaternion q; //Set Rotation.
-	q.setEuler(body["Transform"]["Rotation"][0], body["Transform"]["Rotation"][1], body["Transform"]["Rotation"][2]);
-	shapeTransform.setRotation(q);*/
+	// NEED TO GET TRANSFORM COMPONENT TO SET THE RIGIDBODY!
 
 	//rigidbody is dynamic if and only if mass is non zero, otherwise static
 	bool isDynamic = (mass != 0.f);

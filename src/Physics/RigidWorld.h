@@ -12,11 +12,12 @@
 class RigidWorld
 {
 public:
+	RigidWorld();
 	RigidWorld(const glm::vec3 &gravity);
 	void addRigidBody(RigidBody* container);
 	void removeAllBodies();
 	void removeRigidBody(RigidBody* toBeRemoved);
-	void stepSimulation(float framerate, int step);
+	void stepSimulation(double framerate, int maxSubSteps = 1, double fixedTimestep = 1.0 / 60.0);
 	virtual ~RigidWorld();
 
 private:

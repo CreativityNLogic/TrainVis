@@ -4,25 +4,43 @@
     <ClCompile Include="..\..\src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Glad\glad.c">
+      <Filter>Source Files\Graphics\Glad</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp">
+    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Graphics\Glad\glad.c">
-      <Filter>Source Files\Graphics\Glad</Filter>
+    <ClCompile Include="..\..\src\Graphics\Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Core\BaseApplication.cpp">
-      <Filter>Source Files\Core</Filter>
+    <ClCompile Include="..\..\src\Graphics\Material.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Mesh.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Model.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Shader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
+    <ClCompile Include="..\..\src\Core\BaseApplication.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,76 +54,103 @@
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
       <Filter>Header Files\Graphics\Glad</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Texture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\VertexData.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Shader.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Model.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Mesh.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Material.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Camera.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\BaseApplication.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Input.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\MotionState.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\PhysicsFactory.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidBody.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidWorld.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Physics\PhysicsFactory.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Physics\MotionState.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\BaseApplication.h">
-      <Filter>Header Files\Core</Filter>
+    <ClInclude Include="..\..\src\Components\RigidBodyComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Components\TransformComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\Input.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Systems\PhysicSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
-      <Filter>Header Files\Physics</Filter>
+    <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Components\RigidBodyComponent.h">
+    <ClInclude Include="..\..\src\Systems\RenderSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\GraphicsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{97fff3d6-d7ef-4352-b323-c6e2f47b08c4}</UniqueIdentifier>
+      <UniqueIdentifier>{95e8568e-eb88-4a66-9d63-de6778e0e42a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{bbff7ad3-977e-4bb3-b8d0-0371e8afe4d4}</UniqueIdentifier>
+      <UniqueIdentifier>{abd0911c-dd4d-4d97-a79a-f8a910e6b53c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{83f210e1-8182-4e9a-b6e0-b51d96b2593e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Physics">
-      <UniqueIdentifier>{233d1ce6-2ef7-48c3-8aee-803e4babc402}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{259bcf14-2d98-4de0-b2ef-40f1f98879c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Physics">
-      <UniqueIdentifier>{63f537b3-4bd3-48a7-9540-ef54e86e3af7}</UniqueIdentifier>
+      <UniqueIdentifier>{5b03bc45-974f-4234-bfb9-29829f333f40}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Graphics\Glad">
-      <UniqueIdentifier>{9cce8f39-1e95-45bd-884d-dfcfbdaecb2e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\Glad">
-      <UniqueIdentifier>{52091369-713c-4f53-a5e9-d5dadd765eef}</UniqueIdentifier>
+      <UniqueIdentifier>{bafc25c2-c20d-4714-a4aa-6ffcf6dd7283}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Core">
-      <UniqueIdentifier>{535f2edb-9b4d-4898-81b7-c45e5b01abca}</UniqueIdentifier>
+      <UniqueIdentifier>{736eab0f-7d10-43d5-84b7-80d33f1dc4f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{d03086fe-a30b-4800-91f5-430584ebf967}</UniqueIdentifier>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{ccee8cf9-ecce-4d54-89ec-65e4e8d4c80c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{0113370a-050d-4094-ac3d-f443b05c5014}</UniqueIdentifier>
+      <UniqueIdentifier>{dbf850a1-b315-4475-be92-b0847af6d082}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Systems">
-      <UniqueIdentifier>{7483d5b3-f94b-4194-be40-847f8bd67725}</UniqueIdentifier>
+      <UniqueIdentifier>{c470bf2b-d11c-47bc-817a-91d6821feacb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{8bc2ae7e-4e72-4c2b-b8b4-ac454a354c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Glad">
+      <UniqueIdentifier>{36ac25c3-4acd-4525-bbd1-8475d7615bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{c73226de-f084-4b6f-9200-16b435d39bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{6902e1fa-ff15-4c25-8cdf-858b8cd37a08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

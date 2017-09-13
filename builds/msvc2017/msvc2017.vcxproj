@@ -130,7 +130,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Application.cpp" />
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Camera.cpp" />
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
+    <ClCompile Include="..\..\src\Graphics\Material.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Mesh.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Model.cpp" />
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
     <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp" />
     <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp" />
@@ -138,13 +142,23 @@
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Application.h" />
+    <ClInclude Include="..\..\src\Components\GraphicsComponent.h" />
     <ClInclude Include="..\..\src\Components\RigidBodyComponent.h" />
     <ClInclude Include="..\..\src\Components\TransformComponent.h" />
+    <ClCompile Include="..\..\src\Graphics\Shader.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
+    <ClInclude Include="..\..\src\Systems\RenderSystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Application.h" />
     <ClInclude Include="..\..\src\Core\BaseApplication.h" />
     <ClInclude Include="..\..\src\Core\Input.h" />
+    <ClInclude Include="..\..\src\Graphics\Camera.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
+    <ClInclude Include="..\..\src\Graphics\Material.h" />
+    <ClInclude Include="..\..\src\Graphics\Mesh.h" />
+    <ClInclude Include="..\..\src\Graphics\Model.h" />
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
     <ClInclude Include="..\..\src\Physics\MotionState.h" />
     <ClInclude Include="..\..\src\Systems\PhysicSystem.h" />
@@ -154,6 +168,9 @@
     <ClInclude Include="..\..\src\Physics\PhysicsFactory.h" />
     <ClInclude Include="..\..\src\Physics\RigidBody.h" />
     <ClInclude Include="..\..\src\Physics\RigidWorld.h" />
+    <ClInclude Include="..\..\src\Graphics\Shader.h" />
+    <ClInclude Include="..\..\src\Graphics\Texture.h" />
+    <ClInclude Include="..\..\src\Graphics\VertexData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

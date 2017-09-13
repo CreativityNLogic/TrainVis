@@ -5,7 +5,7 @@
 
 struct RigidBodyComponent
 {
-	RigidBody Body;
+	RigidBody *Body;
 };
 
 #endif // RIGIDBODYCOMPONENT_H
