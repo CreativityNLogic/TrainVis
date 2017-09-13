@@ -663,11 +663,8 @@ GLAPI int gladLoadGL(void);
 GLAPI int gladLoadGLLoader(GLADloadproc);
 
 #include <stddef.h>
-<<<<<<< HEAD:src/Graphics/Glad/glad.h
 #include "khrplatform.h"
-=======
-#include "KHR/khrplatform.h"
->>>>>>> da04c17ffbc494c16b33a6f74a88bd038f94b31b:include/glad/glad.h
+
 #ifndef GLEXT_64_TYPES_DEFINED
 /* This code block is duplicated in glxext.h, so must be protected */
 #define GLEXT_64_TYPES_DEFINED
