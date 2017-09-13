@@ -88,11 +88,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\..\lib\msvc2017\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-<<<<<<< HEAD
-      <AdditionalDependencies>assimp_d.lib;zlibstaticd.lib;opengl32.lib;glu32.lib;glfw3_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-=======
       <AdditionalDependencies>assimp_d.lib;zlibstaticd.lib;opengl32.lib;glu32.lib;glfw3_d.lib;entityx-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
->>>>>>> core
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
