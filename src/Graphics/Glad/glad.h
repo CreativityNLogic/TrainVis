@@ -663,6 +663,10 @@ GLAPI int gladLoadGL(void);
 GLAPI int gladLoadGLLoader(GLADloadproc);
 
 #include <stddef.h>
+<<<<<<< HEAD
+=======
+
+>>>>>>> core
 #include "khrplatform.h"
 
 #ifndef GLEXT_64_TYPES_DEFINED

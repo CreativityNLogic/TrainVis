@@ -1,6 +1,8 @@
 #ifndef _APPLCATION_H_
 #define _APPLCATION_H_
 
+#include <entityx/entityx.h>
+
 #include "Core/BaseApplication.h"
 
 //*********************************************
@@ -13,7 +15,7 @@
 //	eg class SomeApplication : public BaseApplication
 //*********************************************
 
-class Application : public BaseApplication
+class Application : public BaseApplication, public entityx::EntityX
 {
 public:
 	// Constructor
@@ -24,6 +26,9 @@ public:
 	void Terminate();
 	// Update application per frame
 	void Update(double deltaTime);
+
+private:
+	entityx::EntityX mEntityWorld;
 };
 
 #endif // _APPLCATION_H_
