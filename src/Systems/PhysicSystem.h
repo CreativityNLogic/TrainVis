@@ -19,12 +19,12 @@ public:
 		event_manager.subscribe<entityx::ComponentRemovedEvent<RigidBodyComponent>>(*this);
 	}
 
-	void receive(entityx::ComponentAddedEvent<RigidBodyComponent>& entity)
+	void receive(entityx::ComponentAddedEvent<const RigidBodyComponent>& entity)
 	{
 		std::cout << "HELLO" << std::endl;
 
-		if (entity.entity.has_component<TransformComponent>())
-			entity.component->Body.getMotionState()->SetTransformComponent(entity.entity.component<TransformComponent>().get());
+		//if (entity.entity.has_component<TransformComponent>())
+			//entity.component->Body.getMotionState()->SetTransformComponent(entity.entity.component<TransformComponent>().get());
 	}
 
 	void receive(const entityx::ComponentRemovedEvent<RigidBodyComponent>& entity)

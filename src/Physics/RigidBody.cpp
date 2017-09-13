@@ -14,9 +14,9 @@ glm::vec3 RigidBody::getOrigin() const
 	return glm::vec3(pos.getX(), pos.getY(), pos.getZ());
 }
 
-MotionState* RigidBody::getMotionState()
+btMotionState* RigidBody::getMotionState()
 {
-	return static_cast<MotionState*>(mRigidBody->getMotionState());
+	return mRigidBody->getMotionState();
 }
 
 btRigidBody* RigidBody::getRigidBody()
