@@ -43,21 +43,13 @@ RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body)
 	if (body["Mass"].is_number())
 		mass = body["Mass"];
 
-	glm::vec3 origin; //Get the origin value.
-	if (body["Origin"][0].is_number() && body["Origin"][1].is_number() && body["Origin"][2].is_number()) 
-	{
-		origin[0] = body["Origin"][0];
-		origin[1] = body["Origin"][1];
-		origin[2] = body["Origin"][2];
-	}
-
 	btCollisionShape* shape = new btConvexHullShape(); //Shape will always be a convex?
 
 	btTransform shapeTransform; //Create a transform object.
 	shapeTransform.setIdentity(); //Needed?
-	shapeTransform.setOrigin(btVector3(body["Transform"]["Position"][0], body["Transform"]["Position"][1], body["Transform"]["Position"][2])); //Set position.
+	shapeTransform.setOrigin(btVector3(body["Transform"]["Origin"][0], body["Transform"]["Origin"][1], body["Transform"]["Origin"][2])); //Set position.
 	
-	btQuaternion q;
+	btQuaternion q; //Set Rotation.
 	q.setEuler(body["Transform"]["Rotation"][0], body["Transform"]["Rotation"][1], body["Transform"]["Rotation"][2]);
 	shapeTransform.setRotation(q);
 
