@@ -1,4 +1,5 @@
 #include "PhysicsFactory.h"
+#include "../Physics/MotionState.h"
 
 //Constructor.
 PhysicsFactory::PhysicsFactory(RigidWorld *world)
@@ -44,14 +45,15 @@ RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body)
 		mass = body["Mass"];
 
 	btCollisionShape* shape = new btConvexHullShape(); //Shape will always be a convex?
-
+	
+													   /*
 	btTransform shapeTransform; //Create a transform object.
 	shapeTransform.setIdentity(); //Needed?
 	shapeTransform.setOrigin(btVector3(body["Transform"]["Origin"][0], body["Transform"]["Origin"][1], body["Transform"]["Origin"][2])); //Set position.
 	
 	btQuaternion q; //Set Rotation.
 	q.setEuler(body["Transform"]["Rotation"][0], body["Transform"]["Rotation"][1], body["Transform"]["Rotation"][2]);
-	shapeTransform.setRotation(q);
+	shapeTransform.setRotation(q);*/
 
 	//rigidbody is dynamic if and only if mass is non zero, otherwise static
 	bool isDynamic = (mass != 0.f);
@@ -60,9 +62,10 @@ RigidBody* PhysicsFactory::createRigidBody(nlohmann::json body)
 	if (isDynamic)
 		shape->calculateLocalInertia(mass, localInertia);
 
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(shapeTransform);
+	btMotionState* motionState = new MotionState();
 
-	RigidBody *rigidBody = new RigidBody(mass, myMotionState, shape, inertia);
+	RigidBody *rigidBody = new RigidBody(mass, motionState, shape, inertia);
 	mPhysicsWorld->addRigidBody(rigidBody);
+
 	return rigidBody; //Return the rigidbody wrapper object.
 }

@@ -5,6 +5,8 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
 
+#include "../Physics/MotionState.h"
+
 class PhysicSystem : public entityx::System<PhysicSystem>, public entityx::Receiver<PhysicSystem>
 {
 public:
@@ -17,12 +19,12 @@ public:
 		event_manager.subscribe<entityx::ComponentRemovedEvent<RigidBodyComponent>>(*this);
 	}
 
-	void receive(const entityx::ComponentAddedEvent<RigidBodyComponent>& entity)
+	void receive(entityx::ComponentAddedEvent<RigidBodyComponent>& entity)
 	{
-		if (entity.entity.has_component<TransformComponent>())
-		{
+		std::cout << "HELLO" << std::endl;
 
-		}
+		if (entity.entity.has_component<TransformComponent>())
+			entity.component->Body.getMotionState()->SetTransformComponent(entity.entity.component<TransformComponent>().get());
 	}
 
 	void receive(const entityx::ComponentRemovedEvent<RigidBodyComponent>& entity)

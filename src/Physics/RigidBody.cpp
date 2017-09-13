@@ -1,4 +1,5 @@
 #include "RigidBody.h"
+#include "MotionState.h"
 
 // ** int shape needs to be redefined in each method as a mesh object; not sure what the type is that we're using for that **
 RigidBody::RigidBody(float mass, btMotionState *motionState, btCollisionShape *shape, glm::vec3 localInertia)
@@ -13,9 +14,9 @@ glm::vec3 RigidBody::getOrigin() const
 	return glm::vec3(pos.getX(), pos.getY(), pos.getZ());
 }
 
-btMotionState* RigidBody::getMotionState()
+MotionState* RigidBody::getMotionState()
 {
-	return mRigidBody->getMotionState();
+	return static_cast<MotionState*>(mRigidBody->getMotionState());
 }
 
 btRigidBody* RigidBody::getRigidBody()

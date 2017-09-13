@@ -12,7 +12,7 @@ public:
 	virtual ~RigidBody();
 
 	glm::vec3 getOrigin() const;
-	btMotionState* getMotionState();
+	MotionState* getMotionState();
 	btRigidBody * getRigidBody();
 
 private:
