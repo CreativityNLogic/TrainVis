@@ -17,11 +17,6 @@ Texture::Texture() : mData(nullptr)
 
 }
 
-Texture::~Texture() 
-{
-
-}
-
 Texture::Texture(const char *path, const string &directory, bool gamma) : mData(nullptr)
 {
 	string filename = string(path);

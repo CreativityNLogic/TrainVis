@@ -9,7 +9,6 @@ class Texture
 {
 public:
 	Texture();
-	~Texture();
 	Texture(const char *path, const string &directory, bool gamma);
 	
 	int GetTextureID() const;
