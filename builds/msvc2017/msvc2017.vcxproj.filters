@@ -31,6 +31,15 @@
     <Filter Include="Source Files\Graphics\Glad">
       <UniqueIdentifier>{adfa77d3-4e9b-4dc1-a9b8-4a7d04f9d5a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{2e1807e9-2809-4e4d-968c-c814c510b655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{041c37dc-20dd-4877-b764-35e26b397cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{530272e4-87f5-406c-876b-45796b007b11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
@@ -64,6 +73,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
       <Filter>Header Files\Graphics\Glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Systems\PhysicSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\TransformComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\RigidBodyComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\MotionState.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

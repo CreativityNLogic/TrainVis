@@ -1,7 +1,13 @@
+#include <iostream>
+
 #include "Application.h"
+
 #include "Graphics/RenderWindow.h"
 
-#include <iostream>
+#include "Systems/PhysicSystem.h"
+
+#include "Components/TransformComponent.h"
+#include "Components/RigidBodyComponent.h"
 
 Application::Application()
 {
@@ -18,6 +24,12 @@ bool Application::Initialise()
 	//-------------------------------------
 	// Place declaration variables or initialise objects that need error checking eg if(!obj.init())
 
+	systems.add<PhysicSystem>();
+	systems.configure();
+
+	entityx::Entity entity = entities.create();
+	entity.assign<TransformComponent>();
+	entity.assign<RigidBodyComponent>();
 
 	//-------------------------------------
 	return true;
@@ -41,6 +53,7 @@ void Application::Update(double deltaTime)
 	//-------------------------------------
 	// Place code here which will update per frame
 
+	systems.update_all(deltaTime);
 
 	//-------------------------------------
 
