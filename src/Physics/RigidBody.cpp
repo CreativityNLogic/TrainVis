@@ -1,5 +1,4 @@
 #include "RigidBody.h"
-#include "MotionState.h"
 
 RigidBody::RigidBody()
 {

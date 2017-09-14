@@ -28,7 +28,7 @@ Application::Application()
 
 bool Application::Initialise()
 {
-	if (!mRenderWindow->Initialise("TrainVis", 1920, 1080, true))
+	if (!mRenderWindow->Initialise("TrainVis", 1920, 1080, false))
 		return false;
 
 	//===============================================
@@ -73,7 +73,7 @@ void Application::Update(double deltaTime)
 
 	//-----------------------------------
 	// Step physics simulation
-	mPhysicWorld->stepSimulation(deltaTime, 10);
+	mPhysicWorld->stepSimulation(deltaTime, 1);
 
 	//-----------------------------------
 	// Camera 

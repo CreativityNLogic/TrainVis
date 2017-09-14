@@ -31,6 +31,18 @@
     <Filter Include="Header Files\Core">
       <UniqueIdentifier>{4a82e2a7-fb12-4c3b-b7c2-5547cbea4d70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{c34f5bad-d186-46a7-be25-6a75bf03f729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{8dc28a29-2543-48cf-affd-5b869cdafcfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics\DebugDraw">
+      <UniqueIdentifier>{ab3ee62f-8547-43b1-96ae-2a631fa534e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\DebugDraw">
+      <UniqueIdentifier>{45535024-5f53-4bd7-b827-e05fce898b05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Application.cpp">
@@ -62,6 +74,18 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Graphics\Material.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\EntityFactory.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
+      <Filter>Source Files\Physics\DebugDraw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +124,21 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Graphics\Material.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\EntityFactory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\VertexData.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\RigidBody.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\RigidWorld.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
+      <Filter>Header Files\Physics\DebugDraw</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

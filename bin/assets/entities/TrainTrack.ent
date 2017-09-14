@@ -1,0 +1,10 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "TrainTrack"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/TrainTrack.fbx"
+	}
+}

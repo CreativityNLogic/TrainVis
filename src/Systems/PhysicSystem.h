@@ -5,8 +5,6 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
 
-#include "../Physics/MotionState.h"
-
 class PhysicSystem : public entityx::System<PhysicSystem>
 {
 public:
