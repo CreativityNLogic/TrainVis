@@ -32,8 +32,10 @@ public:
 	// Check if windows is opened
     bool IsOpened() const;
 
+	glm::vec2 GetWindowSize() const;
+
 	// Get window handle from GLFW
-    GLFWwindow* GetWindowHandle() { return mRenderWindow; }
+	GLFWwindow* GetWindowHandle();
 
 	// Callbacks
     static void ErrorCallback(int error, const char *description);

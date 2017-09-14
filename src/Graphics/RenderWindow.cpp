@@ -97,6 +97,18 @@ bool RenderWindow::IsOpened() const
     return !glfwWindowShouldClose(mRenderWindow);
 }
 
+glm::vec2 RenderWindow::GetWindowSize() const
+{
+	int width, height;
+	glfwGetWindowSize(mRenderWindow, &width, &height);
+	return glm::vec2(width, height);
+}
+
+GLFWwindow* RenderWindow::GetWindowHandle()
+{ 
+	return mRenderWindow; 
+}
+
 void RenderWindow::ErrorCallback(int error, const char *description)
 {
     std::cerr << description << ": " << error << std::endl;
@@ -111,9 +123,6 @@ void RenderWindow::ResizeCallback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
-
-
-
 
 glm::vec2 RenderWindow::GetMousePosition() {
 	double x; double y; 

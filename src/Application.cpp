@@ -3,10 +3,10 @@
 #include "Application.h"
 
 #include "Graphics/RenderWindow.h"
-#include "Graphics/Camera.h"
 
 #include "Systems/PhysicSystem.h"
 #include "Systems/RenderSystem.h"
+#include "Systems/MovementSystem.h"
 
 #include "Components/TransformComponent.h"
 #include "Components/RigidBodyComponent.h"
@@ -15,28 +15,6 @@
 #include "Physics/RigidBody.h"
 
 #include <iostream>
-
-// camera
-Camera camera(glm::vec3(0.0f, 0.0f, 25.0f));
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 25.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-// settings used for camera
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-bool firstMouseInApp = true;
-float yaw = -90.0f;
-float pitch = 0.0f;
-float lastX = SCR_WIDTH / 2.0f;
-float lastY = SCR_HEIGHT / 2.0f;
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec2 oldMousePos = glm::vec2();
-
-// timing
-float deltaTime = 0.0f;	// time between current frame and last frame
-float lastFrame = 0.0f;
-
 
 Application::Application()
 {
@@ -50,36 +28,25 @@ Application::Application()
 
 bool Application::Initialise()
 {
-	if (!mRenderWindow->Initialise("TrainVis", 1280, 720, false))
+	if (!mRenderWindow->Initialise("TrainVis", 1920, 1080, true))
 		return false;
 
 	//===============================================
 	// Place declaration variables or initialise objects that need error checking eg if(!obj.init())
 	//===============================================
-
+	mCamera.reset(new Camera(glm::vec3(0.0f, 5.0f, 60.0f), 20.0f, 0.1f));
 	mPhysicWorld.reset(new RigidWorld());
+	mEntityFactory.reset(new EntityFactory(entities, mPhysicWorld.get()));
 
+	systems.add<MovementSystem>(mRenderWindow.get());
 	systems.add<PhysicSystem>();
-	systems.add<RenderSystem>()->setCamera(&camera);
+	systems.add<RenderSystem>()->setCamera(mCamera.get());
 	systems.configure();
 
-	btCollisionShape *shape = new btBoxShape(btVector3(0.5f, 0.5f, 0.5f));
-	float mass = 1.0f;
-	btVector3 fallInertia(0, 0, 0);
-	if(mass > 0.0f)
-		shape->calculateLocalInertia(mass, fallInertia);
+	mEntityFactory->createFromLevelFile("../../assets/scenes/TrainVis.scene");
 
-	btTransform transform(btQuaternion(0.0f, 0.0f, 0.0f, 1.0f), btVector3(0.0f, 25.0f, 0.0f));
-
-	entityx::Entity entity = entities.create();
-	entityx::ComponentHandle<TransformComponent> tranform = entity.assign<TransformComponent>();
-	tranform->Position = glm::vec3(0.0f, 25.0f, 0.0f);
-
-	entity.assign<GraphicsComponent>("../../assets/models/Cube.fbx");
-	RigidBody *body = new RigidBody(mass, new btDefaultMotionState(transform), shape, glm::vec3(fallInertia.x(), fallInertia.y(), fallInertia.z()));
-	entity.assign<RigidBodyComponent>()->Body = body;
-	mPhysicWorld->addRigidBody(body);
-
+	mCamera->SetYaw(180.0f);
+	mCamera->SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.01f, 100000.0f);
 	//===============================================
 	return true;
 }
@@ -110,29 +77,28 @@ void Application::Update(double deltaTime)
 
 	//-----------------------------------
 	// Camera 
-
-	float cameraSpeed = 6.5f * (float)deltaTime; // adjust accordingly
 	if (mRenderWindow->IsKeyPressed(Key::W))
-		camera.ProcessKeyboard(FORWARD, (float)deltaTime);
+		mCamera->ProcessKeyboard(FORWARD, (float)deltaTime);
 
 	if (mRenderWindow->IsKeyPressed(Key::S))
-		camera.ProcessKeyboard(BACKWARD, (float)deltaTime);
+		mCamera->ProcessKeyboard(BACKWARD, (float)deltaTime);
 
 	if (mRenderWindow->IsKeyPressed(Key::A))
-		camera.ProcessKeyboard(LEFT_CAM, (float)deltaTime);
+		mCamera->ProcessKeyboard(LEFT_CAM, (float)deltaTime);
 
 	if (mRenderWindow->IsKeyPressed(Key::D))
-		camera.ProcessKeyboard(RIGHT_CAM, (float)deltaTime);
+		mCamera->ProcessKeyboard(RIGHT_CAM, (float)deltaTime);
 
 	glm::vec2 newMousePos = mRenderWindow->GetMousePosition();
-	glm::vec2 mouseDelta(newMousePos.x - oldMousePos.x, newMousePos.y - oldMousePos.y);
-	camera.ProcessMouseMovement(mouseDelta.x, -mouseDelta.y);
-	oldMousePos = newMousePos;
+	glm::vec2 mouseDelta(newMousePos.x - mOldMousePos.x, newMousePos.y - mOldMousePos.y);
+	mCamera->ProcessMouseMovement(mouseDelta.x, -mouseDelta.y);
+	mOldMousePos = newMousePos;
 	
 	//-----------------------------------
 	// Update systems
-	systems.update_all(deltaTime);
-
+	systems.update<PhysicSystem>(deltaTime);
+	systems.update<RenderSystem>(deltaTime);
+	systems.update<MovementSystem>(deltaTime);
 	//===============================================
 
 	mRenderWindow->Display();

@@ -1,0 +1,10 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Ground"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/Sky.fbx"
+	}
+}

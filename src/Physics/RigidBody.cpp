@@ -7,7 +7,8 @@ RigidBody::RigidBody()
 	mRigidBody = new btRigidBody(rbInfo);
 }
 
-RigidBody::RigidBody(float mass, btMotionState *motionState, btCollisionShape *shape, glm::vec3 localInertia)
+RigidBody::RigidBody(float mass, btMotionState *motionState, btCollisionShape *shape, glm::vec3 localInertia, glm::vec3 offset) :
+	mOffset(offset)
 {
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, motionState, shape, btVector3(localInertia.x, localInertia.y, localInertia.z)); //All the information needed to construct the rigidbody in the wrapper.
 	mRigidBody = new btRigidBody(rbInfo);
@@ -18,10 +19,14 @@ RigidBody::~RigidBody()
 	delete mRigidBody;
 }
 
-glm::vec3 RigidBody::getOrigin() const
+void RigidBody::setOffset(const glm::vec3 &offset)
 {
-	btVector3 pos = mRigidBody->getCenterOfMassPosition();
-	return glm::vec3(pos.getX(), pos.getY(), pos.getZ());
+	mOffset = offset;
+}
+
+glm::vec3 RigidBody::getOffset() const
+{
+	return mOffset;
 }
 
 btMotionState* RigidBody::getMotionState()
@@ -32,4 +37,24 @@ btMotionState* RigidBody::getMotionState()
 btRigidBody* RigidBody::getRigidBody()
 {
 	return mRigidBody;
+}
+
+void RigidBody::ApplyCentralForce(const glm::vec3 &force)
+{
+	mRigidBody->applyCentralForce(btVector3(force.x, force.y, force.z));
+}
+
+void RigidBody::ApplyCentralImpulse(const glm::vec3 &impulse)
+{
+	mRigidBody->applyCentralImpulse(btVector3(impulse.x, impulse.y, impulse.z));
+}
+
+void RigidBody::ApplyForce(const glm::vec3 &force, const glm::vec3 &relativePos)
+{
+	mRigidBody->applyForce(btVector3(force.x, force.y, force.z), btVector3(relativePos.x, relativePos.y, relativePos.z));
+}
+
+void RigidBody::ApplyImpulse(const glm::vec3 &impulse, const glm::vec3 &relativePos)
+{
+	mRigidBody->applyImpulse(btVector3(impulse.x, impulse.y, impulse.z), btVector3(relativePos.x, relativePos.y, relativePos.z));
 }

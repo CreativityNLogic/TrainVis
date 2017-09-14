@@ -5,8 +5,10 @@
 #include <memory>
 
 #include "Core/BaseApplication.h"
+#include "Core/EntityFactory.h"
 #include "Graphics/Model.h"
 #include "Physics/RigidWorld.h"
+#include "Graphics/Camera.h"
 
 //*********************************************
 //	Application
@@ -33,9 +35,8 @@ public:
 private:
 	entityx::EntityX mEntityWorld;
 	std::unique_ptr<RigidWorld> mPhysicWorld;
-	std::unique_ptr<Model> mTrainModel;
-	std::unique_ptr<Model> mCubeModel;
-	std::unique_ptr<Model> mGroundModel;
+	std::unique_ptr<EntityFactory> mEntityFactory;
+	std::unique_ptr<Camera> mCamera;
 	glm::vec2 mOldMousePos;
 };
 

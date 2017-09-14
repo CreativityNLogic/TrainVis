@@ -5,6 +5,7 @@
 
 struct GraphicsComponent
 {
+	GraphicsComponent() {}
 	GraphicsComponent(const std::string &filename) : Model(filename) {}
 	Model Model;
 };

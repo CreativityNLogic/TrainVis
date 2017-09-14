@@ -1,0 +1,21 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Box"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/Cube.fbx"
+	},
+	"RigidBodyComponent" : 
+	{
+		"Origin" : [0.0, 0.0, 0.0],
+		"Shape" : 
+		{
+			"Type" : "Box",
+			"Extents" : [1.0, 1.0, 1.0]
+		},
+		"Inertia" : [0.0, 0.0, 0.0],
+		"Mass" : 1.0
+	}
+}

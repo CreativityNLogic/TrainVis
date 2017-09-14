@@ -1,0 +1,119 @@
+{
+	"Level" : 
+	{
+		"Name" : "TrainVis"
+	},
+	"Entities" : 
+	{
+		"Train" : 
+		{ 
+			"Data" : "../../assets/entities/Train.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 3.5, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"FallingBox" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 25.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"FallingBox2" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [1.0, 20.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Ground" : 
+		{ 
+			"Data" : "../../assets/entities/Ground.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 0.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			} 
+		},
+		"Sky" : 
+		{ 
+			"Data" : "../../assets/entities/Sky.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 0.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			} 
+		},
+		"Box0" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [-2.5, 1.0, 40.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},	
+		"Box1" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 1.0, 40.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Box2" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [2.5, 1.0, 40.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Box3" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [1.5, 4.0, 40.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Box4" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [-1.5, 4.0, 40.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Box5" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 6.0, 40.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		}
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Ground"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/Ground.fbx"
+	},
+	"RigidBodyComponent" : 
+	{
+		"Origin" : [0.0, 0.0, 0.0],
+		"Shape" : 
+		{
+			"Type" : "Box",
+			"Extents" : [50.0, 1.0, 50.0]
+		},
+		"Inertia" : [0.0, 0.0, 0.0],
+		"Mass" : 0.0
+	}
+}

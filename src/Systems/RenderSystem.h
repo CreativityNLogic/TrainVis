@@ -5,8 +5,8 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/GraphicsComponent.h"
 
-#include "../Physics/MotionState.h"
 #include "../Graphics/Camera.h"
+
 class RenderSystem : public entityx::System<RenderSystem>
 {
 public:
@@ -22,10 +22,12 @@ public:
 			graphic.Model.SetPosition(transform.Position);
 			graphic.Model.SetRotation(transform.Rotation);
 			graphic.Model.SetScale(transform.Scale);
-
-			graphic.Model.SetProjection(glm::perspective(90.0f, 4.0f / 3.0f, 0.01f, 10000.0f));
-			if(mCamera != nullptr)
+			
+			if (mCamera != nullptr)
+			{
+				graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
 				graphic.Model.SetView(mCamera->GetViewMatrix());
+			}
 
 			graphic.Model.Draw();
 		});

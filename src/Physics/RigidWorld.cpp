@@ -80,5 +80,5 @@ void RigidWorld::removeRigidBody(RigidBody* toBeRemoved)
 void RigidWorld::stepSimulation(double framerate, int maxSubSteps, double fixedTimestep)
 {
 	if(mPhysicsWorld != nullptr)
-		mPhysicsWorld->stepSimulation((float)framerate, maxSubSteps, fixedTimestep);
+		mPhysicsWorld->stepSimulation(btScalar(framerate), maxSubSteps, fixedTimestep);
 }

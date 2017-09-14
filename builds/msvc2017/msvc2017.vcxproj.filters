@@ -40,8 +40,8 @@
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Physics\PhysicsFactory.cpp">
-      <Filter>Source Files\Physics</Filter>
+    <ClCompile Include="..\..\src\Core\EntityFactory.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,12 +84,6 @@
     <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Physics\MotionState.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Physics\PhysicsFactory.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidBody.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
@@ -113,6 +107,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Components\GraphicsComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\EntityFactory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\TagComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Systems\MovementSystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
