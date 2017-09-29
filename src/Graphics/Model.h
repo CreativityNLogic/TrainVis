@@ -24,6 +24,8 @@ public:
 	void LoadFromFile(const std::string &filename);
 
 	void Draw();
+	void Draw(std::vector<Material> &materials);
+
 	void SetPosition(glm::vec3 position);
 	void SetRotation(glm::quat rotation);
 	void SetScale(glm::vec3 scale);
@@ -47,7 +49,6 @@ private:
 	/*  Model Data  */
 	std::vector<Mesh> mMeshes;
 	std::vector<Material> mMaterials;
-	std::string mDirectory;
 };
 
 #endif // MODEL_H

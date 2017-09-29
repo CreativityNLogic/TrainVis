@@ -7,37 +7,28 @@ Material::Material(string shaderVS, string shaderFS) :
 
 void Material::Bind() 
 {
-	/*glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mDiffuseTexture.GetTextureID());
-
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mSpecularTexture.GetTextureID());
-
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, mNormalTexture.GetTextureID());
-
-	glActiveTexture(GL_TEXTURE0);*/
-
 	mShader.use();
 
-	//mShader.setInt("DiffuseTexture", 0);
+	mDiffuseTexture.Bind(0);
+	mShader.setInt("DiffuseTexture", 0);
 	mShader.setVec4("DiffuseColour", mDiffuseColour);
-
-	//mShader.setInt("SpecularTexture", 1);
+	
+	mSpecularTexture.Bind(1);
+	mShader.setInt("SpecularTexture", 1);
 	mShader.setVec4("SpecularColour", mSpecularColour);
 
-	//mShader.setInt("NormalTexture", 2);
+	mNormalTexture.Bind(2);
+	mShader.setInt("NormalTexture", 2);
+
 	mShader.setVec4("AmbientColour", mAmbientColour);
 
-	//-----------------------------------
-	// Model-View-Projection matrix. (MAKE SURE IT'S IN THIS ORDER!)
 	glm::mat4 mvp = mProjection * mView * mModel;
 	mShader.setMat4("MVP", mvp);
 }
 
-void Material::setDiffuseTexture(Texture tex) 
+void Material::setDiffuseTexture(const std::string &filename)
 {
-	mDiffuseTexture = tex;
+	mDiffuseTexture.LoadFromFile(filename, false);
 }
 
 void Material::setDiffuseColour(glm::vec4 col)
@@ -45,9 +36,9 @@ void Material::setDiffuseColour(glm::vec4 col)
 	mDiffuseColour = col;
 }
 
-void Material::setSpecularTexture(Texture tex)
+void Material::setSpecularTexture(const std::string &filename)
 {
-	mSpecularTexture = tex;
+	mSpecularTexture.LoadFromFile(filename, false);
 }
 
 void Material::setSpecularColour(glm::vec4 col)
@@ -55,9 +46,9 @@ void Material::setSpecularColour(glm::vec4 col)
 	mSpecularColour = col;
 }
 
-void Material::setNormalTexture(Texture tex)
+void Material::setNormalTexture(const std::string &filename)
 {
-	mNormalTexture = tex;
+	mNormalTexture.LoadFromFile(filename, false);
 }
 
 void Material::setAmbientColour(glm::vec4 col)

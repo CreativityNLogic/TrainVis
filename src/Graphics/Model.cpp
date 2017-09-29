@@ -52,6 +52,28 @@ void Model::Draw()
 		
 }
 
+void Model::Draw(std::vector<Material> &materials)
+{
+	for (unsigned int i = 0; i < mMeshes.size(); i++)
+	{
+		if (materials.size() != 0)
+		{
+			glm::mat4 modelMatrix = glm::mat4(1.0f);
+			modelMatrix = glm::scale(modelMatrix, mScale);
+			modelMatrix *= glm::mat4_cast(mRotation);
+			modelMatrix = glm::translate(modelMatrix, mPosition);
+
+			materials[i % materials.size()].setTransform(modelMatrix);
+			materials[i % materials.size()].setView(mView);
+			materials[i % materials.size()].setProjection(mProjection);
+			materials[i % materials.size()].Bind();
+		}
+
+		mMeshes[i].Draw();
+	}
+
+}
+
 void Model::SetPosition(glm::vec3 position)
 {
 	mPosition = position;
@@ -86,8 +108,6 @@ void Model::loadModel(const std::string &filename)
 		std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
 		return;
 	}
-
-	mDirectory = filename.substr(0, filename.find_last_of('/'));
 
 	processNode(scene->mRootNode, scene);
 }
@@ -124,7 +144,6 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		vector.y = mesh->mVertices[i].y;
 		vector.z = mesh->mVertices[i].z;
 		vertex.Position = vector;
-		// cout << "(" << vector.x << ", " << vector.y << ", " << vector.z << ")" << endl; //Check if .obj file is being loaded correctly
 
 		// normals
 		vector.x = mesh->mNormals[i].x;
@@ -168,14 +187,25 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		aiColor3D ambient;
 		material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
 
-		Material mat("../../assets/shaders/default.vs", "../../assets/shaders/default.fs");
+		aiString diffuseTex;
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &diffuseTex);
+
+		aiString specTex;
+		material->GetTexture(aiTextureType_SPECULAR, 0, &specTex);
+
+		aiString normalTex;
+		material->GetTexture(aiTextureType_NORMALS, 0, &normalTex);
+
+		Material mat("../../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs");
 		mat.setDiffuseColour(glm::vec4(diffuse.r, diffuse.g, diffuse.b, 1.0));
 		mat.setSpecularColour(glm::vec4(specular.r, specular.g, specular.b, 1.0));
 		mat.setAmbientColour(glm::vec4(ambient.r, ambient.g, ambient.b, 1.0));
 
-		mMaterials.push_back(mat);
+		mat.setDiffuseTexture(diffuseTex.C_Str());
+		mat.setSpecularTexture(specTex.C_Str());
+		mat.setNormalTexture(normalTex.C_Str());
 
-		// GET DIFFUSE/SPECULAR/NORMAL TEXTURES
+		mMaterials.push_back(mat);
 	}
 
 	return Mesh(vertices, indices);

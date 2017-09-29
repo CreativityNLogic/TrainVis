@@ -3,19 +3,18 @@
 
 #include <string>
 
-using namespace std;
-
 class Texture 
 {
 public:
 	Texture();
-	Texture(const char *path, const string &directory, bool gamma);
+	Texture(const std::string &filename, bool gamma);
 	
+	void LoadFromFile(const std::string &filename, bool gamma);
 	int GetTextureID() const;
-	void Bind();
+	void Bind(unsigned int textureSlot);
 
 private:
-	string mFilename;
+	std::string mFilename;
 
 	unsigned char *mData;
 	unsigned int mTextureID;

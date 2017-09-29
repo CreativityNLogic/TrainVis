@@ -17,10 +17,15 @@ Texture::Texture() : mData(nullptr)
 
 }
 
-Texture::Texture(const char *path, const string &directory, bool gamma) : mData(nullptr)
+Texture::Texture(const std::string &filename, bool gamma) : 
+	mData(nullptr)
 {
-	string filename = string(path);
-	mFilename = directory + '/' + filename;
+	LoadFromFile(filename, gamma);
+}
+
+void Texture::LoadFromFile(const std::string &filename, bool gamma)
+{
+	mFilename = filename;
 
 	int width, height, nrComponents;
 	mData = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
@@ -49,17 +54,17 @@ Texture::Texture(const char *path, const string &directory, bool gamma) : mData(
 	}
 	else
 	{
-		std::cout << "Texture failed to load at path: " << path << std::endl;
+		std::cout << "Texture failed to load: " << filename << std::endl;
 	}
 }
 
-int Texture::GetTextureID() const {
-
+int Texture::GetTextureID() const 
+{
 	return mTextureID;
 }
 
-void Texture::Bind() 
+void Texture::Bind(unsigned int textureSlot)
 {
+	glActiveTexture(GL_TEXTURE0 + textureSlot);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
-	glActiveTexture(GL_TEXTURE0);
-}
+}	

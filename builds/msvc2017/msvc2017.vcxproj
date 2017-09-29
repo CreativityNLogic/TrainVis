@@ -142,15 +142,20 @@
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\Components\CameraComponent.h" />
     <ClInclude Include="..\..\src\Components\GraphicsComponent.h" />
+    <ClInclude Include="..\..\src\Components\MaterialComponent.h" />
     <ClInclude Include="..\..\src\Components\RigidBodyComponent.h" />
     <ClInclude Include="..\..\src\Components\TagComponent.h" />
     <ClInclude Include="..\..\src\Components\TransformComponent.h" />
     <ClCompile Include="..\..\src\Graphics\Shader.cpp" />
     <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
+    <ClInclude Include="..\..\src\Core\ResourceManager.h" />
+    <ClInclude Include="..\..\src\Systems\CameraSystem.h" />
     <ClInclude Include="..\..\src\Systems\MovementSystem.h" />
     <ClInclude Include="..\..\src\Systems\RenderSystem.h" />
+    <ClInclude Include="LightComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h" />

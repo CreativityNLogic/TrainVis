@@ -27,9 +27,9 @@ public:
 	Material(string shaderVS, string shaderFS);
 	void Bind();
 
-	void setDiffuseTexture(Texture tex);
-	void setSpecularTexture(Texture tex);
-	void setNormalTexture(Texture tex);
+	void setDiffuseTexture(const std::string &filename);
+	void setSpecularTexture(const std::string &filename);
+	void setNormalTexture(const std::string &filename);
 
 	void setDiffuseColour(glm::vec4 colour);
 	void setSpecularColour(glm::vec4 colour);

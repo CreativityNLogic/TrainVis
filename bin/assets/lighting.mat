@@ -1,0 +1,23 @@
+{
+	"Name" : "",
+	"Shader" :
+	{
+		"Vertex" : "",
+		"Geometry" : "",
+		"Fragment" : ""
+	}
+	"Colour" : 
+	{
+		"Diffuse" : [],
+		"Specular": [],
+		"Ambient" : [],
+		"Emissive" : []
+	},
+	"Texture" :
+	{
+		"Diffuse" : "",
+		"Specular": "",
+		"Normal" : "",
+		"Emissive" : ""
+	}
+}
