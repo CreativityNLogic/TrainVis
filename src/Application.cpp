@@ -4,7 +4,6 @@
 
 #include "Graphics/RenderWindow.h"
 
-#include "Systems/PhysicSystem.h"
 #include "Systems/RenderSystem.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/CameraSystem.h"
@@ -17,7 +16,8 @@
 
 #include <iostream>
 
-Application::Application()
+Application::Application() :
+	mUseDebug(false)
 {
 	//===============================================
 	// Place declaration variables here (does not need error checking eg someSting = "Test";)
@@ -35,21 +35,32 @@ bool Application::Initialise()
 	//===============================================
 	// Place declaration variables or initialise objects that need error checking eg if(!obj.init())
 	//===============================================
+
 	mPhysicWorld.reset(new RigidWorld());
-	mEntityFactory.reset(new EntityFactory(entities, mPhysicWorld.get()));
+	mEntityFactory.reset(new EntityFactory(entities, mRenderWindow.get(), mPhysicWorld.get()));
+	mDebugDraw.reset(new DebugDraw());
+	mDebugDraw->setDebugMode(DebugDraw::DBG_DrawWireframe);
 
 	systems.add<CameraSystem>(mRenderWindow.get());
 	systems.add<MovementSystem>(mRenderWindow.get());
-	systems.add<PhysicSystem>();
-	systems.add<RenderSystem>()->setCamera(mCamera.get());
 	systems.configure();
 
 	mEntityFactory->createFromLevelFile("../../assets/scenes/TrainVis.scene");
 
-	entityx::Entity entity = entities.create();
-	auto &cameraComp = entity.assign<CameraComponent>(glm::vec3(0.0f, 5.0f, 60.0f), 20.0f, 0.1f);
-	cameraComp->Camera.SetYaw(180.0f);
-	cameraComp->Camera.SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.01f, 100000.0f);
+	auto &cameraEntities = entities.entities_with_components<CameraComponent>();
+
+	for (auto &cameraEnt : cameraEntities)
+	{
+		auto &cameraComp = cameraEnt.component<CameraComponent>();
+		systems.add<RenderSystem>()->setCamera(&cameraComp->Camera);
+		mDebugDraw->setCamera(&cameraComp->Camera);
+		break;
+	}
+
+
+	mPhysicWorld->setDebugDraw(mDebugDraw.get());
+
+	mUseDebug = false;
 
 	//===============================================
 	return true;
@@ -61,7 +72,7 @@ void Application::Terminate()
 	// Any objects that requires clean up
 	//===============================================
 
-	//===============================================s
+	//===============================================
 }
 
 void Application::Update(double deltaTime)
@@ -77,14 +88,22 @@ void Application::Update(double deltaTime)
 
 	//-----------------------------------
 	// Step physics simulation
-	mPhysicWorld->stepSimulation(1.0f/60.0f, 1);
-	
+	mPhysicWorld->stepSimulation(1.0f/60.0f);
+
+	//-----------------------------------
+	// Physics debug
+	if (mUseDebug)
+	{
+		mPhysicWorld->debugDrawWorld();
+		mDebugDraw->draw();
+	}
+
 	//-----------------------------------
 	// Update systems
 	systems.update<CameraSystem>(deltaTime);
-	systems.update<PhysicSystem>(deltaTime);
 	systems.update<RenderSystem>(deltaTime);
 	systems.update<MovementSystem>(deltaTime);
+
 	//===============================================
 
 	mRenderWindow->Display();

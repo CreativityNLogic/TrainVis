@@ -9,6 +9,7 @@
 #include "Graphics/Model.h"
 #include "Physics/RigidWorld.h"
 #include "Graphics/Camera.h"
+#include "Physics/DebugDraw.h"
 
 //*********************************************
 //	Application
@@ -34,10 +35,12 @@ public:
 
 private:
 	entityx::EntityX mEntityWorld;
+
+	std::unique_ptr<DebugDraw> mDebugDraw;
 	std::unique_ptr<RigidWorld> mPhysicWorld;
 	std::unique_ptr<EntityFactory> mEntityFactory;
-	std::unique_ptr<Camera> mCamera;
-	glm::vec2 mOldMousePos;
+
+	bool mUseDebug;
 };
 
 #endif // _APPLCATION_H_

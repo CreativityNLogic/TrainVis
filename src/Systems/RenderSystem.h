@@ -5,6 +5,7 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/GraphicsComponent.h"
 #include "../Components/CameraComponent.h"
+#include "../Components/LightComponent.h"
 #include "../Graphics/Camera.h"
 
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
@@ -28,8 +29,25 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
+		unsigned int lightCount = 0;
+		const unsigned MAXLIGHTS = 3;
+		
+		std::vector<entityx::Entity> lightEntities;
+
+		auto lights = es.entities_with_components<TransformComponent, LightComponent>();
+		for(auto entity : lights)
+		{
+			if (lightCount > MAXLIGHTS)
+				break;
+
+			lightEntities.push_back(entity);
+
+			lightCount++;
+		}
+
 		es.each<TransformComponent, GraphicsComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic)
 		{
+			graphic.Model.SetLights(lightEntities);
 			graphic.Model.SetPosition(transform.Position);
 			graphic.Model.SetRotation(transform.Rotation);
 			graphic.Model.SetScale(transform.Scale);
@@ -38,6 +56,7 @@ public:
 			{
 				graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
 				graphic.Model.SetView(mCamera->GetViewMatrix());
+				graphic.Model.SetViewPosition(mCamera->GetPosition());
 			}
 
 			graphic.Model.Draw();

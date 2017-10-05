@@ -20,10 +20,19 @@ void Material::Bind()
 	mNormalTexture.Bind(2);
 	mShader.setInt("NormalTexture", 2);
 
+	mEmissiveTexture.Bind(3);
+	mShader.setInt("EmissiveTexture", 3);
+
 	mShader.setVec4("AmbientColour", mAmbientColour);
 
 	glm::mat4 mvp = mProjection * mView * mModel;
+	mShader.setMat4("Model", mModel);
+	mShader.setMat4("TransInvModel", glm::transpose(glm::inverse(mModel)));
+	mShader.setMat4("View", mView);
+	mShader.setMat4("Projection", mProjection);
 	mShader.setMat4("MVP", mvp);
+	mShader.setVec3("ViewPosition", mViewPosition);
+	mShader.setFloat("Shininess", mShininess);
 }
 
 void Material::setDiffuseTexture(const std::string &filename)
@@ -56,6 +65,16 @@ void Material::setAmbientColour(glm::vec4 col)
 	mAmbientColour = col;
 }
 
+void Material::setEmissiveTexture(const std::string &filename)
+{
+	mEmissiveTexture.LoadFromFile(filename, false);
+}
+
+void Material::setShininess(float shininess)
+{
+	mShininess = shininess;
+}
+
 void Material::setTransform(glm::mat4 transform)
 {
 	mModel = transform;
@@ -69,4 +88,37 @@ void Material::setView(glm::mat4 view)
 void Material::setProjection(glm::mat4 proj)
 {
 	mProjection = proj;
+}
+
+void Material::setViewPosition(glm::vec3 pos)
+{
+	mViewPosition = pos;
+}
+
+void Material::setLight(unsigned int index, glm::vec3 position, glm::vec3 direction, LightComponent light)
+{
+	if (index >= 3)
+	{
+		std::cout << "ERROR (Material): The light index cannot be greater than 3." << std::endl;
+		return;
+	}
+
+	mShader.setInt("lights[" + std::to_string(index) + "].type", light.LightType);
+
+	mShader.setVec3("lights[" + std::to_string(index) + "].position", position);
+	mShader.setVec3("lights[" + std::to_string(index) + "].direction", direction);
+
+	mShader.setVec3("lights[" + std::to_string(index) + "].diffuse", light.Diffuse);
+	mShader.setVec3("lights[" + std::to_string(index) + "].specular", light.Specular);
+	mShader.setVec3("lights[" + std::to_string(index) + "].ambient", light.Ambient);
+
+	mShader.setFloat("lights[" + std::to_string(index) + "].ambientStrength", light.AmbientStrength);
+	mShader.setFloat("lights[" + std::to_string(index) + "].specularStrength", light.SpecularStrength);
+
+	mShader.setFloat("lights[" + std::to_string(index) + "].constant", light.Constant);
+	mShader.setFloat("lights[" + std::to_string(index) + "].linear", light.Linear);
+	mShader.setFloat("lights[" + std::to_string(index) + "].quadratic", light.Quadratic);
+
+	mShader.setFloat("lights[" + std::to_string(index) + "].innerCutoff", light.InnerCutoff);
+	mShader.setFloat("lights[" + std::to_string(index) + "].outerCutoff", light.OuterCutoff);
 }

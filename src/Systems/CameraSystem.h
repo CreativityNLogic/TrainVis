@@ -34,11 +34,8 @@ public:
 				glm::vec2 mouseDelta(newMousePos.x - mOldMousePos.x, newMousePos.y - mOldMousePos.y);
 				camera.Camera.ProcessMouseMovement(mouseDelta.x, -mouseDelta.y);
 				mOldMousePos = newMousePos;
-
-				// NEW CAMERA CODE
 			});
 		}
-
 	};
 
 private:

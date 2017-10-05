@@ -13,9 +13,6 @@
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Graphics\Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
     <ClInclude Include="..\..\src\Core\Input.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidBody.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
@@ -95,9 +89,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Components\TransformComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Systems\PhysicSystem.h">
-      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
       <Filter>Header Files\Graphics</Filter>
@@ -126,11 +117,17 @@
     <ClInclude Include="..\..\src\Components\CameraComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="LightComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Components\MaterialComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\LightComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\DebugDraw.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\MotionState.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

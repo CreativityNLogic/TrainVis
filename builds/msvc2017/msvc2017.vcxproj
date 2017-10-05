@@ -137,13 +137,13 @@
     <ClCompile Include="..\..\src\Graphics\Mesh.cpp" />
     <ClCompile Include="..\..\src\Graphics\Model.cpp" />
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
-    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Components\CameraComponent.h" />
     <ClInclude Include="..\..\src\Components\GraphicsComponent.h" />
+    <ClInclude Include="..\..\src\Components\LightComponent.h" />
     <ClInclude Include="..\..\src\Components\MaterialComponent.h" />
     <ClInclude Include="..\..\src\Components\RigidBodyComponent.h" />
     <ClInclude Include="..\..\src\Components\TagComponent.h" />
@@ -152,10 +152,11 @@
     <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
     <ClInclude Include="..\..\src\Core\ResourceManager.h" />
+    <ClInclude Include="..\..\src\Physics\DebugDraw.h" />
+    <ClInclude Include="..\..\src\Physics\MotionState.h" />
     <ClInclude Include="..\..\src\Systems\CameraSystem.h" />
     <ClInclude Include="..\..\src\Systems\MovementSystem.h" />
     <ClInclude Include="..\..\src\Systems\RenderSystem.h" />
-    <ClInclude Include="LightComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h" />
@@ -168,10 +169,6 @@
     <ClInclude Include="..\..\src\Graphics\Mesh.h" />
     <ClInclude Include="..\..\src\Graphics\Model.h" />
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
-    <ClInclude Include="..\..\src\Systems\PhysicSystem.h" />
-    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidBody.h" />
     <ClInclude Include="..\..\src\Physics\RigidWorld.h" />
     <ClInclude Include="..\..\src\Graphics\Shader.h" />

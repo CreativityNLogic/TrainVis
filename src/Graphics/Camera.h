@@ -48,6 +48,9 @@ public:
 	void SetYaw(float yaw);
 	void SetPitch(float pitch);
 
+	void SetPosition(glm::vec3 position);
+	glm::vec3 GetPosition();
+
 private: 
 	void updateCameraVectors();
 

@@ -6,6 +6,8 @@
 #include <json/json.hpp>
 #include <entityx/entityx.h>
 
+class RenderWindow;
+
 class RigidBody;
 class RigidWorld;
 
@@ -13,11 +15,13 @@ struct TagComponent;
 struct TransformComponent;
 struct GraphicsComponent;
 struct RigidBodyComponent;
+struct LightComponent;
+struct CameraComponent;
 
 class EntityFactory : public entityx::EntityX
 {
 public:
-	EntityFactory(entityx::EntityManager &entityManager, RigidWorld *physicsWorld);
+	EntityFactory(entityx::EntityManager &entityManager, RenderWindow *renderWindow, RigidWorld *physicsWorld);
 	~EntityFactory();
 
 	void createFromLevelFile(const std::string &filename);
@@ -31,10 +35,13 @@ private:
 	void loadTransformComponent(nlohmann::json component, TransformComponent &animationComp);
 	void loadGraphicsComponent(nlohmann::json component, entityx::Entity & entity, GraphicsComponent & graphics);
 	void loadRigidBodyComponent(nlohmann::json body, entityx::Entity &entity, RigidBodyComponent& rigidBody);
+	void loadLightComponent(nlohmann::json component, LightComponent& lightComp);
+	void loadCameraComponent(nlohmann::json component, entityx::Entity &entity, CameraComponent& camComp);
 
 private:
 	entityx::EntityManager &mEntityManager;
 	RigidWorld *mPhysicsWorld;
+	RenderWindow *mRenderWindow;
 };
 
 #endif // ENTITYFACTORY_H

@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../Components/TransformComponent.h"
+
 /*  Functions   */
 Model::Model() :
 	mPosition(glm::vec3(0.0f)),
@@ -30,20 +32,32 @@ void Model::LoadFromFile(const std::string &filename)
 	loadModel(filename);
 }
 
+void Model::AddMesh(Mesh mesh)
+{
+	mMeshes.push_back(mesh);
+}
+
+void Model::ClearMeshes()
+{
+	mMeshes.clear();
+}
+
 void Model::Draw()
 {
 	for (unsigned int i = 0; i < mMeshes.size(); i++)
 	{
 		if (i < mMaterials.size())
 		{
-			glm::mat4 modelMatrix = glm::mat4(1.0f);
-			modelMatrix = glm::scale(modelMatrix, mScale);
-			modelMatrix *= glm::mat4_cast(mRotation);
-			modelMatrix = glm::translate(modelMatrix, mPosition);
+			glm::mat4 trans = glm::translate(glm::mat4(1.0f), mPosition);
+			glm::mat4 rot = glm::mat4_cast(mRotation);
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), mScale);
+
+			glm::mat4 modelMatrix = trans * rot * scale;
 
 			mMaterials[i].setTransform(modelMatrix);
 			mMaterials[i].setView(mView);
 			mMaterials[i].setProjection(mProjection);
+			mMaterials[i].setViewPosition(mViewPosition);
 			mMaterials[i].Bind();
 		}
 
@@ -58,14 +72,16 @@ void Model::Draw(std::vector<Material> &materials)
 	{
 		if (materials.size() != 0)
 		{
-			glm::mat4 modelMatrix = glm::mat4(1.0f);
-			modelMatrix = glm::scale(modelMatrix, mScale);
-			modelMatrix *= glm::mat4_cast(mRotation);
-			modelMatrix = glm::translate(modelMatrix, mPosition);
+			glm::mat4 trans = glm::translate(glm::mat4(1.0f), mPosition);
+			glm::mat4 rot = glm::mat4_cast(mRotation);
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), mScale);
+
+			glm::mat4 modelMatrix = trans * rot * scale;
 
 			materials[i % materials.size()].setTransform(modelMatrix);
 			materials[i % materials.size()].setView(mView);
 			materials[i % materials.size()].setProjection(mProjection);
+			materials[i % materials.size()].setViewPosition(mViewPosition);
 			materials[i % materials.size()].Bind();
 		}
 
@@ -78,6 +94,7 @@ void Model::SetPosition(glm::vec3 position)
 {
 	mPosition = position;
 }
+
 void Model::SetRotation(glm::quat rotation)
 {
 	mRotation = rotation;
@@ -98,10 +115,29 @@ void Model::SetProjection(glm::mat4 projection)
 	mProjection = projection;
 }
 
+void Model::SetViewPosition(glm::vec3 position)
+{
+	mViewPosition = position;
+}
+
+void Model::SetLights(std::vector<entityx::Entity> lights)
+{
+	for (unsigned int i = 0; i < mMaterials.size(); i++)
+	{
+		for (unsigned int j = 0; j < lights.size(); j++)
+		{
+			auto &transform = lights[j].component<TransformComponent>();
+			auto &light = lights[j].component<LightComponent>();
+
+			mMaterials[i].setLight(j, transform->Position, glm::eulerAngles(transform->Rotation), *light.get());
+		}
+	}
+}
+
 void Model::loadModel(const std::string &filename)
 {
 	Assimp::Importer import;
-	const aiScene *scene = import.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene *scene = import.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
@@ -137,8 +173,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-		glm::vec3 vector;
 
+		glm::vec3 vector;
 		// vertex positions
 		vector.x = mesh->mVertices[i].x;
 		vector.y = mesh->mVertices[i].y;
@@ -161,6 +197,28 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		}
 		else
 			vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+
+		if (mesh->HasTangentsAndBitangents())
+		{
+			glm::vec3 tangent;
+			tangent.x = mesh->mTangents[i].x;
+			tangent.y = mesh->mTangents[i].y;
+			tangent.z = mesh->mTangents[i].z;
+			vertex.Tangent = tangent;
+
+			glm::vec3 bitangent;
+			bitangent.x = mesh->mBitangents[i].x;
+			bitangent.y = mesh->mBitangents[i].y;
+			bitangent.z = mesh->mBitangents[i].z;
+			vertex.BiTangent = bitangent;
+		}
+		else
+		{
+			vertex.BiTangent = glm::vec3();
+			vertex.Tangent = glm::vec3();
+		}
+
+		vertex.Colour = glm::vec3();
 
 		vertices.push_back(vertex);
 	}
@@ -187,6 +245,9 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		aiColor3D ambient;
 		material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
 
+		float shininess = 0;
+		material->Get(AI_MATKEY_SHININESS, shininess);
+
 		aiString diffuseTex;
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &diffuseTex);
 
@@ -204,6 +265,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		mat.setDiffuseTexture(diffuseTex.C_Str());
 		mat.setSpecularTexture(specTex.C_Str());
 		mat.setNormalTexture(normalTex.C_Str());
+
+		mat.setShininess(shininess);
 
 		mMaterials.push_back(mat);
 	}

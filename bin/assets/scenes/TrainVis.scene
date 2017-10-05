@@ -5,12 +5,52 @@
 	},
 	"Entities" : 
 	{
+		"Camera" :
+		{
+			"Data" : "../../assets/entities/Camera.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 2.0, -5.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [10.0, 0.0, 0.0]
+			}
+		},
+		"Light" :
+		{
+			"Data" : "../../assets/entities/Light.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 5.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [10.0, 0.0, 0.0]
+			}
+		},
 		"Box0" : 
 		{ 
 			"Data" : "../../assets/entities/Box.ent", 
 			"Transform" : 
 			{ 
-				"Position" : [-2.5, 1.0, 40.0], 
+				"Position" : [0.75, 50.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Box1" : 
+		{ 
+			"Data" : "../../assets/entities/Box.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 1.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Ground" :
+		{
+			"Data" : "../../assets/entities/Ground.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 0.0, 0.0], 
 				"Scale" : [1.0, 1.0, 1.0], 
 				"Rotation" : [0.0, 0.0, 0.0]
 			}

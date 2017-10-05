@@ -77,6 +77,16 @@ void RigidWorld::removeRigidBody(RigidBody* toBeRemoved)
 	}
 }
 
+void RigidWorld::setDebugDraw(btIDebugDraw *debugDraw)
+{
+	mPhysicsWorld->setDebugDrawer(debugDraw);
+}
+
+void RigidWorld::debugDrawWorld()
+{
+	mPhysicsWorld->debugDrawWorld();
+}
+
 void RigidWorld::stepSimulation(double framerate, int maxSubSteps, double fixedTimestep)
 {
 	if(mPhysicsWorld != nullptr)

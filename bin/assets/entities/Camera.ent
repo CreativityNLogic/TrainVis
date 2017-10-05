@@ -1,0 +1,10 @@
+{
+	"CameraComponent" :
+	{
+		"Speed" : 20.0,
+		"MouseSensitivity" : 0.1,
+		"FOV" : 90.0,
+		"NearClip" : 0.01,
+		"FarClip" : 100000.0
+	}
+}

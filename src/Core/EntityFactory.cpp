@@ -2,17 +2,24 @@
 
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 #include "../Components/TagComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/GraphicsComponent.h"
 #include "../Components/RigidBodyComponent.h"
+#include "../Components/LightComponent.h"
+#include "../Components/CameraComponent.h"
 
 #include "../Physics/RigidWorld.h"
 #include "../Physics/RigidBody.h"
+#include "../Physics/MotionState.h"
 
-EntityFactory::EntityFactory(entityx::EntityManager &entityManager, RigidWorld *physicsWorld) :
+#include "../Graphics/RenderWindow.h"
+
+EntityFactory::EntityFactory(entityx::EntityManager &entityManager, RenderWindow *renderWindow, RigidWorld *physicsWorld) :
 	mEntityManager(entityManager),
+	mRenderWindow(renderWindow),
 	mPhysicsWorld(physicsWorld)
 {
 
@@ -91,6 +98,12 @@ void EntityFactory::loadComponents(entityx::Entity &entity, nlohmann::json entit
 
 	if (!entityFile["RigidBodyComponent"].is_null() && !entity.has_component<RigidBodyComponent>())
 		loadRigidBodyComponent(entityFile["RigidBodyComponent"], entity, *entity.assign<RigidBodyComponent>());
+
+	if (!entityFile["LightComponent"].is_null() && !entity.has_component<LightComponent>())
+		loadLightComponent(entityFile["LightComponent"], *entity.assign<LightComponent>());
+
+	if (!entityFile["CameraComponent"].is_null() && !entity.has_component<CameraComponent>())
+		loadCameraComponent(entityFile["CameraComponent"], entity, *entity.assign<CameraComponent>());
 }
 
 // Tag Component
@@ -192,22 +205,120 @@ void EntityFactory::loadRigidBodyComponent(nlohmann::json body, entityx::Entity 
 		origin = glm::vec3(originData[0], originData[1], originData[2]);
 
 	btTransform transform(btQuaternion(0.0f, 0.0f, 0.0f, 1.0f), btVector3(0.0f, 0.0f, 0.0f));
-	if (entity.has_component<TransformComponent>())
-	{
-		auto &transComp = entity.component<TransformComponent>();
-		btVector3 position(transComp->Position.x, transComp->Position.y, transComp->Position.z);
-		btQuaternion rotation(transComp->Rotation.x, transComp->Rotation.y, transComp->Rotation.z, transComp->Rotation.w);
-		transform.setOrigin(position);
-		transform.setRotation(rotation);
-	}
+
+	auto &transComp = entity.component<TransformComponent>();
+	btVector3 position(transComp->Position.x, transComp->Position.y, transComp->Position.z);
+	btQuaternion rotation(transComp->Rotation.x, transComp->Rotation.y, transComp->Rotation.z, transComp->Rotation.w);
+	transform.setOrigin(position);
+	transform.setRotation(rotation);
 
 	//Calculate the inertia.
 	btVector3 localInertia(inertia.x, inertia.y, inertia.z);
 	shape->calculateLocalInertia(mass, localInertia);
 
-	btMotionState* motionState = new btDefaultMotionState(transform);
+	btMotionState* motionState = new MotionState(transComp.get());
 
 	RigidBody *newBody = new RigidBody(mass, motionState, shape, glm::vec3(localInertia.x(), localInertia.y(), localInertia.z()), origin);
 	mPhysicsWorld->addRigidBody(newBody);
 	rigidBody.Body = newBody;
+}
+
+// Light Component
+void EntityFactory::loadLightComponent(nlohmann::json component, LightComponent& lightComp)
+{
+	if (component["Type"].is_string())
+	{
+		std::string type = component["Type"];
+		if (type == "Directional")
+			lightComp.LightType = LightComponent::DIRECTIONAL;
+		else if (type == "Point")
+			lightComp.LightType = LightComponent::POINT;
+		else if (type == "Spot")
+			lightComp.LightType = LightComponent::SPOTLIGHT;
+		else
+			lightComp.LightType = LightComponent::DIRECTIONAL;
+	}
+
+	if (component["Diffuse"].is_array())
+		lightComp.Diffuse = glm::vec3(component["Diffuse"][0], component["Diffuse"][1], component["Diffuse"][2]);
+	else
+		lightComp.Diffuse = glm::vec3();
+
+	if (component["Specular"].is_array())
+		lightComp.Specular = glm::vec3(component["Specular"][0], component["Specular"][1], component["Specular"][2]);
+	else
+		lightComp.Specular = glm::vec3();
+
+	if (component["Ambient"].is_array())
+		lightComp.Ambient = glm::vec3(component["Ambient"][0], component["Ambient"][1], component["Ambient"][2]);
+	else
+		lightComp.Ambient = glm::vec3();
+
+	if (component["AmbientStrength"].is_number_float())
+		lightComp.AmbientStrength = component["AmbientStrength"];
+	else
+		lightComp.AmbientStrength = 1.0f;
+
+	if (component["SpecularStrength"].is_number_float())
+		lightComp.SpecularStrength = component["SpecularStrength"];
+	else
+		lightComp.SpecularStrength = 1.0f;
+
+	if (component["Constant"].is_number_float())
+		lightComp.Constant = component["Constant"];
+	else
+		lightComp.Constant = 1.0f;
+
+	if (component["Linear"].is_number_float())
+		lightComp.Linear = component["Linear"];
+	else
+		lightComp.Linear = 1.0f;
+
+	if (component["Quadratic"].is_number_float())
+		lightComp.Quadratic = component["Quadratic"];
+	else
+		lightComp.Quadratic = 1.0f;
+
+	if (component["InnerCutoff"].is_number_float())
+		lightComp.InnerCutoff = component["InnerCutoff"];
+	else
+		lightComp.InnerCutoff = 1.0f;
+
+	if (component["OuterCutoff"].is_number_float())
+		lightComp.OuterCutoff = component["OuterCutoff"];
+	else
+		lightComp.OuterCutoff = 1.0f;
+
+}
+
+// Camera Component
+void EntityFactory::loadCameraComponent(nlohmann::json component, entityx::Entity &entity, CameraComponent& camComp)
+{
+	float speed = 1.0f;
+	float sensitvity = 1.0f;
+	float fov = 90.0f;
+	float nearClip = 0.01f;
+	float farClip = 1000.0f;
+
+	if (component["Speed"].is_number_float())
+		speed = component["Speed"];
+
+	if (component["MouseSensitivity"].is_number_float())
+		sensitvity = component["MouseSensitivity"];
+
+	if (component["FOV"].is_number_float())
+		fov = component["FOV"];
+
+	if (component["NearClip"].is_number_float())
+		nearClip = component["NearClip"];
+
+	if (component["FarClip"].is_number_float())
+		farClip = component["FarClip"];
+
+	auto &transComp = entity.component<TransformComponent>();
+
+	camComp.Camera.SetPosition(transComp->Position);
+	camComp.Camera.SetCameraSpeed(speed);
+	camComp.Camera.SetMouseSensitivity(sensitvity);
+	camComp.Camera.SetProjection(fov, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, nearClip, farClip);
 }

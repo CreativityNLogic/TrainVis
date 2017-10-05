@@ -13,7 +13,7 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
-		es.each<TransformComponent, RigidBodyComponent>([dt](entityx::Entity entity, TransformComponent &transform, RigidBodyComponent &body)
+		/*es.each<TransformComponent, RigidBodyComponent>([dt](entityx::Entity entity, TransformComponent &transform, RigidBodyComponent &body)
 		{
 			btTransform trans;
 			body.Body->getMotionState()->getWorldTransform(trans);
@@ -22,7 +22,7 @@ public:
 
 			transform.Position = glm::vec3(trans.getOrigin().getX() - offset.x, trans.getOrigin().getY() - offset.y, trans.getOrigin().getZ() - offset.z);
 			transform.Rotation = glm::quat(trans.getRotation().w(), trans.getRotation().x(), trans.getRotation().y(), trans.getRotation().z());
-		});
+		});*/
 	};
 };
 

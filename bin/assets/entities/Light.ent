@@ -1,0 +1,16 @@
+{
+	"LightComponent" :
+	{
+		"Type" : "Point",
+		"Diffuse" : [1.0, 1.0, 1.0],
+		"Specular" : [1.0, 1.0, 1.0],
+		"Ambient" : [1.0, 1.0, 1.0],
+		"AmbientStrength" : 0.1,
+		"SpecularStrength" : 0.1,
+		"Constant" : 1.0,
+		"Linear" : 0.0014,
+		"Quadratic" : 0.000007,
+		"InnerCutoff" : 1.0,
+		"OuterCutoff" : 1.0
+	}
+}

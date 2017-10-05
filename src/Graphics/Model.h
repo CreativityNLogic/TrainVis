@@ -10,6 +10,8 @@
 
 #include <glm/glm.hpp>
 
+#include <entityx/Entity.h>
+
 #include "Mesh.h"
 #include "Material.h"
 
@@ -26,11 +28,16 @@ public:
 	void Draw();
 	void Draw(std::vector<Material> &materials);
 
+	void AddMesh(Mesh mesh);
+	void ClearMeshes();
+
 	void SetPosition(glm::vec3 position);
 	void SetRotation(glm::quat rotation);
 	void SetScale(glm::vec3 scale);
 	void SetView(glm::mat4 view);
 	void SetProjection(glm::mat4 projection);
+	void SetViewPosition(glm::vec3 position);
+	void SetLights(std::vector<entityx::Entity> lights);
 
 private:
 	/*  Functions   */
@@ -43,6 +50,9 @@ private:
 	glm::quat mRotation;
 	glm::vec3 mScale;
 
+	glm::vec3 mViewPosition;
+
+	glm::mat4 mModel;
 	glm::mat4 mView;
 	glm::mat4 mProjection;
 

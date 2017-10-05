@@ -62,6 +62,16 @@ glm::mat4 Camera::GetViewMatrix()
 	return glm::lookAt(mPosition, mPosition + mFront, mUp);
 }
 
+void Camera::SetPosition(glm::vec3 position)
+{
+	mPosition = position;
+}
+
+glm::vec3 Camera::GetPosition()
+{
+	return mPosition;
+}
+
 void Camera::SetProjection(float fov, float aspectRatio, float nearClip, float farClip)
 {
 	mProjection = glm::perspective(fov, aspectRatio, nearClip, farClip);
