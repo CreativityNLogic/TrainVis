@@ -5,16 +5,6 @@
 	},
 	"Entities" : 
 	{
-		"Camera" :
-		{
-			"Data" : "../../assets/entities/Camera.ent", 
-			"Transform" : 
-			{ 
-				"Position" : [0.0, 2.0, -5.0], 
-				"Scale" : [1.0, 1.0, 1.0], 
-				"Rotation" : [10.0, 0.0, 0.0]
-			}
-		},
 		"Light" :
 		{
 			"Data" : "../../assets/entities/Light.ent", 
