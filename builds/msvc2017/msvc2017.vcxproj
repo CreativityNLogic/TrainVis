@@ -154,7 +154,6 @@
     <ClInclude Include="..\..\src\Core\ResourceManager.h" />
     <ClInclude Include="..\..\src\Physics\DebugDraw.h" />
     <ClInclude Include="..\..\src\Physics\MotionState.h" />
-    <ClInclude Include="..\..\src\Systems\CameraSystem.h" />
     <ClInclude Include="..\..\src\Systems\MovementSystem.h" />
     <ClInclude Include="..\..\src\Systems\RenderSystem.h" />
   </ItemGroup>

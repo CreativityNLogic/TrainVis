@@ -40,6 +40,9 @@ private:
 	std::unique_ptr<RigidWorld> mPhysicWorld;
 	std::unique_ptr<EntityFactory> mEntityFactory;
 
+	Camera mCamera;
+	glm::vec2 mOldMousePos;
+
 	bool mUseDebug;
 };
 

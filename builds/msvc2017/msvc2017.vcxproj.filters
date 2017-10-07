@@ -111,9 +111,6 @@
     <ClInclude Include="..\..\src\Core\ResourceManager.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Systems\CameraSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Components\CameraComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>

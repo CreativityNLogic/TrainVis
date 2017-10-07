@@ -17,6 +17,7 @@
 #include <iostream>
 
 Application::Application() :
+	mCamera(glm::vec3(0.0, 2.0f, -5.0f), 20.0f, 0.1f),
 	mUseDebug(false)
 {
 	//===============================================
@@ -41,21 +42,15 @@ bool Application::Initialise()
 	mDebugDraw.reset(new DebugDraw());
 	mDebugDraw->setDebugMode(DebugDraw::DBG_DrawWireframe);
 
-	systems.add<CameraSystem>(mRenderWindow.get());
 	systems.add<MovementSystem>(mRenderWindow.get());
-	systems.configure();
 
 	mEntityFactory->createFromLevelFile("../../assets/scenes/TrainVis.scene");
 
-	auto &cameraEntities = entities.entities_with_components<CameraComponent>();
+	mCamera.SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.01f, 100000.0f);
 
-	for (auto &cameraEnt : cameraEntities)
-	{
-		auto &cameraComp = cameraEnt.component<CameraComponent>();
-		systems.add<RenderSystem>()->setCamera(&cameraComp->Camera);
-		mDebugDraw->setCamera(&cameraComp->Camera);
-		break;
-	}
+	systems.add<RenderSystem>()->setCamera(&mCamera);
+	mDebugDraw->setCamera(&mCamera);
+	systems.configure();
 
 	mPhysicWorld->setDebugDraw(mDebugDraw.get());
 
@@ -84,6 +79,25 @@ void Application::Update(double deltaTime)
 	//===============================================
 	// Place code here which will update per frame
 	//===============================================
+	//-----------------------------------
+	// Camera
+
+	if (mRenderWindow->IsKeyPressed(Key::W))
+		mCamera.ProcessKeyboard(FORWARD, (float)deltaTime);
+
+	if (mRenderWindow->IsKeyPressed(Key::S))
+		mCamera.ProcessKeyboard(BACKWARD, (float)deltaTime);
+
+	if (mRenderWindow->IsKeyPressed(Key::A))
+		mCamera.ProcessKeyboard(LEFT_CAM, (float)deltaTime);
+
+	if (mRenderWindow->IsKeyPressed(Key::D))
+		mCamera.ProcessKeyboard(RIGHT_CAM, (float)deltaTime);
+
+	glm::vec2 newMousePos = mRenderWindow->GetMousePosition();
+	glm::vec2 mouseDelta(newMousePos.x - mOldMousePos.x, newMousePos.y - mOldMousePos.y);
+	mCamera.ProcessMouseMovement(mouseDelta.x, -mouseDelta.y);
+	mOldMousePos = newMousePos;
 
 	//-----------------------------------
 	// Step physics simulation
@@ -99,7 +113,6 @@ void Application::Update(double deltaTime)
 
 	//-----------------------------------
 	// Update systems
-	systems.update<CameraSystem>(deltaTime);
 	systems.update<RenderSystem>(deltaTime);
 	systems.update<MovementSystem>(deltaTime);
 
