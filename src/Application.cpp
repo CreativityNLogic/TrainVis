@@ -57,7 +57,6 @@ bool Application::Initialise()
 		break;
 	}
 
-
 	mPhysicWorld->setDebugDraw(mDebugDraw.get());
 
 	mUseDebug = false;
