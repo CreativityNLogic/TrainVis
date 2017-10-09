@@ -40,6 +40,9 @@
     <ClCompile Include="..\..\src\Core\EntityFactory.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Cubemap.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\MotionState.h">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Cubemap.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
