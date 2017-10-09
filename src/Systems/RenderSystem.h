@@ -15,6 +15,8 @@ class RenderSystem : public entityx::System<RenderSystem>, public entityx::Recei
 public:
 	RenderSystem() : mCamera(nullptr) {
 		mCubeModel.LoadFromFile("../../assets/model/Cube.fbx");
+		Shader mCubemapShader("skyboxVert.vs", "skyboxFrag.fs");
+		mCubemapShader.use();
 
 	}
 	~RenderSystem() {}
@@ -78,7 +80,7 @@ private:
 	Camera *mCamera;
 	Model mCubeModel;
 	Cubemap mCubemap;
-	CubemapShader mCubemapShader;
+	Shader mCubemapShader;
 };
 
 #endif // RENDERSYSTEM_H

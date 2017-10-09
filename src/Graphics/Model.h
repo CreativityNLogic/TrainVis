@@ -26,7 +26,7 @@ public:
 	void LoadFromFile(const std::string &filename);
 
 	void Draw();
-	void Draw(CubemapShader & cubemapShader);
+	void Draw(Shader &cubemapShader);
 	void Draw(std::vector<Material> &materials);
 
 	void AddMesh(Mesh mesh);
