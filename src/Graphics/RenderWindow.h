@@ -23,8 +23,10 @@ public:
 
 	// Intialise
 	bool Initialise(const std::string &windowName, const int &width, const int &height, bool fullscreen = true);
+	//Set the Clear Colour
+	void ClearColor(float r, float g, float b, float a);
     // Clear window
-	void Clear(float r, float g, float b, float a);
+	void Clear();
 	// Poll input events
     void PollEvents();
 	// Display window

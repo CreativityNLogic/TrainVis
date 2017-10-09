@@ -35,6 +35,10 @@ bool Application::Initialise()
 	// Place declaration variables or initialise objects that need error checking eg if(!obj.init())
 	//===============================================
 
+	//mRenderWindow->ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	// Set clear colour to be the same as fog
+	mRenderWindow->ClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
 	mPhysicWorld.reset(new RigidWorld());
 	mEntityFactory.reset(new EntityFactory(entities, mRenderWindow.get(), mPhysicWorld.get()));
 	mDebugDraw.reset(new DebugDraw());
@@ -75,7 +79,8 @@ void Application::Update(double deltaTime)
 	if (mRenderWindow->IsKeyPressed(Key::ESCAPE))
 		Quit();
 
-	mRenderWindow->Clear(0.2f, 0.3f, 0.3f, 1.0f);
+	//mRenderWindow->Clear(0.2f, 0.3f, 0.3f, 1.0f);
+	mRenderWindow->Clear();
 	
 	//===============================================
 	// Place code here which will update per frame

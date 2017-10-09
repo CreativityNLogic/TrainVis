@@ -40,6 +40,9 @@
     <ClCompile Include="..\..\src\Core\EntityFactory.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Effects\Fog.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h">
@@ -126,6 +129,9 @@
     <ClInclude Include="..\..\src\Physics\MotionState.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Effects\Fog.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -163,6 +169,12 @@
     </Filter>
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{6902e1fa-ff15-4c25-8cdf-858b8cd37a08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Effects">
+      <UniqueIdentifier>{74263d70-7ff5-4c44-b367-ddbcec5bb50a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Effects">
+      <UniqueIdentifier>{aea509d1-19f8-4e3c-87f3-63d09d026417}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

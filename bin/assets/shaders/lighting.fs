@@ -1,6 +1,7 @@
-#version 330 core
+ #version 330 core
 
 in vec3 FragPosition;
+in vec3 DistanceVector;
 in vec2 UV;
 in mat3 TBN;
 
@@ -18,6 +19,7 @@ uniform sampler2D NormalTexture;
 uniform sampler2D EmissiveTexture;
 
 uniform int Shininess;
+
 
 struct Lights 
 {
@@ -43,6 +45,14 @@ struct Lights
 
 #define MAXLIGHTS 1  
 uniform Lights lights[MAXLIGHTS];
+
+
+// Fog
+uniform bool UseFog;
+//uniform int FogType;
+//uniform int FogStart;
+//uniform int FogEnd;
+
 
 void main()
 {
@@ -88,8 +98,46 @@ void main()
 			specular *= attenuation;
 		}	
 		
+
 		result = result + emissive + ambient + diffuse + specular;
+
+        
 	}
+
+    // Apply Fog
+    bool UseFog = true;
+    if (UseFog){
+        
+        // Configure Fog
+        int FogType = 0;
+        float fogStart = 1.0f;
+        float fogEnd = 10.0f;
+        vec3 fogColor = vec3(1.0f, 1.0f, 1.0f);
+        float fogDensity = 0.2f;
+
+        float Distance = sqrt(dot(DistanceVector, DistanceVector));
+        float fogFactor = 0.0f;
+
+        if (FogType == 0) {
+            
+            // Linear Fog
+            fogFactor = (fogEnd - Distance) / (fogEnd - fogStart);
+
+        }else if (FogType == 1){
+            
+            // Exponential
+            fogFactor = exp( (fogDensity * -1) * (Distance) );
+
+        }else if (FogType == 2){
+
+            // Exponential Squared
+            float fogExp = fogDensity * Distance;
+            fogFactor = exp( fogExp * fogExp * -1 );
+        }
+
+        result = fogFactor * result + (1.0f - fogFactor) * fogColor;
+        
+    }
 	
 	FragColor = vec4(result, 1.0);
 }

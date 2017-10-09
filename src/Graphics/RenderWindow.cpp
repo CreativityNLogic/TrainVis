@@ -76,9 +76,13 @@ bool RenderWindow::Initialise(const std::string &windowName, const int &width, c
     return true;
 }
 
-void RenderWindow::Clear(float r, float g, float b, float a)
+void RenderWindow::ClearColor(float r, float g, float b, float a)
 {
-    glClearColor(r, g, b, a);
+	glClearColor(r, g, b, a);
+}
+
+void RenderWindow::Clear()
+{
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
