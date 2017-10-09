@@ -7,13 +7,18 @@
 #include "../Components/CameraComponent.h"
 #include "../Components/LightComponent.h"
 #include "../Graphics/Camera.h"
+#include "../Graphics/Cubemap.h"
+#include "../Graphics/CubemapShader.h"
 
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
 {
 public:
-	RenderSystem() : mCamera(nullptr) {}
-	~RenderSystem() {}
+	RenderSystem() : mCamera(nullptr) {
+		mCubeModel.LoadFromFile("../../assets/model/Cube.fbx");
 
+	}
+	~RenderSystem() {}
+	
 	void configure(entityx::EventManager &event_manager) 
 	{
 		event_manager.subscribe<entityx::ComponentAddedEvent<CameraComponent>>(*this);
@@ -29,6 +34,11 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
+		mCubemapShader.use();
+		mCubemap.Bind(0);
+		mCubeModel.Draw();
+
+
 		unsigned int lightCount = 0;
 		const unsigned MAXLIGHTS = 3;
 		
@@ -63,8 +73,12 @@ public:
 		});
 	};
 
+	
 private:
 	Camera *mCamera;
+	Model mCubeModel;
+	Cubemap mCubemap;
+	CubemapShader mCubemapShader;
 };
 
 #endif // RENDERSYSTEM_H

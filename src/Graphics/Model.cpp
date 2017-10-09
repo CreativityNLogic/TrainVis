@@ -66,6 +66,14 @@ void Model::Draw()
 		
 }
 
+//drawing and binding cubemap
+void Model::Draw(Shader &shader)
+{
+	shader.use();
+	for (unsigned int i = 0; i < mMeshes.size(); i++)
+		mMeshes[i].Draw();
+}
+
 void Model::Draw(std::vector<Material> &materials)
 {
 	for (unsigned int i = 0; i < mMeshes.size(); i++)
