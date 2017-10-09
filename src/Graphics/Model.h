@@ -38,6 +38,7 @@ public:
 	void SetProjection(glm::mat4 projection);
 	void SetViewPosition(glm::vec3 position);
 	void SetLights(std::vector<entityx::Entity> lights);
+	void SetLights(std::vector<entityx::Entity> lights, std::vector<Material> &materials);
 
 private:
 	/*  Functions   */

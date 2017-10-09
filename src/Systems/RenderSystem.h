@@ -5,6 +5,7 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/GraphicsComponent.h"
 #include "../Components/CameraComponent.h"
+#include "../Components/MaterialComponent.h"
 #include "../Components/LightComponent.h"
 #include "../Graphics/Camera.h"
 
@@ -45,9 +46,9 @@ public:
 			lightCount++;
 		}
 
-		es.each<TransformComponent, GraphicsComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic)
+		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
 		{
-			graphic.Model.SetLights(lightEntities);
+			graphic.Model.SetLights(lightEntities, matComp.Materials);
 			graphic.Model.SetPosition(transform.Position);
 			graphic.Model.SetRotation(transform.Rotation);
 			graphic.Model.SetScale(transform.Scale);
@@ -59,7 +60,7 @@ public:
 				graphic.Model.SetViewPosition(mCamera->GetPosition());
 			}
 
-			graphic.Model.Draw();
+			graphic.Model.Draw(matComp.Materials);
 		});
 	};
 

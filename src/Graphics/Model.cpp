@@ -78,11 +78,22 @@ void Model::Draw(std::vector<Material> &materials)
 
 			glm::mat4 modelMatrix = trans * rot * scale;
 
-			materials[i % materials.size()].setTransform(modelMatrix);
-			materials[i % materials.size()].setView(mView);
-			materials[i % materials.size()].setProjection(mProjection);
-			materials[i % materials.size()].setViewPosition(mViewPosition);
-			materials[i % materials.size()].Bind();
+			if (i < materials.size())
+			{
+				materials[i].setTransform(modelMatrix);
+				materials[i].setView(mView);
+				materials[i].setProjection(mProjection);
+				materials[i].setViewPosition(mViewPosition);
+				materials[i].Bind();
+			}
+			else
+			{
+				materials[0].setTransform(modelMatrix);
+				materials[0].setView(mView);
+				materials[0].setProjection(mProjection);
+				materials[0].setViewPosition(mViewPosition);
+				materials[0].Bind();
+			}
 		}
 
 		mMeshes[i].Draw();
@@ -129,7 +140,32 @@ void Model::SetLights(std::vector<entityx::Entity> lights)
 			auto &transform = lights[j].component<TransformComponent>();
 			auto &light = lights[j].component<LightComponent>();
 
-			mMaterials[i].setLight(j, transform->Position, glm::eulerAngles(transform->Rotation), *light.get());
+			glm::vec3 euler = glm::eulerAngles(transform->Rotation);
+			euler.x = glm::degrees(euler.x);
+			euler.y = glm::degrees(euler.y);
+			euler.z = glm::degrees(euler.z);
+
+			glm::vec3 dir(std::sin(euler.y), -std::sin(euler.x) * std::cos(euler.y), -std::sin(euler.x) * std::cos(euler.y));
+
+			std::cout << euler.x << ", " << euler.y << ", " << euler.z << std::endl;
+
+			mMaterials[i].setLight(j, transform->Position, dir, *light.get());
+		}
+	}
+}
+
+void Model::SetLights(std::vector<entityx::Entity> lights, std::vector<Material> &materials)
+{
+	for (unsigned int i = 0; i < materials.size(); i++)
+	{
+		for (unsigned int j = 0; j < lights.size(); j++)
+		{
+			auto &transform = lights[j].component<TransformComponent>();
+			auto &light = lights[j].component<LightComponent>();
+
+			glm::vec3 euler = glm::eulerAngles(transform->Rotation);
+			glm::vec3 dir(std::sin(euler.y), std::sin(euler.x) * std::cos(euler.y), std::sin(euler.x) * std::cos(euler.y));
+			materials[i].setLight(j, transform->Position, dir, *light.get());
 		}
 	}
 }
@@ -231,6 +267,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 			indices.push_back(face.mIndices[j]);
 	}
 
+/*
 	// process material
 	if (mesh->mMaterialIndex >= 0)
 	{
@@ -262,14 +299,14 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		mat.setSpecularColour(glm::vec4(specular.r, specular.g, specular.b, 1.0));
 		mat.setAmbientColour(glm::vec4(ambient.r, ambient.g, ambient.b, 1.0));
 
-		mat.setDiffuseTexture(diffuseTex.C_Str());
-		mat.setSpecularTexture(specTex.C_Str());
-		mat.setNormalTexture(normalTex.C_Str());
+		mat.loadDiffuseTexture(diffuseTex.C_Str());
+		mat.loadSpecularTexture(specTex.C_Str());
+		mat.loadNormalTexture(normalTex.C_Str());
 
 		mat.setShininess(shininess);
 
 		mMaterials.push_back(mat);
-	}
+	}*/
 
 	return Mesh(vertices, indices);
 }

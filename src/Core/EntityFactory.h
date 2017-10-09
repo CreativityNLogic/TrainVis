@@ -17,6 +17,7 @@ struct GraphicsComponent;
 struct RigidBodyComponent;
 struct LightComponent;
 struct CameraComponent;
+struct MaterialComponent;
 
 class EntityFactory : public entityx::EntityX
 {
@@ -37,7 +38,7 @@ private:
 	void loadRigidBodyComponent(nlohmann::json body, entityx::Entity &entity, RigidBodyComponent& rigidBody);
 	void loadLightComponent(nlohmann::json component, LightComponent& lightComp);
 	void loadCameraComponent(nlohmann::json component, entityx::Entity &entity, CameraComponent& camComp);
-
+	void loadMaterialComponent(nlohmann::json component, MaterialComponent& matComp);
 private:
 	entityx::EntityManager &mEntityManager;
 	RigidWorld *mPhysicsWorld;

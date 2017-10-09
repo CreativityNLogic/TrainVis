@@ -56,7 +56,7 @@ void main()
 		vec3 fragPos = TBN * FragPosition;
 		vec3 viewPos = TBN * ViewPosition;
 		
-		vec3 lightDirection = normalize(lights[i].direction);
+		vec3 lightDirection = normalize(-TBN * lights[i].direction);
 		
 		if(lights[i].type != 0)
 			lightDirection = normalize(lightPosition - fragPos);
@@ -65,7 +65,9 @@ void main()
 		vec3 halfDir = normalize(lightDirection + viewDir);
 		
 		vec3 ambient = texture(DiffuseTexture, UV).rgb * lights[i].diffuse * lights[i].ambientStrength;
+		
 		vec3 diffuse = texture(DiffuseTexture, UV).rgb * lights[i].specular * max(dot(normal, lightDirection), 0.0);
+		
 		vec3 specular = texture(SpecularTexture, UV).rgb * lights[i].ambient * pow(max(dot(normal, halfDir), 0.0), 256);
 		vec3 emissive = texture(EmissiveTexture, UV).rgb;
 		

@@ -21,32 +21,58 @@
 
 #include "../Components/LightComponent.h"
 
-using namespace std;
-
-class Material 
+class Material
 {
 public:
-	Material(string shaderVS, string shaderFS);
+	Material();
+	Material(const Material &mat);
+	Material(const std::string shaderVS, const std::string shaderFS);
+
+	void loadShader(const std::string shaderVS, const std::string shaderFS);
 	void Bind();
 
-	void setDiffuseTexture(const std::string &filename);
-	void setSpecularTexture(const std::string &filename);
-	void setNormalTexture(const std::string &filename);
-	void setEmissiveTexture(const std::string &filename);
+	void loadDiffuseTexture(const std::string &filename);
+	void loadSpecularTexture(const std::string &filename);
+	void loadNormalTexture(const std::string &filename);
+	void loadEmissiveTexture(const std::string &filename);
+
+	void setDiffuseTexture(Texture diffuse);
+	void setSpecularTexture(Texture specular);
+	void setNormalTexture(Texture normal);
+	void setEmissiveTexture(Texture emissive);
 
 	void setDiffuseColour(glm::vec4 colour);
 	void setSpecularColour(glm::vec4 colour);
 	void setAmbientColour(glm::vec4 colour);
+	void setEmissiveColour(glm::vec4 colour);
 
 	void setShininess(float shininess);
 
-	// Thinking of putting the shader and the projection/view/model outside of materials. Probably need
-	// to create a render target class
 	void setTransform(glm::mat4 transform);
 	void setView(glm::mat4 view);
 	void setProjection(glm::mat4 proj);
 	void setViewPosition(glm::vec3 pos);
 	void setLight(unsigned int index, glm::vec3 position, glm::vec3 direction, LightComponent light);
+
+	Texture getDiffuseTexture() const;
+	Texture getSpecularTexture() const;
+	Texture getNormalTexture() const;
+	Texture getEmissiveTexture() const;
+
+	glm::vec4 getDiffuseColour() const;
+	glm::vec4 getSpecularColour() const;
+	glm::vec4 getAmbientColour() const;
+	glm::vec4 getEmissiveColour() const;
+
+	float getShininess() const;
+
+	glm::mat4 getTransform() const;
+	glm::mat4 getView() const;
+	glm::mat4 getProjection() const;
+	glm::vec3 getViewPosition() const;
+
+	void setShader(Shader shader);
+	Shader getShader() const;
 
 private:
 	Shader mShader;
@@ -59,6 +85,7 @@ private:
 	glm::vec4 mDiffuseColour;
 	glm::vec4 mSpecularColour;
 	glm::vec4 mAmbientColour;
+	glm::vec4 mEmissiveColour;
 
 	float mShininess;
 

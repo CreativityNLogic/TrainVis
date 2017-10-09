@@ -10,12 +10,14 @@
 #include "../Components/RigidBodyComponent.h"
 #include "../Components/LightComponent.h"
 #include "../Components/CameraComponent.h"
+#include "../Components/MaterialComponent.h"
 
 #include "../Physics/RigidWorld.h"
 #include "../Physics/RigidBody.h"
 #include "../Physics/MotionState.h"
 
 #include "../Graphics/RenderWindow.h"
+#include "../Graphics/Material.h"
 
 EntityFactory::EntityFactory(entityx::EntityManager &entityManager, RenderWindow *renderWindow, RigidWorld *physicsWorld) :
 	mEntityManager(entityManager),
@@ -104,6 +106,9 @@ void EntityFactory::loadComponents(entityx::Entity &entity, nlohmann::json entit
 
 	if (!entityFile["CameraComponent"].is_null() && !entity.has_component<CameraComponent>())
 		loadCameraComponent(entityFile["CameraComponent"], entity, *entity.assign<CameraComponent>());
+
+	if (!entityFile["MaterialComponent"].is_null() && !entity.has_component<MaterialComponent>())
+		loadMaterialComponent(entityFile["MaterialComponent"], *entity.assign<MaterialComponent>());
 }
 
 // Tag Component
@@ -131,7 +136,10 @@ void EntityFactory::loadTransformComponent(nlohmann::json trans, TransformCompon
 	{
 		nlohmann::json rotation = trans["Rotation"];
 		if (rotation[0].is_number() && rotation[1].is_number() && rotation[2].is_number())
-			comp.Rotation = glm::quat(glm::vec3(rotation[0], rotation[1], rotation[2]));
+		{
+			glm::vec3 euler(rotation[0], rotation[1], rotation[2]);
+			comp.Rotation = glm::quat(glm::vec3(glm::radians(euler.x), glm::radians(euler.y), glm::radians(euler.z)));
+		}
 	}
 
 	if (!trans["Scale"].is_null())
@@ -321,4 +329,45 @@ void EntityFactory::loadCameraComponent(nlohmann::json component, entityx::Entit
 	camComp.Camera.SetCameraSpeed(speed);
 	camComp.Camera.SetMouseSensitivity(sensitvity);
 	camComp.Camera.SetProjection(fov, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, nearClip, farClip);
+}
+
+void EntityFactory::loadMaterialComponent(nlohmann::json component, MaterialComponent& matComp)
+{
+	for (nlohmann::json::iterator it = component.begin(); it != component.end(); ++it)
+	{
+		nlohmann::json materialData = component[it.key()];
+		Material material;
+
+		if (materialData["Shader"].is_array())
+			material.loadShader(materialData["Shader"][0], materialData["Shader"][1]);
+
+		if (materialData["Diffuse"].is_string())
+			material.loadDiffuseTexture(materialData["Diffuse"]);
+
+		if (materialData["Specular"].is_string())
+			material.loadSpecularTexture(materialData["Specular"]);
+
+		if (materialData["Normal"].is_string())
+			material.loadNormalTexture(materialData["Normal"]);
+
+		if (materialData["Emissive"].is_string())
+			material.loadEmissiveTexture(materialData["Emissive"]);
+
+		if (materialData["DiffuseColour"].is_array())
+			material.setDiffuseColour(glm::vec4(materialData["DiffuseColour"][0], materialData["DiffuseColour"][1], materialData["DiffuseColour"][2], materialData["DiffuseColour"][3]));
+
+		if (materialData["SpecularColour"].is_array())
+			material.setSpecularColour(glm::vec4(materialData["SpecularColour"][0], materialData["SpecularColour"][1], materialData["SpecularColour"][2], materialData["SpecularColour"][3]));
+
+		if (materialData["AmbientColour"].is_array())
+			material.setAmbientColour(glm::vec4(materialData["AmbientColour"][0], materialData["AmbientColour"][1], materialData["AmbientColour"][2], materialData["AmbientColour"][3]));
+
+		if (materialData["EmissiveColour"].is_array())
+			material.setEmissiveColour(glm::vec4(materialData["EmissiveColour"][0], materialData["EmissiveColour"][1], materialData["EmissiveColour"][2], materialData["EmissiveColour"][3]));
+
+		if (materialData["Shininess"].is_number_float())
+			material.setShininess(materialData["Shininess"]);
+
+		matComp.Materials.push_back(material);
+	}
 }

@@ -1,7 +1,7 @@
 {
 	"LightComponent" :
 	{
-		"Type" : "Point",
+		"Type" : "Directional",
 		"Diffuse" : [1.0, 1.0, 1.0],
 		"Specular" : [1.0, 1.0, 1.0],
 		"Ambient" : [1.0, 1.0, 1.0],

@@ -17,5 +17,21 @@
 		},
 		"Inertia" : [0.0, 0.0, 0.0],
 		"Mass" : 0.0
+	},
+	"MaterialComponent" :
+	{
+		"Ground" :
+		{
+			"Shader" : ["../../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs"],
+			"Diffuse" : "../../assets/textures/grass/grass_d.png",
+			"Specular" : "../../assets/textures/grass/grass_s.png",
+			"Normal" : "../../assets/textures/grass/grass_n.png",
+			"Emissive" : "",
+			"DiffuseColour" : [1.0, 1.0, 1.0, 1.0],
+			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
+			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],
+			"EmissiveColour" : [1.0, 1.0, 1.0, 1.0],
+			"Shininess" : 256
+		}
 	}
 }
