@@ -77,6 +77,12 @@ public:
 			graphic.Model.Draw();
 		});
 
+		if (mCamera != nullptr)
+		{
+			mSkybox.SetView(mCamera->GetViewMatrix());
+			mSkybox.SetProjection(mCamera->GetProjectionMatrix());
+		}
+
 		mSkybox.Draw();
 	};	
 
