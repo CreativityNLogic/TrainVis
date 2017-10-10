@@ -53,6 +53,7 @@ public:
 	void setProjection(glm::mat4 proj);
 	void setViewPosition(glm::vec3 pos);
 	void setLight(unsigned int index, glm::vec3 position, glm::vec3 direction, LightComponent light);
+	void useLightCalculation(bool useLight);
 
 	Texture getDiffuseTexture() const;
 	Texture getSpecularTexture() const;
@@ -74,6 +75,9 @@ public:
 	void setShader(Shader shader);
 	Shader getShader() const;
 
+	void setTransparency(bool transparent);
+	bool getTransparency() const;
+
 private:
 	Shader mShader;
 
@@ -94,4 +98,6 @@ private:
 	glm::mat4 mProjection;
 
 	glm::vec3 mViewPosition;
+
+	bool mIsTransparent;
 };

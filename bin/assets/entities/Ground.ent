@@ -31,7 +31,8 @@
 			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
 			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],
 			"EmissiveColour" : [1.0, 1.0, 1.0, 1.0],
-			"Shininess" : 256
+			"Shininess" : 256,
+			"Transparent" : false
 		}
 	}
 }

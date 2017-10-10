@@ -6,6 +6,7 @@
 struct MaterialComponent
 {
 	std::vector<Material> Materials;
+	bool Transparent;
 };
 
 #endif // MATERIALCOMPONENT_H

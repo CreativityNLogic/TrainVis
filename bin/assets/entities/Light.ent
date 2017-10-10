@@ -2,9 +2,9 @@
 	"LightComponent" :
 	{
 		"Type" : "Directional",
-		"Diffuse" : [1.0, 1.0, 1.0],
-		"Specular" : [1.0, 1.0, 1.0],
-		"Ambient" : [1.0, 1.0, 1.0],
+		"Diffuse" : [1.0, 1.0, 1.0, 1.0],
+		"Specular" : [1.0, 1.0, 1.0, 1.0],
+		"Ambient" : [1.0, 1.0, 1.0, 1.0],
 		"AmbientStrength" : 0.1,
 		"SpecularStrength" : 0.1,
 		"Constant" : 1.0,

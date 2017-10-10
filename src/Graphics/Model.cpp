@@ -46,7 +46,7 @@ void Model::Draw()
 {
 	for (unsigned int i = 0; i < mMeshes.size(); i++)
 	{
-		if (i < mMaterials.size())
+		if (mMaterials.size() != 0)
 		{
 			glm::mat4 trans = glm::translate(glm::mat4(1.0f), mPosition);
 			glm::mat4 rot = glm::mat4_cast(mRotation);
@@ -54,13 +54,23 @@ void Model::Draw()
 
 			glm::mat4 modelMatrix = trans * rot * scale;
 
-			mMaterials[i].setTransform(modelMatrix);
-			mMaterials[i].setView(mView);
-			mMaterials[i].setProjection(mProjection);
-			mMaterials[i].setViewPosition(mViewPosition);
-			mMaterials[i].Bind();
+			if (i < mMaterials.size())
+			{
+				mMaterials[i].setTransform(modelMatrix);
+				mMaterials[i].setView(mView);
+				mMaterials[i].setProjection(mProjection);
+				mMaterials[i].setViewPosition(mViewPosition);
+				mMaterials[i].Bind();
+			}
+			else
+			{
+				mMaterials[0].setTransform(modelMatrix);
+				mMaterials[0].setView(mView);
+				mMaterials[0].setProjection(mProjection);
+				mMaterials[0].setViewPosition(mViewPosition);
+				mMaterials[0].Bind();
+			}
 		}
-
 		mMeshes[i].Draw();
 	}
 		
@@ -146,9 +156,6 @@ void Model::SetLights(std::vector<entityx::Entity> lights)
 			euler.z = glm::degrees(euler.z);
 
 			glm::vec3 dir(std::sin(euler.y), -std::sin(euler.x) * std::cos(euler.y), -std::sin(euler.x) * std::cos(euler.y));
-
-			std::cout << euler.x << ", " << euler.y << ", " << euler.z << std::endl;
-
 			mMaterials[i].setLight(j, transform->Position, dir, *light.get());
 		}
 	}
@@ -168,6 +175,12 @@ void Model::SetLights(std::vector<entityx::Entity> lights, std::vector<Material>
 			materials[i].setLight(j, transform->Position, dir, *light.get());
 		}
 	}
+}
+
+void Model::UseLightCalculation(std::vector<Material> &materials, bool useLight)
+{
+	for (unsigned int i = 0; i < materials.size(); i++)
+		materials[i].useLightCalculation(useLight);
 }
 
 void Model::loadModel(const std::string &filename)
@@ -266,47 +279,6 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		for (unsigned int j = 0; j < face.mNumIndices; j++)
 			indices.push_back(face.mIndices[j]);
 	}
-
-/*
-	// process material
-	if (mesh->mMaterialIndex >= 0)
-	{
-		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-		
-		aiColor3D diffuse;
-		material->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
-
-		aiColor3D specular;
-		material->Get(AI_MATKEY_COLOR_SPECULAR, specular);
-
-		aiColor3D ambient;
-		material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
-
-		float shininess = 0;
-		material->Get(AI_MATKEY_SHININESS, shininess);
-
-		aiString diffuseTex;
-		material->GetTexture(aiTextureType_DIFFUSE, 0, &diffuseTex);
-
-		aiString specTex;
-		material->GetTexture(aiTextureType_SPECULAR, 0, &specTex);
-
-		aiString normalTex;
-		material->GetTexture(aiTextureType_NORMALS, 0, &normalTex);
-
-		Material mat("../../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs");
-		mat.setDiffuseColour(glm::vec4(diffuse.r, diffuse.g, diffuse.b, 1.0));
-		mat.setSpecularColour(glm::vec4(specular.r, specular.g, specular.b, 1.0));
-		mat.setAmbientColour(glm::vec4(ambient.r, ambient.g, ambient.b, 1.0));
-
-		mat.loadDiffuseTexture(diffuseTex.C_Str());
-		mat.loadSpecularTexture(specTex.C_Str());
-		mat.loadNormalTexture(normalTex.C_Str());
-
-		mat.setShininess(shininess);
-
-		mMaterials.push_back(mat);
-	}*/
 
 	return Mesh(vertices, indices);
 }

@@ -1,6 +1,6 @@
 #include "Material.h"
 
-Material::Material()
+Material::Material() : mIsTransparent(false)
 {
 
 }
@@ -27,7 +27,8 @@ Material::Material(const Material &mat)
 }
 
 Material::Material(const std::string shaderVS, const std::string shaderFS) :
-	mShader(shaderVS.c_str(), shaderFS.c_str())
+	mShader(shaderVS.c_str(), shaderFS.c_str()),
+	mIsTransparent(false)
 {
 }
 
@@ -182,6 +183,11 @@ void Material::setLight(unsigned int index, glm::vec3 position, glm::vec3 direct
 	mShader.setFloat("lights[" + std::to_string(index) + "].outerCutoff", light.OuterCutoff);
 }
 
+void Material::useLightCalculation(bool useLight)
+{
+	mShader.setBool("UseLight", useLight);
+}
+
 Texture Material::getDiffuseTexture() const
 {
 	return mDiffuseTexture;
@@ -255,4 +261,14 @@ void Material::setShader(Shader shader)
 Shader Material::getShader() const
 {
 	return mShader;
+}
+
+void Material::setTransparency(bool transparent)
+{
+	mIsTransparent = transparent;
+}
+
+bool Material::getTransparency() const
+{
+	return mIsTransparent;
 }

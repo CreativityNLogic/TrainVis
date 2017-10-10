@@ -2,6 +2,8 @@
 #define RENDERSYSTEM_H
 
 #include <entityx/System.h>
+#include <algorithm>
+#include <map>
 #include "../Components/TransformComponent.h"
 #include "../Components/GraphicsComponent.h"
 #include "../Components/CameraComponent.h"
@@ -58,6 +60,8 @@ public:
 				graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
 				graphic.Model.SetView(mCamera->GetViewMatrix());
 				graphic.Model.SetViewPosition(mCamera->GetPosition());
+
+				glm::mat4 proj = mCamera->GetProjectionMatrix();
 			}
 
 			graphic.Model.Draw(matComp.Materials);

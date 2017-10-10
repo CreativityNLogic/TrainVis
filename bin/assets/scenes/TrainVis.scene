@@ -15,32 +15,32 @@
 				"Rotation" : [-45.0, 0.0, 0.0]
 			}
 		},
-		"Box0" : 
+		"Ground" : 
 		{ 
-			"Data" : "../../assets/entities/Box.ent", 
-			"Transform" : 
-			{ 
-				"Position" : [0.75, 50.0, 0.0], 
-				"Scale" : [1.0, 1.0, 1.0], 
-				"Rotation" : [0.0, 0.0, 0.0]
-			}
-		},
-		"Box1" : 
-		{ 
-			"Data" : "../../assets/entities/Box.ent", 
-			"Transform" : 
-			{ 
-				"Position" : [0.0, 1.0, 0.0], 
-				"Scale" : [1.0, 1.0, 1.0], 
-				"Rotation" : [0.0, 0.0, 0.0]
-			}
-		},
-		"Ground" :
-		{
 			"Data" : "../../assets/entities/Ground.ent", 
 			"Transform" : 
 			{ 
 				"Position" : [0.0, 0.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Window" : 
+		{ 
+			"Data" : "../../assets/entities/Window.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [2.0, 1.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"Window0" : 
+		{ 
+			"Data" : "../../assets/entities/Window.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [2.0, 1.0, 2.0], 
 				"Scale" : [1.0, 1.0, 1.0], 
 				"Rotation" : [0.0, 0.0, 0.0]
 			}

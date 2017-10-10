@@ -368,6 +368,9 @@ void EntityFactory::loadMaterialComponent(nlohmann::json component, MaterialComp
 		if (materialData["Shininess"].is_number_float())
 			material.setShininess(materialData["Shininess"]);
 
+		if (materialData["Transparent"].is_boolean())
+			matComp.Transparent = materialData["Transparent"];
+
 		matComp.Materials.push_back(material);
 	}
 }
