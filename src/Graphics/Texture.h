@@ -1,6 +1,6 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
-
+#pragma once
 #include <string>
 
 class Texture 

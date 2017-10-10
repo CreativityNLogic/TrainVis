@@ -3,7 +3,6 @@
 #include "Glad/glad.h"
 #include <GLFW/glfw3.h>
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
 #include <vector>
@@ -69,21 +68,14 @@ unsigned int Cubemap::LoadFromFile(std::vector<std::string> textures_faces, bool
 			stbi_image_free(data);
 		}
 	}
+	
 	return mCubemapID;
+
 }
 
-void loadSkyboxFaces() {
-	// load textures
-	std::vector<std::string> faces
-	{
-		("bin/assets/textures/skybox/right.jpg"),
-		("bin/assets/textures/skybox/left.jpg"),
-		("bin/assets/textures/skybox/top.jpg"),
-		("bin/assets/textures/skybox/bottom.jpg"),
-		("bin/assets/textures/skybox/back.jpg"),
-		("bin/assets/textures/skybox/front.jpg")
-	};
-}
+
+	//unsigned int cubemapTexture = loadCubemap(faces);
+
 int Cubemap::GetCubemapID() const
 {
 	return mCubemapID;
