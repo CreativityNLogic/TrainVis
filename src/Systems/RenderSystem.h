@@ -12,24 +12,21 @@
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
 {
 public:
-	RenderSystem() : mCamera(nullptr) {
-		mCubeModel.LoadFromFile("../../assets/model/Cube.fbx");
-		Shader mCubemapShader("skyboxVert.vs", "skyboxFrag.fs");
-	
-
+	RenderSystem() : 
+		mCamera(nullptr)
+	{
 		// load textures
-		std::vector<std::string> faces
-		{
-			("bin/assets/textures/skybox/right.jpg"),
-			("bin/assets/textures/skybox/left.jpg"),
-			("bin/assets/textures/skybox/top.jpg"),
-			("bin/assets/textures/skybox/bottom.jpg"),
-			("bin/assets/textures/skybox/back.jpg"),
-			("bin/assets/textures/skybox/front.jpg")
-		};
+		std::vector<std::string> faces;
+		faces.push_back("../../assets/textures/skybox/right.jpg");
+		faces.push_back("../../assets/textures/skybox/left.jpg");
+		faces.push_back("../../assets/textures/skybox/up.jpg");
+		faces.push_back("../../assets/textures/skybox/down.jpg");
+		faces.push_back("../../assets/textures/skybox/back.jpg");
+		faces.push_back("../../assets/textures/skybox/front.jpg");
 
 		mSkybox.LoadFromFile(faces, false);
 	}
+
 	~RenderSystem() {}
 	
 	void configure(entityx::EventManager &event_manager) 
@@ -76,31 +73,16 @@ public:
 				graphic.Model.SetView(mCamera->GetViewMatrix());
 				graphic.Model.SetViewPosition(mCamera->GetPosition());
 			}
+
 			graphic.Model.Draw();
 		});
-	
-		// draw skybox as last
-		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
-		mCubemapShader.use();
-		mSkybox.Bind(0);
-		mCubemapShader.setInt("skybox", 0);
 
-		if (mCamera != nullptr) {
-			glm::mat4 view = glm::mat4(glm::mat3(mCamera->GetViewMatrix())); // remove translation from the view matrix
-			mCubemapShader.setMat4("view", view);
-			glm::mat4 projection = glm::mat4(mCamera->GetProjectionMatrix());
-			mCubemapShader.setMat4("projection", projection);
-		}
-		glDepthFunc(GL_LESS);
+		mSkybox.Draw();
 	};	
 
 private:
 	Camera *mCamera;
-	Model mCubeModel;
 	Cubemap mSkybox;
-	Shader mCubemapShader;
-
-
 };
 
 #endif // RENDERSYSTEM_H
