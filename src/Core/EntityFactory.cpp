@@ -27,7 +27,7 @@ EntityFactory::EntityFactory(entityx::EntityManager &entityManager, RenderWindow
 	mRenderWindow(renderWindow),
 	mPhysicsWorld(physicsWorld)
 {
-	mTexture.LoadFromFile("../../assets/textures/smoke2.png", false);
+	mTexture.LoadFromFile("../../assets/textures/particles/smoke2.png", false);
 }
 
 EntityFactory::~EntityFactory()

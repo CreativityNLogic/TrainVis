@@ -5,7 +5,7 @@
 	},
 	"SpriteComponent" : 
 	{
-		"Filename" : "../../assets/textures/smoke2.png",
+		"Filename" : "../../assets/textures/particles/smoke2.png",
 		"IsBillboard" : true,
 		"Opacity" : 1.0
 	},

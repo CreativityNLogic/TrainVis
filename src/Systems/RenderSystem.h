@@ -12,16 +12,28 @@
 #include "../Components/SpriteComponent.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Sprite.h"
+#include "../Graphics/Cubemap.h"
 
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
 {
 public:
 	RenderSystem() : mCamera(nullptr) 
 	{
+		// load textures
+		std::vector<std::string> faces
+		{
+			("../../assets/textures/skybox/right.jpg"),
+			("../../assets/textures/skybox/left.jpg"),
+			("../../assets/textures/skybox/up.jpg"),
+			("../../assets/textures/skybox/down.jpg"),
+			("../../assets/textures/skybox/back.jpg"),
+			("../../assets/textures/skybox/front.jpg")
+		};
+
+		mSkybox.LoadFromFile(faces, false);
 	}
-
 	~RenderSystem() {}
-
+	
 	void configure(entityx::EventManager &event_manager) 
 	{
 		event_manager.subscribe<entityx::ComponentAddedEvent<CameraComponent>>(*this);
@@ -37,6 +49,9 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
+		if (mCamera == nullptr)
+			return;
+
 		unsigned int lightCount = 0;
 		const unsigned MAXLIGHTS = 3;
 
@@ -60,12 +75,9 @@ public:
 			graphic.Model.SetRotation(transform.Rotation);
 			graphic.Model.SetScale(transform.Scale);
 			
-			if (mCamera != nullptr)
-			{
-				graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
-				graphic.Model.SetView(mCamera->GetViewMatrix());
-				graphic.Model.SetViewPosition(mCamera->GetPosition());
-			}
+			graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
+			graphic.Model.SetView(mCamera->GetViewMatrix());
+			graphic.Model.SetViewPosition(mCamera->GetPosition());
 
 			graphic.Model.Draw(matComp.Materials);
 		});
@@ -78,52 +90,52 @@ public:
 			graphic.Model.SetRotation(transform.Rotation);
 			graphic.Model.SetScale(transform.Scale);
 
-			if (mCamera != nullptr)
-			{
-				graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
-				graphic.Model.SetView(mCamera->GetViewMatrix());
-				graphic.Model.SetViewPosition(mCamera->GetPosition());
-			}
+			graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
+			graphic.Model.SetView(mCamera->GetViewMatrix());
+			graphic.Model.SetViewPosition(mCamera->GetPosition());
 
 			graphic.Model.Draw(matComp.Materials);
 		});
 
-		if (mCamera != nullptr)
+		// Render transparent sprites
+		auto &sprites = es.entities_with_components<TransformComponent, SpriteComponent>();
+		std::vector<entityx::Entity> spriteList(sprites.begin(), sprites.end());
+		std::sort(spriteList.begin(), spriteList.end(), [=](entityx::Entity a, entityx::Entity b)
 		{
-			auto &sprites = es.entities_with_components<TransformComponent, SpriteComponent>();
-			std::vector<entityx::Entity> spriteList(sprites.begin(), sprites.end());
-			std::sort(spriteList.begin(), spriteList.end(), [=](entityx::Entity a, entityx::Entity b)
-			{
-				glm::vec3 camPos = mCamera->GetPosition();
-				auto &transA = a.component<TransformComponent>();
-				auto &transB = b.component<TransformComponent>();
+			glm::vec3 camPos = mCamera->GetPosition();
+			auto &transA = a.component<TransformComponent>();
+			auto &transB = b.component<TransformComponent>();
 
-				glm::vec3 aVector = transA->Position - camPos;
-				glm::vec3 bVector = transB->Position - camPos;
+			glm::vec3 aVector = transA->Position - camPos;
+			glm::vec3 bVector = transB->Position - camPos;
 
-				return glm::length(aVector) < glm::length(bVector);
-			});
+			return glm::length(aVector) < glm::length(bVector);
+		});
 
-			std::vector<entityx::Entity>::reverse_iterator iter = spriteList.rbegin();
-			for (; iter != spriteList.rend(); iter++)
-			{
-				auto &sprite = iter->component<SpriteComponent>();
-				auto &transform = iter->component<TransformComponent>();
+		mSkybox.SetProjection(mCamera->GetProjectionMatrix());
+		mSkybox.SetView(mCamera->GetViewMatrix());
+		mSkybox.Draw();
 
-				sprite->Sprite.SetPosition(transform->Position);
-				sprite->Sprite.SetRotation(transform->Rotation);
-				sprite->Sprite.SetScale(transform->Scale);
+		std::vector<entityx::Entity>::reverse_iterator iter = spriteList.rbegin();
+		for (; iter != spriteList.rend(); iter++)
+		{
+			auto &sprite = iter->component<SpriteComponent>();
+			auto &transform = iter->component<TransformComponent>();
 
-				sprite->Sprite.SetProjection(mCamera->GetProjectionMatrix());
-				sprite->Sprite.SetView(mCamera->GetViewMatrix());
+			sprite->Sprite.SetPosition(transform->Position);
+			sprite->Sprite.SetRotation(transform->Rotation);
+			sprite->Sprite.SetScale(transform->Scale);
 
-				sprite->Sprite.Draw();
-			}
+			sprite->Sprite.SetProjection(mCamera->GetProjectionMatrix());
+			sprite->Sprite.SetView(mCamera->GetViewMatrix());
+
+			sprite->Sprite.Draw();
 		}
-	}
-
+	};	
+	
 private:
 	Camera *mCamera;
+	Cubemap mSkybox;
 };
 
 #endif // RENDERSYSTEM_H

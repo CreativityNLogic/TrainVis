@@ -4,35 +4,32 @@
     <ClCompile Include="..\..\src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Graphics\Glad\glad.c">
-      <Filter>Source Files\Graphics\Glad</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Physics\RigidWorld.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Graphics\Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Graphics\Material.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Graphics\Mesh.cpp">
+    <ClCompile Include="..\..\src\Graphics\Cubemap.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Graphics\Model.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Graphics\Shader.cpp">
+    <ClCompile Include="..\..\src\Graphics\Mesh.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Material.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Graphics\Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp">
+    <ClCompile Include="..\..\src\Graphics\Shader.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphics\Glad\glad.c">
+      <Filter>Source Files\Graphics\Glad</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp">
       <Filter>Source Files\Core</Filter>
@@ -40,27 +37,24 @@
     <ClCompile Include="..\..\src\Core\EntityFactory.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidBody.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Physics\RigidWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Glad\glad.h">
-      <Filter>Header Files\Graphics\Glad</Filter>
+    <ClInclude Include="..\..\src\Core\BaseApplication.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
-      <Filter>Header Files\Graphics\Glad</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Texture.h">
+    <ClInclude Include="..\..\src\Graphics\Camera.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\VertexData.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Shader.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Model.h">
+    <ClInclude Include="..\..\src\Graphics\Cubemap.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Graphics\Mesh.h">
@@ -69,14 +63,20 @@
     <ClInclude Include="..\..\src\Graphics\Material.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Camera.h">
+    <ClInclude Include="..\..\src\Graphics\Model.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Core\BaseApplication.h">
-      <Filter>Header Files\Core</Filter>
+    <ClInclude Include="..\..\src\Graphics\Shader.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Core\Input.h">
-      <Filter>Header Files\Core</Filter>
+    <ClInclude Include="..\..\src\Graphics\Sprite.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Texture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Physics\DebugDraw.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Physics\RigidBody.h">
       <Filter>Header Files\Physics</Filter>
@@ -84,34 +84,16 @@
     <ClInclude Include="..\..\src\Physics\RigidWorld.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Components\RigidBodyComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Components\TransformComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Systems\RenderSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Components\GraphicsComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\EntityFactory.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Components\TagComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Systems\MovementSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\ResourceManager.h">
-      <Filter>Header Files\Core</Filter>
+    <ClInclude Include="..\..\src\Physics\MotionState.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Components\CameraComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\EmitterComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\GraphicsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Components\MaterialComponent.h">
@@ -120,67 +102,91 @@
     <ClInclude Include="..\..\src\Components\LightComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Physics\DebugDraw.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Physics\MotionState.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Components\ParticleComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Components\EmitterComponent.h">
+    <ClInclude Include="..\..\src\Components\RigidBodyComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Graphics\Sprite.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Components\SpriteComponent.h">
+    <ClInclude Include="..\..\src\Components\TransformComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Systems\ParticleEmittersystem.h">
+    <ClInclude Include="..\..\src\Systems\RenderSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Systems\ParticleSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Systems\ParticleEmittersystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Systems\MovementSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\VertexData.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\TagComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Components\SpriteComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\RenderWindow.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\EntityFactory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Input.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ResourceManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h">
+      <Filter>Header Files\Graphics\Glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Glad\glad.h">
+      <Filter>Header Files\Graphics\Glad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{95e8568e-eb88-4a66-9d63-de6778e0e42a}</UniqueIdentifier>
+      <UniqueIdentifier>{e84c622d-eef9-406b-9164-a6104d97d741}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{abd0911c-dd4d-4d97-a79a-f8a910e6b53c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{5b03bc45-974f-4234-bfb9-29829f333f40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics\Glad">
-      <UniqueIdentifier>{bafc25c2-c20d-4714-a4aa-6ffcf6dd7283}</UniqueIdentifier>
+      <UniqueIdentifier>{315ce291-a3d6-4b24-8387-8d6911fa921a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Core">
-      <UniqueIdentifier>{736eab0f-7d10-43d5-84b7-80d33f1dc4f5}</UniqueIdentifier>
+      <UniqueIdentifier>{784016f0-e19e-4dd4-a400-2d61a5dc17a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{64025ff7-2257-4926-8881-84e7a1a17324}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Physics">
-      <UniqueIdentifier>{ccee8cf9-ecce-4d54-89ec-65e4e8d4c80c}</UniqueIdentifier>
+      <UniqueIdentifier>{ed63f2c0-2a54-4ddd-ae4c-967d2b7f4bcc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{dbf850a1-b315-4475-be92-b0847af6d082}</UniqueIdentifier>
+      <UniqueIdentifier>{8f82f6ec-7116-4a0b-86f5-e9939033d385}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Systems">
-      <UniqueIdentifier>{c470bf2b-d11c-47bc-817a-91d6821feacb}</UniqueIdentifier>
+      <UniqueIdentifier>{4dd80a3d-35ac-4f52-b0b6-14cba176d9f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{8bc2ae7e-4e72-4c2b-b8b4-ac454a354c5a}</UniqueIdentifier>
+      <UniqueIdentifier>{c4d2c29a-6518-48bf-a6f7-b58e0615101f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Graphics\Glad">
-      <UniqueIdentifier>{36ac25c3-4acd-4525-bbd1-8475d7615bc8}</UniqueIdentifier>
+      <UniqueIdentifier>{542bc28a-d8e6-4ca9-b4fc-673f5ca997fa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{c73226de-f084-4b6f-9200-16b435d39bff}</UniqueIdentifier>
+      <UniqueIdentifier>{236bf34c-c92d-4d95-8868-c4078ceb0778}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Physics">
-      <UniqueIdentifier>{6902e1fa-ff15-4c25-8cdf-858b8cd37a08}</UniqueIdentifier>
+      <UniqueIdentifier>{b7f4f60a-b365-4478-ba3c-c8950aedc6cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Glad">
+      <UniqueIdentifier>{68b63f5f-6281-411b-9bb0-88dc37d27bdc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

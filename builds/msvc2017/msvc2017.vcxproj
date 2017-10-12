@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
     <ClCompile Include="..\..\src\Core\EntityFactory.cpp" />
     <ClCompile Include="..\..\src\Graphics\Camera.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Cubemap.cpp" />
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
     <ClCompile Include="..\..\src\Graphics\Material.cpp" />
     <ClCompile Include="..\..\src\Graphics\Mesh.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
     <ClInclude Include="..\..\src\Core\ResourceManager.h" />
     <ClInclude Include="..\..\src\Graphics\Sprite.h" />
+    <ClInclude Include="..\..\src\Graphics\Cubemap.h" />
     <ClInclude Include="..\..\src\Physics\DebugDraw.h" />
     <ClInclude Include="..\..\src\Physics\MotionState.h" />
     <ClInclude Include="..\..\src\Systems\MovementSystem.h" />
