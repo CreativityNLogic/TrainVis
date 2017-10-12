@@ -89,7 +89,28 @@ public:
 			mSkybox.SetProjection(mCamera->GetProjectionMatrix());
 		}
 
+		es.each<TransformComponent, GraphicsComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic)
+		{
+			graphic.Model.SetLights(lightEntities);
+			graphic.Model.SetPosition(transform.Position);
+			graphic.Model.SetRotation(transform.Rotation);
+			graphic.Model.SetScale(transform.Scale);
 
+			if (mCamera != nullptr)
+			{
+				graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
+				graphic.Model.SetView(mCamera->GetViewMatrix());
+				graphic.Model.SetViewPosition(mCamera->GetPosition());
+			}
+
+			graphic.Model.Draw();
+		});
+
+		if (mCamera != nullptr)
+		{
+			mSkybox.SetView(mCamera->GetViewMatrix());
+			mSkybox.SetProjection(mCamera->GetProjectionMatrix());
+		}
 
 		mSkybox.Draw();
 
@@ -100,6 +121,12 @@ public:
 		mReflectionShader.setMat4("MVP", mCube.GetModel() * mCube.GetView() * mCube.GetProjection());
 		mReflectionShader.setVec3("cameraPosition", mCamera->GetPosition());
 		
+		if (mCamera != nullptr)
+		{
+			mCube.SetView(mCamera->GetViewMatrix());
+			mCube.SetProjection(mCamera->GetProjectionMatrix());
+		}
+
 		mReflectionShader.setInt("skybox", 0); 
 		mSkybox.Bind(0);
 		mCube.Draw();
