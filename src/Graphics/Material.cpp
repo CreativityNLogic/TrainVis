@@ -1,6 +1,8 @@
 #include "Material.h"
 
-Material::Material() : mIsTransparent(false)
+Material::Material() : 
+	mIsTransparent(false),
+	mOpacity(1.0f)
 {
 
 }
@@ -24,11 +26,15 @@ Material::Material(const Material &mat)
 	setView(mat.getView());
 	setProjection(mat.getProjection());
 	setViewPosition(mat.getViewPosition());
+
+	setOpacity(mat.getOpacity());
+	setIsTransparent(mat.IsTransparent());
 }
 
 Material::Material(const std::string shaderVS, const std::string shaderFS) :
 	mShader(shaderVS.c_str(), shaderFS.c_str()),
-	mIsTransparent(false)
+	mIsTransparent(false),
+	mOpacity(1.0f)
 {
 }
 
@@ -39,7 +45,7 @@ void Material::loadShader(const std::string shaderVS, const std::string shaderFS
 
 void Material::Bind()
 {
-	mShader.use();
+	mShader.Bind();
 
 	mDiffuseTexture.Bind(0);
 	mShader.setInt("DiffuseTexture", 0);
@@ -68,6 +74,14 @@ void Material::Bind()
 	mShader.setMat4("MVP", mvp);
 
 	mShader.setVec3("ViewPosition", mViewPosition);
+	mShader.setBool("IsTransparent", mIsTransparent);
+
+	mShader.setFloat("Opacity", mOpacity);
+}
+
+void Material::UnBind()
+{
+	mShader.UnBind();
 }
 
 void Material::loadDiffuseTexture(const std::string &filename)
@@ -183,11 +197,6 @@ void Material::setLight(unsigned int index, glm::vec3 position, glm::vec3 direct
 	mShader.setFloat("lights[" + std::to_string(index) + "].outerCutoff", light.OuterCutoff);
 }
 
-void Material::useLightCalculation(bool useLight)
-{
-	mShader.setBool("UseLight", useLight);
-}
-
 Texture Material::getDiffuseTexture() const
 {
 	return mDiffuseTexture;
@@ -263,12 +272,22 @@ Shader Material::getShader() const
 	return mShader;
 }
 
-void Material::setTransparency(bool transparent)
+void Material::setOpacity(float opacity)
+{
+	mOpacity = opacity;
+}
+
+bool Material::getOpacity() const
+{
+	return mOpacity;
+}
+
+void Material::setIsTransparent(bool transparent)
 {
 	mIsTransparent = transparent;
 }
 
-bool Material::getTransparency() const
+bool Material::IsTransparent() const
 {
 	return mIsTransparent;
 }

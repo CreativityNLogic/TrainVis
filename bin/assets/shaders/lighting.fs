@@ -19,7 +19,9 @@ uniform sampler2D EmissiveTexture;
 
 uniform int Shininess;
 
-uniform bool UseLight;
+uniform float Opacity;
+
+uniform bool IsTransparent;
 
 struct Lights 
 {
@@ -50,7 +52,7 @@ void main()
 {
 	vec4 result;
 	
-	if(UseLight)
+	if(!IsTransparent)
 	{
 		vec3 normal = texture(NormalTexture, UV).rgb;
 		normal = normalize(normal * 2.0 - 1.0);
@@ -98,7 +100,8 @@ void main()
 	}
 	else
 	{
-		result = texture(DiffuseTexture, UV);
+		vec4 diffuse = texture(DiffuseTexture, UV);
+		result = vec4(diffuse.rgb, diffuse.a * Opacity);
 	}
 	
 	FragColor = result;

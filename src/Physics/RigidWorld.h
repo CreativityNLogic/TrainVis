@@ -16,6 +16,8 @@ public:
 	RigidWorld(const glm::vec3 &gravity);
 
 	void addRigidBody(RigidBody* container);
+	void addRigidBody(RigidBody* container, int group, int mask);
+
 	void removeAllBodies();
 	void removeRigidBody(RigidBody* toBeRemoved);
 	void stepSimulation(double framerate, int maxSubSteps = 1, double fixedTimestep = 1.0 / 60.0);

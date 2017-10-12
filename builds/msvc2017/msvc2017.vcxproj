@@ -142,19 +142,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Components\CameraComponent.h" />
+    <ClInclude Include="..\..\src\Components\EmitterComponent.h" />
     <ClInclude Include="..\..\src\Components\GraphicsComponent.h" />
     <ClInclude Include="..\..\src\Components\LightComponent.h" />
     <ClInclude Include="..\..\src\Components\MaterialComponent.h" />
+    <ClInclude Include="..\..\src\Components\ParticleComponent.h" />
     <ClInclude Include="..\..\src\Components\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\src\Components\SpriteComponent.h" />
     <ClInclude Include="..\..\src\Components\TagComponent.h" />
     <ClInclude Include="..\..\src\Components\TransformComponent.h" />
     <ClCompile Include="..\..\src\Graphics\Shader.cpp" />
     <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
     <ClInclude Include="..\..\src\Core\ResourceManager.h" />
+    <ClInclude Include="..\..\src\Graphics\DualDepthPeeling.h" />
+    <ClInclude Include="..\..\src\Graphics\Sprite.h" />
     <ClInclude Include="..\..\src\Physics\DebugDraw.h" />
     <ClInclude Include="..\..\src\Physics\MotionState.h" />
     <ClInclude Include="..\..\src\Systems\MovementSystem.h" />
+    <ClInclude Include="..\..\src\Systems\ParticleEmittersystem.h" />
+    <ClInclude Include="..\..\src\Systems\ParticleSystem.h" />
     <ClInclude Include="..\..\src\Systems\RenderSystem.h" />
   </ItemGroup>
   <ItemGroup>

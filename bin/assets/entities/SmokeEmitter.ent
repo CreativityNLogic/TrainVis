@@ -1,0 +1,12 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "SmokeEmitter"
+	},
+	"EmitterComponent" :
+	{
+		"ParticleData" : "../../assets/entities/SmokeParticle.ent",
+		"Velocity" : [0.0, 1.0, 0.0],
+		"SpawnRate" : 0.1
+	}
+}

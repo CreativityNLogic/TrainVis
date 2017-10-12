@@ -33,10 +33,6 @@ public:
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
 	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
 
-	// Processes input received from a mouse scroll-wheel event. 
-	//Only requires input on the vertical wheel-axis
-	void ProcessMouseScroll(float yoffset);
-
 	// Processes input received from any keyboard-like input system. 
 	//Accepts input parameter in the form of camera defined ENUM 
 	//(to abstract it from windowing systems)

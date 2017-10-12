@@ -45,35 +45,7 @@ void Model::ClearMeshes()
 void Model::Draw()
 {
 	for (unsigned int i = 0; i < mMeshes.size(); i++)
-	{
-		if (mMaterials.size() != 0)
-		{
-			glm::mat4 trans = glm::translate(glm::mat4(1.0f), mPosition);
-			glm::mat4 rot = glm::mat4_cast(mRotation);
-			glm::mat4 scale = glm::scale(glm::mat4(1.0f), mScale);
-
-			glm::mat4 modelMatrix = trans * rot * scale;
-
-			if (i < mMaterials.size())
-			{
-				mMaterials[i].setTransform(modelMatrix);
-				mMaterials[i].setView(mView);
-				mMaterials[i].setProjection(mProjection);
-				mMaterials[i].setViewPosition(mViewPosition);
-				mMaterials[i].Bind();
-			}
-			else
-			{
-				mMaterials[0].setTransform(modelMatrix);
-				mMaterials[0].setView(mView);
-				mMaterials[0].setProjection(mProjection);
-				mMaterials[0].setViewPosition(mViewPosition);
-				mMaterials[0].Bind();
-			}
-		}
 		mMeshes[i].Draw();
-	}
-		
 }
 
 void Model::Draw(std::vector<Material> &materials)
@@ -82,15 +54,9 @@ void Model::Draw(std::vector<Material> &materials)
 	{
 		if (materials.size() != 0)
 		{
-			glm::mat4 trans = glm::translate(glm::mat4(1.0f), mPosition);
-			glm::mat4 rot = glm::mat4_cast(mRotation);
-			glm::mat4 scale = glm::scale(glm::mat4(1.0f), mScale);
-
-			glm::mat4 modelMatrix = trans * rot * scale;
-
 			if (i < materials.size())
 			{
-				materials[i].setTransform(modelMatrix);
+				materials[i].setTransform(GetModel());
 				materials[i].setView(mView);
 				materials[i].setProjection(mProjection);
 				materials[i].setViewPosition(mViewPosition);
@@ -98,7 +64,7 @@ void Model::Draw(std::vector<Material> &materials)
 			}
 			else
 			{
-				materials[0].setTransform(modelMatrix);
+				materials[0].setTransform(GetModel());
 				materials[0].setView(mView);
 				materials[0].setProjection(mProjection);
 				materials[0].setViewPosition(mViewPosition);
@@ -108,7 +74,6 @@ void Model::Draw(std::vector<Material> &materials)
 
 		mMeshes[i].Draw();
 	}
-
 }
 
 void Model::SetPosition(glm::vec3 position)
@@ -134,6 +99,25 @@ void Model::SetView(glm::mat4 view)
 void Model::SetProjection(glm::mat4 projection)
 {
 	mProjection = projection;
+}
+
+glm::mat4 Model::GetModel() const
+{
+	glm::mat4 trans = glm::translate(glm::mat4(1.0f), mPosition);
+	glm::mat4 rot = glm::mat4_cast(mRotation);
+	glm::mat4 scale = glm::scale(glm::mat4(1.0f), mScale);
+
+	return (trans * rot * scale);
+}
+
+glm::mat4 Model::GetView() const
+{
+	return mView;
+}
+
+glm::mat4 Model::GetProjection() const
+{
+	return mProjection;
 }
 
 void Model::SetViewPosition(glm::vec3 position)
@@ -175,12 +159,6 @@ void Model::SetLights(std::vector<entityx::Entity> lights, std::vector<Material>
 			materials[i].setLight(j, transform->Position, dir, *light.get());
 		}
 	}
-}
-
-void Model::UseLightCalculation(std::vector<Material> &materials, bool useLight)
-{
-	for (unsigned int i = 0; i < materials.size(); i++)
-		materials[i].useLightCalculation(useLight);
 }
 
 void Model::loadModel(const std::string &filename)

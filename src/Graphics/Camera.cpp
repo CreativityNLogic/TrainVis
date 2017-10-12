@@ -6,11 +6,10 @@
 #include <iostream>
 
 Camera::Camera() :
-	mYaw(0.0f),
+	mYaw(-90.0f),
 	mPitch(0.0f),
 	mMovementSpeed(10.0f),
 	mMouseSensitivity(0.1f),
-	mZoom(45.0f),
 	mWorldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
 	mFront(glm::vec3(0.0f, 0.0f, -1.0f))
 {
@@ -19,11 +18,10 @@ Camera::Camera() :
 
 Camera::Camera(glm::vec3 position, float speed, float sensitivity) : 
 	mPosition(position),
-	mYaw(0.0f),
+	mYaw(-90.0f),
 	mPitch(0.0f),
 	mMovementSpeed(speed),
 	mMouseSensitivity(sensitivity),
-	mZoom(45.0f),
 	mWorldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
 	mFront(glm::vec3(0.0f, 0.0f, -1.0f))
 {
@@ -38,11 +36,6 @@ void Camera::SetCameraSpeed(float speed)
 void Camera::SetMouseSensitivity(float sensitivity)
 {
 	mMouseSensitivity = sensitivity;
-}
-
-void Camera::SetZoom(float zoom)
-{
-	mZoom = zoom;
 }
 
 void Camera::SetYaw(float yaw)
@@ -101,16 +94,6 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
 
 	// Update Front, Right and Up Vectors using the updated Eular angles
 	updateCameraVectors();
-}
-
-void Camera::ProcessMouseScroll(float yoffset)
-{
-	if (mZoom >= 1.0f && mZoom <= 45.0f)
-		mZoom -= yoffset;
-	if (mZoom <= 1.0f)
-		mZoom = 1.0f;
-	if (mZoom >= 45.0f)
-		mZoom = 45.0f;
 }
 
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)

@@ -18,6 +18,26 @@ struct RigidBodyComponent;
 struct LightComponent;
 struct CameraComponent;
 struct MaterialComponent;
+struct SpriteComponent;
+struct ParticleComponent;
+struct EmitterComponent;
+
+#include "../Graphics/Texture.h"
+
+enum CollisionMasks
+{
+	NOCOLLISION = 0,
+	STATIC,
+	DYNAMIC,
+	PLAYER
+};
+
+const int STATIC_DYNAMIC = DYNAMIC;
+const int STATIC_DYNAMIC_PLAYER = DYNAMIC | PLAYER;
+const int DYNAMIC_STATIC = STATIC;
+const int DYNAMIC_STATIC_PLAYER = STATIC | PLAYER;
+const int STATIC_STATIC = STATIC;
+const int DYNAMIC_DYNAMIC = DYNAMIC;
 
 class EntityFactory : public entityx::EntityX
 {
@@ -39,10 +59,18 @@ private:
 	void loadLightComponent(nlohmann::json component, LightComponent& lightComp);
 	void loadCameraComponent(nlohmann::json component, entityx::Entity &entity, CameraComponent& camComp);
 	void loadMaterialComponent(nlohmann::json component, MaterialComponent& matComp);
+	void loadSpriteComponent(nlohmann::json component, SpriteComponent& spriteComp);
+	void loadParticleComponent(nlohmann::json component, ParticleComponent& particleComp);
+	void loadEmitterComponent(nlohmann::json component, EmitterComponent& emitterComp);
+
+	int getCollisionMask(const std::string &mask);
+	int getCollisionGroup(const std::string &group);
+
 private:
 	entityx::EntityManager &mEntityManager;
 	RigidWorld *mPhysicsWorld;
 	RenderWindow *mRenderWindow;
+	Texture mTexture;
 };
 
 #endif // ENTITYFACTORY_H

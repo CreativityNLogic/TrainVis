@@ -71,10 +71,7 @@ bool RenderWindow::Initialise(const std::string &windowName, const int &width, c
 	// Enable certain opengl params
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glEnable(GL_CULL_FACE);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_CULL_FACE);
 
     return true;
 }

@@ -11,6 +11,9 @@
 #include "../Components/LightComponent.h"
 #include "../Components/CameraComponent.h"
 #include "../Components/MaterialComponent.h"
+#include "../Components/SpriteComponent.h"
+#include "../Components/ParticleComponent.h"
+#include "../Components/EmitterComponent.h"
 
 #include "../Physics/RigidWorld.h"
 #include "../Physics/RigidBody.h"
@@ -24,12 +27,11 @@ EntityFactory::EntityFactory(entityx::EntityManager &entityManager, RenderWindow
 	mRenderWindow(renderWindow),
 	mPhysicsWorld(physicsWorld)
 {
-
+	mTexture.LoadFromFile("../../assets/textures/smoke2.png", false);
 }
 
 EntityFactory::~EntityFactory()
 {
-
 }
 
 void EntityFactory::createFromLevelFile(const std::string &filename)
@@ -109,6 +111,15 @@ void EntityFactory::loadComponents(entityx::Entity &entity, nlohmann::json entit
 
 	if (!entityFile["MaterialComponent"].is_null() && !entity.has_component<MaterialComponent>())
 		loadMaterialComponent(entityFile["MaterialComponent"], *entity.assign<MaterialComponent>());
+
+	if (!entityFile["SpriteComponent"].is_null() && !entity.has_component<SpriteComponent>())
+		loadSpriteComponent(entityFile["SpriteComponent"], *entity.assign<SpriteComponent>());
+
+	if (!entityFile["ParticleComponent"].is_null() && !entity.has_component<ParticleComponent>())
+		loadParticleComponent(entityFile["ParticleComponent"], *entity.assign<ParticleComponent>());
+
+	if (!entityFile["EmitterComponent"].is_null() && !entity.has_component<EmitterComponent>())
+		loadEmitterComponent(entityFile["EmitterComponent"], *entity.assign<EmitterComponent>());
 }
 
 // Tag Component
@@ -227,7 +238,21 @@ void EntityFactory::loadRigidBodyComponent(nlohmann::json body, entityx::Entity 
 	btMotionState* motionState = new MotionState(transComp.get());
 
 	RigidBody *newBody = new RigidBody(mass, motionState, shape, glm::vec3(localInertia.x(), localInertia.y(), localInertia.z()), origin);
-	mPhysicsWorld->addRigidBody(newBody);
+	
+	int group = -1;
+	int mask = -1;
+
+	if (body["Group"].is_string())
+		group = getCollisionGroup(body["Group"]);
+
+	if (body["Mask"].is_string())
+		mask = getCollisionMask(body["Mask"]);
+
+	if(group < 0 || mask < 0)
+		mPhysicsWorld->addRigidBody(newBody);
+	else
+		mPhysicsWorld->addRigidBody(newBody, group, mask);
+
 	rigidBody.Body = newBody;
 }
 
@@ -369,8 +394,76 @@ void EntityFactory::loadMaterialComponent(nlohmann::json component, MaterialComp
 			material.setShininess(materialData["Shininess"]);
 
 		if (materialData["Transparent"].is_boolean())
-			matComp.Transparent = materialData["Transparent"];
+			material.setIsTransparent(materialData["Transparent"]);
 
 		matComp.Materials.push_back(material);
 	}
+}
+
+void EntityFactory::loadSpriteComponent(nlohmann::json component, SpriteComponent& spriteComp)
+{
+	spriteComp.Sprite.LoadFromTexture(mTexture);
+
+	//if (component["Filename"].is_string())
+		//spriteComp.Sprite.LoadFromFile(component["Filename"]);
+
+	if (component["IsBillboard"].is_boolean())
+		spriteComp.Sprite.SetBillboard(component["IsBillboard"]);
+
+	if (component["Opacity"].is_number_float())
+		spriteComp.Sprite.SetOpacity(component["Opacity"]);
+}
+
+void EntityFactory::loadParticleComponent(nlohmann::json component, ParticleComponent& particleComp)
+{
+	if (component["EndTime"].is_number_float())
+		particleComp.EndTime = component["EndTime"];
+	if (component["FadeIn"].is_number_float())
+		particleComp.FadeIn = component["FadeIn"];
+	if (component["FadeOut"].is_number_float())
+		particleComp.FadeOut = component["FadeOut"];
+}
+
+void EntityFactory::loadEmitterComponent(nlohmann::json component, EmitterComponent& emitterComp)
+{
+	if (component["ParticleData"].is_string())
+		emitterComp.ParticleData = component["ParticleData"];
+	if (component["Velocity"].is_array())
+		emitterComp.Velocity = glm::vec3(component["Velocity"][0], component["Velocity"][1], component["Velocity"][2]);
+	if (component["SpawnRate"].is_number_float())
+		emitterComp.SpawnRate = component["SpawnRate"];
+}
+
+int EntityFactory::getCollisionMask(const std::string &mask)
+{
+	if (mask == "NOCOLLISION")
+		return NOCOLLISION;
+	else if (mask == "STATIC_DYNAMIC")
+		return STATIC_DYNAMIC;
+	else if (mask == "STATIC_DYNAMIC_PLAYER")
+		return STATIC_DYNAMIC_PLAYER;
+	else if (mask == "DYNAMIC_STATIC")
+		return DYNAMIC_STATIC;
+	else if (mask == "DYNAMIC_STATIC_PLAYER")
+		return DYNAMIC_STATIC_PLAYER;
+	else if (mask == "STATIC_STATIC")
+		return STATIC_STATIC;
+	else if (mask == "DYNAMIC_DYNAMIC")
+		return DYNAMIC_DYNAMIC;
+	else
+		return NOCOLLISION;
+}
+
+int EntityFactory::getCollisionGroup(const std::string &group)
+{
+	if (group == "NOCOLLISION")
+		return NOCOLLISION;
+	else if (group == "STATIC")
+		return STATIC;
+	else if (group == "DYNAMIC")
+		return DYNAMIC;
+	else if (group == "PLAYER")
+		return PLAYER;
+	else
+		return NOCOLLISION;
 }

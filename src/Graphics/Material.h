@@ -29,7 +29,9 @@ public:
 	Material(const std::string shaderVS, const std::string shaderFS);
 
 	void loadShader(const std::string shaderVS, const std::string shaderFS);
+
 	void Bind();
+	void UnBind();
 
 	void loadDiffuseTexture(const std::string &filename);
 	void loadSpecularTexture(const std::string &filename);
@@ -53,7 +55,6 @@ public:
 	void setProjection(glm::mat4 proj);
 	void setViewPosition(glm::vec3 pos);
 	void setLight(unsigned int index, glm::vec3 position, glm::vec3 direction, LightComponent light);
-	void useLightCalculation(bool useLight);
 
 	Texture getDiffuseTexture() const;
 	Texture getSpecularTexture() const;
@@ -75,8 +76,11 @@ public:
 	void setShader(Shader shader);
 	Shader getShader() const;
 
-	void setTransparency(bool transparent);
-	bool getTransparency() const;
+	void setOpacity(float opacity);
+	bool getOpacity() const;
+
+	void setIsTransparent(bool transparent);
+	bool IsTransparent() const;
 
 private:
 	Shader mShader;
@@ -100,4 +104,5 @@ private:
 	glm::vec3 mViewPosition;
 
 	bool mIsTransparent;
+	float mOpacity;
 };

@@ -14,9 +14,13 @@ public:
 	// constructor generates the shader on the fly
 	// ------------------------------------------------------------------------
 	Shader();
-	Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+	Shader(const std::string &vertexPath, const std::string &fragmentPath, const std::string &geometryPath = "");
 
-	void use();
+	void Initialise(const std::string &vertexPath, const std::string &fragmentPath, const std::string &geometryPath = "");
+	void Terminate();
+
+	void Bind();
+	void UnBind();
 
 	// utility uniform functions
 	// ------------------------------------------------------------------------
@@ -48,10 +52,10 @@ public:
 	// ------------------------------------------------------------------------
 	void setMat4(const std::string &name, const glm::mat4 &mat) const;
 
-	private:
-		// utility function for checking shader compilation/linking errors.
-		// ------------------------------------------------------------------------
-		void checkCompileErrors(GLuint shader, std::string type);
+private:
+	// utility function for checking shader compilation/linking errors.
+	// ------------------------------------------------------------------------
+	void checkCompileErrors(GLuint shader, std::string type);
 
 };
 

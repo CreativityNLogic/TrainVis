@@ -40,6 +40,11 @@ void RigidWorld::addRigidBody(RigidBody* container)
 	mPhysicsWorld->addRigidBody(container->getRigidBody());
 }
 
+void RigidWorld::addRigidBody(RigidBody* container, int group, int mask)
+{
+	mPhysicsWorld->addRigidBody(container->getRigidBody(), group, mask);
+}
+
 void RigidWorld::removeAllBodies()
 {
 	for (int i = mPhysicsWorld->getNumCollisionObjects() - 1; i >= 0;i--)

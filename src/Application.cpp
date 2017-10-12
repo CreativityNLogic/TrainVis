@@ -6,6 +6,8 @@
 
 #include "Systems/RenderSystem.h"
 #include "Systems/MovementSystem.h"
+#include "Systems/ParticleSystem.h"
+#include "Systems/ParticleEmitterSystem.h"
 
 #include "Components/TransformComponent.h"
 #include "Components/RigidBodyComponent.h"
@@ -51,6 +53,10 @@ bool Application::Initialise()
 
 	systems.add<RenderSystem>()->setCamera(&mCamera);
 	mDebugDraw->setCamera(&mCamera);
+
+	systems.add<ParticleSystem>();
+	systems.add<ParticleEmitterSystem>(mEntityFactory.get());
+
 	systems.configure();
 
 	mPhysicWorld->setDebugDraw(mDebugDraw.get());
@@ -116,6 +122,8 @@ void Application::Update(double deltaTime)
 	// Update systems
 	systems.update<RenderSystem>(deltaTime);
 	systems.update<MovementSystem>(deltaTime);
+	systems.update<ParticleSystem>(deltaTime);
+	systems.update<ParticleEmitterSystem>(deltaTime);
 
 	//===============================================
 

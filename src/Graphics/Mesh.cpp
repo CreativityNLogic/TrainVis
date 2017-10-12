@@ -23,8 +23,6 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) :
 
 Mesh::~Mesh() 
 {
-
-
 }
 
 void Mesh::Draw()
@@ -58,7 +56,6 @@ void Mesh::Draw()
 		glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colour));
 
 		glDrawElements(GL_LINES, mIndices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
 
 		mVertices.clear();
 		mIndices.clear();
@@ -68,7 +65,6 @@ void Mesh::Draw()
 		// draw mesh
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
 	}
 }
 

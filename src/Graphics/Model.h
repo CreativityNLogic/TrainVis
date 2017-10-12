@@ -39,7 +39,10 @@ public:
 	void SetViewPosition(glm::vec3 position);
 	void SetLights(std::vector<entityx::Entity> lights);
 	void SetLights(std::vector<entityx::Entity> lights, std::vector<Material> &materials);
-	void UseLightCalculation(std::vector<Material> &materials, bool useLight);
+
+	glm::mat4 GetModel() const;
+	glm::mat4 GetView() const;
+	glm::mat4 GetProjection() const;
 
 private:
 	/*  Functions   */

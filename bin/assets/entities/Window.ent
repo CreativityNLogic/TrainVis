@@ -1,0 +1,37 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Window"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/Window.fbx"
+	},
+	"RigidBodyComponent" : 
+	{
+		"Origin" : [0.0, 0.0, 0.0],
+		"Shape" : 
+		{
+			"Type" : "Box",
+			"Extents" : [1.0, 1.0, 1.0]
+		},
+		"Inertia" : [0.0, 0.0, 0.0],
+		"Mass" : 0.0
+	},
+	"MaterialComponent" :
+	{
+		"Window" : {
+			"Shader" : ["../../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs"],
+			"Diffuse" : "../../assets/textures/trans_blue_d.png",
+			"Specular" : "../../assets/textures/trans_blue_s.png",
+			"Normal" : "../../assets/textures/trans_blue_n.png",
+			"Emissive" : "",
+			"DiffuseColour" : [1.0, 1.0, 1.0, 1.0],
+			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
+			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],
+			"EmissiveColour" : [1.0, 1.0, 1.0, 1.0],
+			"Shininess" : 32.0,
+			"Transparent" : true
+		}
+	}
+}

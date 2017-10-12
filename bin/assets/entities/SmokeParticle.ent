@@ -1,0 +1,31 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Smoke"
+	},
+	"SpriteComponent" : 
+	{
+		"Filename" : "../../assets/textures/smoke2.png",
+		"IsBillboard" : true,
+		"Opacity" : 1.0
+	},
+	"RigidBodyComponent" : 
+	{
+		"Group" : "NOCOLLISION",
+		"Mask" : "NOCOLLISION",
+		"Origin" : [0.0, 0.0, 0.0],
+		"Shape" : 
+		{
+			"Type" : "Box",
+			"Extents" : [1.0, 0.01, 1.0]
+		},
+		"Inertia" : [0.0, 0.0, 0.0],
+		"Mass" : 0.1
+	},
+	"ParticleComponent" :
+	{
+		"EndTime" : 1.0,
+		"FadeIn" : 0.0,
+		"FadeOut" : 1.0
+	}
+}

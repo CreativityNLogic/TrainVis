@@ -9,6 +9,8 @@
 	},
 	"RigidBodyComponent" : 
 	{
+		"Group" : "STATIC",
+		"Mask" : "STATIC_STATIC",
 		"Origin" : [0.0, 0.0, 0.0],
 		"Shape" : 
 		{
