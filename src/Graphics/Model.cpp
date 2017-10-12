@@ -142,6 +142,22 @@ void Model::SetLights(std::vector<entityx::Entity> lights)
 	}
 }
 
+glm::mat4 Model::GetView()
+{
+	return mView;
+}
+
+glm::mat4 Model::GetProjection()
+{
+	return mProjection;
+}
+
+glm::mat4 Model::GetModel()
+{
+	return mModel;
+}
+
+
 void Model::loadModel(const std::string &filename)
 {
 	Assimp::Importer import;

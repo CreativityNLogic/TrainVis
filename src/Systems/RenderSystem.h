@@ -8,13 +8,18 @@
 #include "../Components/LightComponent.h"
 #include "../Graphics/Camera.h"
 #include "../Graphics/Cubemap.h"
+#include "../Graphics/Model.h"
 
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
 {
 public:
-	RenderSystem() : 
-		mCamera(nullptr)
+	RenderSystem() :
+		mCamera(nullptr),
+		mReflectionShader("../../assets/shaders/cubemap.vs", "../../assets/shaders/cubemap.fs")
+
+
 	{
+		mCube.LoadFromFile("../../assets/models/Cube.fbx");
 		// load textures
 		std::vector<std::string> faces;
 		faces.push_back("../../assets/textures/skybox/right.jpg");
@@ -26,6 +31,7 @@ public:
 
 		mSkybox.LoadFromFile(faces, false);
 	}
+
 
 	~RenderSystem() {}
 	
@@ -83,12 +89,27 @@ public:
 			mSkybox.SetProjection(mCamera->GetProjectionMatrix());
 		}
 
+
+
 		mSkybox.Draw();
+
+		mReflectionShader.use();
+		//mReflectionShader.setMat4("Model", mCube.GetModel());
+		//mReflectionShader.setMat4("View", mCube.GetView());
+		//mReflectionShader.setMat4("Projection", mCube.GetProjection());
+		mReflectionShader.setMat4("MVP", mCube.GetModel() * mCube.GetView() * mCube.GetProjection());
+		mReflectionShader.setVec3("cameraPosition", mCamera->GetPosition());
+		
+		mReflectionShader.setInt("skybox", 0); 
+		mSkybox.Bind(0);
+		mCube.Draw();
 	};	
 
 private:
 	Camera *mCamera;
 	Cubemap mSkybox;
+	Shader mReflectionShader;
+	Model mCube;
 };
 
 #endif // RENDERSYSTEM_H

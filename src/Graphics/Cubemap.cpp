@@ -11,6 +11,7 @@
 #include <streambuf>
 #include <iostream>
 
+
 Cubemap::Cubemap() : 
 	mData(nullptr),
 	mCubemapShader("../../assets/shaders/skyboxVert.vs", "../../assets/shaders/skyboxFrag.fs")
