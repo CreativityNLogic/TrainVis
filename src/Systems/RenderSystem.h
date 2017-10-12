@@ -11,9 +11,6 @@
 #include "../Components/LightComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Graphics/Camera.h"
-
-#include "../Graphics/DualDepthPeeling.h"
-
 #include "../Graphics/Sprite.h"
 
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
@@ -21,7 +18,6 @@ class RenderSystem : public entityx::System<RenderSystem>, public entityx::Recei
 public:
 	RenderSystem() : mCamera(nullptr) 
 	{
-		//mDualDepthRenderer.Initialise(1920, 1080);
 	}
 
 	~RenderSystem() {}
@@ -41,8 +37,6 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
-		//mDualDepthRenderer.RenderWeightedSum(es, mCamera);
-
 		unsigned int lightCount = 0;
 		const unsigned MAXLIGHTS = 3;
 
@@ -130,7 +124,6 @@ public:
 
 private:
 	Camera *mCamera;
-	//DualDepthPeeling mDualDepthRenderer;
 };
 
 #endif // RENDERSYSTEM_H
