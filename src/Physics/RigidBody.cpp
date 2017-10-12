@@ -57,3 +57,8 @@ void RigidBody::ApplyImpulse(const glm::vec3 &impulse, const glm::vec3 &relative
 {
 	mRigidBody->applyImpulse(btVector3(impulse.x, impulse.y, impulse.z), btVector3(relativePos.x, relativePos.y, relativePos.z));
 }
+
+void RigidBody::Activate(bool activate)
+{
+	mRigidBody->activate(activate);
+}

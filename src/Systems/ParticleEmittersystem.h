@@ -32,6 +32,8 @@ public:
 			if (emitter.EmitterSpawnTime > emitter.SpawnRate)
 			{
 				emitter.EmitterSpawnTime = 0;
+
+				transform.Position += emitter.Offset;
 				entityx::Entity particle = mEntityFactory->createFromDataFile(emitter.ParticleData, transform);
 
 				if (particle.has_component<RigidBodyComponent>())

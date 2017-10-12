@@ -45,12 +45,22 @@
 				"Rotation" : [0.0, 0.0, 0.0]
 			}
 		},
-		"SmokeEmitter" :
-		{
-			"Data" : "../../assets/entities/SmokeEmitter.ent",
+		"Train" : 
+		{ 
+			"Data" : "../../assets/entities/Train.ent", 
 			"Transform" : 
 			{ 
-				"Position" : [5.0, 5.0, 0.0], 
+				"Position" : [0.0, 0.0, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"TrainTrack" : 
+		{ 
+			"Data" : "../../assets/entities/TrainTrack.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 0.5, 0.0], 
 				"Scale" : [1.0, 1.0, 1.0], 
 				"Rotation" : [0.0, 0.0, 0.0]
 			}

@@ -155,7 +155,6 @@
     <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
     <ClInclude Include="..\..\src\Core\ResourceManager.h" />
-    <ClInclude Include="..\..\src\Graphics\DualDepthPeeling.h" />
     <ClInclude Include="..\..\src\Graphics\Sprite.h" />
     <ClInclude Include="..\..\src\Physics\DebugDraw.h" />
     <ClInclude Include="..\..\src\Physics\MotionState.h" />

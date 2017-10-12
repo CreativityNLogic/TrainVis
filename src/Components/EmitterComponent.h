@@ -8,6 +8,8 @@ struct EmitterComponent
 {
 	std::string ParticleData;
 	glm::vec3 Velocity;
+	glm::vec3 Offset;
+
 	float SpawnRate;
 	float EmitterSpawnTime;
 };

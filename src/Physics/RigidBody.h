@@ -23,6 +23,8 @@ public:
 	void ApplyForce(const glm::vec3 &force, const glm::vec3 &relativePos);
 	void ApplyImpulse(const glm::vec3 &impulse, const glm::vec3 &relativePos);
 
+	void Activate(bool activate);
+
 private:
 	btRigidBody* mRigidBody;
 	glm::vec3 mOffset;

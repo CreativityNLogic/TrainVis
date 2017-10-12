@@ -22,6 +22,10 @@ public:
 			{
 				if (tag.Tag == "Train")
 				{
+
+
+					body.Body->Activate(true);
+
 					if (mRenderWindow->IsKeyPressed(Key::UPARROW))
 					{
 						body.Body->ApplyCentralForce(glm::vec3(0.0f, 0.0f, 10000.0f));

@@ -430,6 +430,8 @@ void EntityFactory::loadEmitterComponent(nlohmann::json component, EmitterCompon
 		emitterComp.ParticleData = component["ParticleData"];
 	if (component["Velocity"].is_array())
 		emitterComp.Velocity = glm::vec3(component["Velocity"][0], component["Velocity"][1], component["Velocity"][2]);
+	if (component["Offset"].is_array())
+		emitterComp.Offset = glm::vec3(component["Offset"][0], component["Offset"][1], component["Offset"][2]);
 	if (component["SpawnRate"].is_number_float())
 		emitterComp.SpawnRate = component["SpawnRate"];
 }
