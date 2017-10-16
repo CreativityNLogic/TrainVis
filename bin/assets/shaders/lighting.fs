@@ -110,7 +110,7 @@ void main()
         
         // Configure Fog
         int FogType = 0;
-        float fogStart = 1.0f;
+        float fogStart = 2.0f;
         float fogEnd = 10.0f;
         vec3 fogColor = vec3(1.0f, 1.0f, 1.0f);
         float fogDensity = 0.2f;
