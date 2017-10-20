@@ -1,7 +1,17 @@
 {
 	"Level" : 
 	{
-		"Name" : "TrainVis"
+		"Name" : "TrainVis",
+		"Debug" : false,
+		"Fog" :
+		{
+			"Type" : "",
+			"Colour" : [1.0, 1.0, 1.0, 1.0],
+			"LinearStart" : 10.0,
+			"LinearEnd" : 75.0,
+			"ExpDensity" : 0.04,
+			"SkyMix" : 0.95
+		}
 	},
 	"Entities" : 
 	{

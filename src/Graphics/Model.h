@@ -15,6 +15,8 @@
 #include "Mesh.h"
 #include "Material.h"
 
+#include "../Components/FogComponent.h"
+
 class Model 
 {
 public:
@@ -44,6 +46,8 @@ public:
 	glm::mat4 GetView() const;
 	glm::mat4 GetProjection() const;
 
+	void SetFogParams(FogComponent &fog);
+
 private:
 	/*  Functions   */
 	void loadModel(const std::string &filename);
@@ -51,6 +55,8 @@ private:
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 
 private:
+	FogComponent mFog;
+
 	glm::vec3 mPosition;
 	glm::quat mRotation;
 	glm::vec3 mScale;

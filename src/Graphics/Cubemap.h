@@ -9,6 +9,8 @@
 #include "../Graphics/Shader.h"
 #include "../Graphics/Model.h"
 
+#include "../Components/FogComponent.h"
+
 class Cubemap
 {
 public:
@@ -24,6 +26,7 @@ public:
 	void SetView(glm::mat4 view);
 	void SetProjection(glm::mat4 proj);
 
+	void SetFogParams(FogComponent &fog);
 private:
 	std::vector<std::string> mFaces;
 
@@ -36,6 +39,7 @@ private:
 
 	glm::mat4 mView;
 	glm::mat4 mProjection;
+	FogComponent mFog;
 };
 
 #endif 

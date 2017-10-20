@@ -8,14 +8,17 @@ layout (location = 4) in vec2 uv;
 layout (location = 5) in vec3 colour;
 
 out vec3 FragPosition;
+out vec4 EyePosition;
 out mat3 TBN;
 out vec2 UV;
 
 uniform mat4 Model;
+uniform mat4 View;
 uniform mat4 MVP;
 
 void main()
 {
+	EyePosition = View * Model * vec4(position, 1.0);
 	FragPosition = vec3(Model * vec4(position, 1.0));
 	
 	mat3 normalMatrix = transpose(inverse(mat3(Model)));

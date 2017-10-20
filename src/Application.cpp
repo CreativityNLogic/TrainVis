@@ -8,6 +8,7 @@
 #include "Systems/MovementSystem.h"
 #include "Systems/ParticleSystem.h"
 #include "Systems/ParticleEmitterSystem.h"
+#include "Systems/PhysicsSystem.h"
 
 #include "Components/TransformComponent.h"
 #include "Components/RigidBodyComponent.h"
@@ -51,17 +52,21 @@ bool Application::Initialise()
 	mCamera.SetMouseSensitivity(0.1f);
 	mCamera.SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.01f, 100000.0f);
 
-	systems.add<RenderSystem>()->setCamera(&mCamera);
+	auto& renderSys = systems.add<RenderSystem>();
+	renderSys->setCamera(&mCamera);
+	renderSys->setFogParams(mEntityFactory->GetFog());
+
 	mDebugDraw->setCamera(&mCamera);
 
 	systems.add<ParticleSystem>();
 	systems.add<ParticleEmitterSystem>(mEntityFactory.get());
+	systems.add<PhysicsSystem>(mPhysicWorld.get());
 
 	systems.configure();
 
 	mPhysicWorld->setDebugDraw(mDebugDraw.get());
 
-	mUseDebug = false;
+	mUseDebug = mEntityFactory->IsDebug();
 
 	//===============================================
 	return true;
@@ -124,7 +129,7 @@ void Application::Update(double deltaTime)
 	systems.update<MovementSystem>(deltaTime);
 	systems.update<ParticleSystem>(deltaTime);
 	systems.update<ParticleEmitterSystem>(deltaTime);
-
+	systems.update<PhysicsSystem>(deltaTime);
 	//===============================================
 
 	mRenderWindow->Display();

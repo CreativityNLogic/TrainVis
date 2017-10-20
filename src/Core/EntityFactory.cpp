@@ -14,6 +14,7 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/ParticleComponent.h"
 #include "../Components/EmitterComponent.h"
+#include "../Components/FogComponent.h"
 
 #include "../Physics/RigidWorld.h"
 #include "../Physics/RigidBody.h"
@@ -25,7 +26,8 @@
 EntityFactory::EntityFactory(entityx::EntityManager &entityManager, RenderWindow *renderWindow, RigidWorld *physicsWorld) :
 	mEntityManager(entityManager),
 	mRenderWindow(renderWindow),
-	mPhysicsWorld(physicsWorld)
+	mPhysicsWorld(physicsWorld),
+	mIsDebug(false)
 {
 	mTexture.LoadFromFile("../../assets/textures/particles/smoke2.png", false);
 }
@@ -45,7 +47,19 @@ void EntityFactory::createFromLevelFile(const std::string &filename)
 
 void EntityFactory::createFromLevelFile(nlohmann::json &levelFile)
 {
+	nlohmann::json levelData = levelFile["Level"];
+
+	if (!levelData["Debug"].is_null())
+		mIsDebug = levelData["Debug"];
+
+	if (!levelData["Fog"].is_null())
+	{
+		nlohmann::json fog = levelData["Fog"];
+		loadFogComponent(fog);
+	}
+
 	nlohmann::json entitiesData = levelFile["Entities"];
+
 	for (nlohmann::json::iterator it = entitiesData.begin(); it != entitiesData.end(); ++it)
 	{
 		nlohmann::json entityData = entitiesData[it.key()];
@@ -87,6 +101,17 @@ entityx::Entity EntityFactory::createFromDataFile(const std::string &filename, T
 	entity.assign<TransformComponent>(comp);
 	loadComponents(entity, entityFile);
 	return entity;
+}
+
+FogComponent &EntityFactory::GetFog()
+{
+	return mFog;
+}
+
+
+bool EntityFactory::IsDebug() const
+{
+	return mIsDebug;
 }
 
 void EntityFactory::loadComponents(entityx::Entity &entity, nlohmann::json entityFile)
@@ -468,4 +493,38 @@ int EntityFactory::getCollisionGroup(const std::string &group)
 		return PLAYER;
 	else
 		return NOCOLLISION;
+}
+
+void EntityFactory::loadFogComponent(nlohmann::json component) 
+{
+	bool enableFog = true;
+
+	if (component["Type"].is_string())
+	{
+		if (component["Type"] == "LINEAR")
+			mFog.Type = FogComponent::LINEAR;
+		else if (component["Type"] == "EXP")
+			mFog.Type = FogComponent::EXP;
+		else if (component["Type"] == "EXP2")
+			mFog.Type = FogComponent::EXP2;
+		else
+			enableFog = false;
+	}
+
+	if (component["Colour"].is_array())
+		mFog.Colour = glm::vec4(component["Colour"][0], component["Colour"][1], component["Colour"][2], component["Colour"][3]);
+
+	if (component["LinearStart"].is_number_float())
+		mFog.LinearStart = component["LinearStart"];
+
+	if (component["LinearEnd"].is_number_float())
+		mFog.LinearEnd = component["LinearEnd"];
+
+	if (component["ExpDensity"].is_number_float())
+		mFog.ExpDensity = component["ExpDensity"];
+
+	if (component["SkyMix"].is_number_float())
+		mFog.SkyMix = component["SkyMix"];
+
+	mFog.Enabled = enableFog;
 }

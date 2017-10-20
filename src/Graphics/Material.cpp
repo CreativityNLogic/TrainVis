@@ -291,3 +291,14 @@ bool Material::IsTransparent() const
 {
 	return mIsTransparent;
 }
+
+void Material::setFogParams(FogComponent &fogComp)
+{
+	mShader.setInt("fogParameters.type", fogComp.Type);
+	mShader.setVec4("fogParameters.colour", fogComp.Colour);
+	mShader.setFloat("fogParameters.linearStart", fogComp.LinearStart);
+	mShader.setFloat("fogParameters.linearEnd", fogComp.LinearEnd);
+	mShader.setFloat("fogParameters.expDensity", fogComp.ExpDensity);
+	mShader.setFloat("fogParameters.skyMix", fogComp.SkyMix);
+	mShader.setBool("UseFog", fogComp.Enabled);
+}

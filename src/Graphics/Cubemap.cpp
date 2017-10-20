@@ -143,10 +143,23 @@ void Cubemap::Draw()
 	
 	Bind(0);
 
+	mCubemapShader.setInt("fogParameters.type", mFog.Type);
+	mCubemapShader.setVec4("fogParameters.colour", mFog.Colour);
+	mCubemapShader.setFloat("fogParameters.linearStart", mFog.LinearStart);
+	mCubemapShader.setFloat("fogParameters.linearEnd", mFog.LinearEnd);
+	mCubemapShader.setFloat("fogParameters.expDensity", mFog.ExpDensity);
+	mCubemapShader.setFloat("fogParameters.skyMix", mFog.SkyMix);
+	mCubemapShader.setBool("UseFog", mFog.Enabled);
+
 	mCubemapShader.setMat4("View", glm::mat4(glm::mat3(mView)));
 	mCubemapShader.setMat4("Projection", mProjection);
 
 	glBindVertexArray(mVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDepthFunc(GL_LESS);
+}
+
+void Cubemap::SetFogParams(FogComponent &fog)
+{
+	mFog = fog;
 }

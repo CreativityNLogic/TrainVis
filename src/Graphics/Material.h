@@ -20,6 +20,7 @@
 #include <iostream>
 
 #include "../Components/LightComponent.h"
+#include "../Components/FogComponent.h"
 
 class Material
 {
@@ -55,6 +56,8 @@ public:
 	void setProjection(glm::mat4 proj);
 	void setViewPosition(glm::vec3 pos);
 	void setLight(unsigned int index, glm::vec3 position, glm::vec3 direction, LightComponent light);
+
+	void setFogParams(FogComponent &fogComp);
 
 	Texture getDiffuseTexture() const;
 	Texture getSpecularTexture() const;

@@ -23,6 +23,7 @@ struct ParticleComponent;
 struct EmitterComponent;
 
 #include "../Graphics/Texture.h"
+#include "../Components/FogComponent.h"
 
 enum CollisionMasks
 {
@@ -50,6 +51,10 @@ public:
 	entityx::Entity createFromDataFile(const std::string &filename);
 	entityx::Entity createFromDataFile(const std::string &filename, TransformComponent comp);
 
+	FogComponent &GetFog();
+
+	bool IsDebug() const;
+
 private:
 	void loadComponents(entityx::Entity &entity, nlohmann::json entityFile);
 	void loadTagComponent(nlohmann::json component, TagComponent& tagComp);
@@ -62,7 +67,8 @@ private:
 	void loadSpriteComponent(nlohmann::json component, SpriteComponent& spriteComp);
 	void loadParticleComponent(nlohmann::json component, ParticleComponent& particleComp);
 	void loadEmitterComponent(nlohmann::json component, EmitterComponent& emitterComp);
-
+	void loadFogComponent(nlohmann::json component);
+	
 	int getCollisionMask(const std::string &mask);
 	int getCollisionGroup(const std::string &group);
 
@@ -70,7 +76,9 @@ private:
 	entityx::EntityManager &mEntityManager;
 	RigidWorld *mPhysicsWorld;
 	RenderWindow *mRenderWindow;
+	FogComponent mFog;
 	Texture mTexture;
+	bool mIsDebug;
 };
 
 #endif // ENTITYFACTORY_H

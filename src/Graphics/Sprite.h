@@ -9,6 +9,8 @@
 #include "Texture.h"
 #include "Shader.h"
 
+#include "../Components/FogComponent.h"
+
 class Sprite
 {
 public:
@@ -91,6 +93,14 @@ public:
 		glm::vec3 cameraRightWorldSpace = glm::vec3(mView[0][0], mView[1][0], mView[2][0]);
 		glm::vec3 cameraUpWorldSpace = glm::vec3(mView[0][1], mView[1][1], mView[2][1]);
 		
+		mShader.setInt("fogParameters.type", mFog.Type);
+		mShader.setVec4("fogParameters.colour", mFog.Colour);
+		mShader.setFloat("fogParameters.linearStart", mFog.LinearStart);
+		mShader.setFloat("fogParameters.linearEnd", mFog.LinearEnd);
+		mShader.setFloat("fogParameters.expDensity", mFog.ExpDensity);
+		mShader.setFloat("fogParameters.skyMix", mFog.SkyMix);
+		mShader.setBool("UseFog", mFog.Enabled);
+
 		mShader.setVec3("SpriteCenter", mPosition);
 		mShader.setVec3("CameraRightWorldSpace", cameraRightWorldSpace);
 		mShader.setVec3("CameraUpWorldSpace", cameraUpWorldSpace);
@@ -105,6 +115,11 @@ public:
 
 		glDisable(GL_BLEND);
 		glEnable(GL_CULL_FACE);
+	}
+
+	void SetFogParams(FogComponent &fog)
+	{
+		mFog = fog;
 	}
 
 	void SetPosition(glm::vec3 position)
@@ -172,6 +187,8 @@ public:
 	}
 
 private:
+	FogComponent mFog;
+
 	Texture mTexture;
 	Shader mShader;
 

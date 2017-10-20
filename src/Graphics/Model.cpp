@@ -56,6 +56,7 @@ void Model::Draw(std::vector<Material> &materials)
 		{
 			if (i < materials.size())
 			{
+				materials[i].setFogParams(mFog);
 				materials[i].setTransform(GetModel());
 				materials[i].setView(mView);
 				materials[i].setProjection(mProjection);
@@ -64,6 +65,7 @@ void Model::Draw(std::vector<Material> &materials)
 			}
 			else
 			{
+				materials[0].setFogParams(mFog);
 				materials[0].setTransform(GetModel());
 				materials[0].setView(mView);
 				materials[0].setProjection(mProjection);
@@ -259,4 +261,9 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	}
 
 	return Mesh(vertices, indices);
+}
+
+void Model::SetFogParams(FogComponent &fog)
+{
+	mFog = fog;
 }

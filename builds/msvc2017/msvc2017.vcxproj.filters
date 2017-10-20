@@ -150,6 +150,15 @@
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h">
       <Filter>Header Files\Graphics\Glad</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Components\FogComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Systems\PhysicsSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\WeightedSumRendering.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
