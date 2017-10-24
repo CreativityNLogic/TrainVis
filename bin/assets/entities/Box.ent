@@ -28,7 +28,7 @@
 			"Diffuse" : "../../assets/textures/stone/stone_d.png",
 			"Specular" : "../../assets/textures/stone/stone_s.png",
 			"Normal" : "../../assets/textures/stone/stone_n.png",
-			"Emissive" : "",
+			"Emissive" : "../../assets/textures/black.png",
 			"DiffuseColour" : [1.0, 1.0, 1.0, 1.0],
 			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
 			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],

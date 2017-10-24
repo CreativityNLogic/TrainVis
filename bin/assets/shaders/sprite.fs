@@ -10,5 +10,5 @@ uniform float Opacity;
 void main()
 {
 	vec4 diffuse = texture(Sprite, UV);
-	FragColor = vec4(diffuse.rgb, diffuse.a * Opacity);
+	FragColor = vec4(diffuse.rgb * diffuse.a, diffuse.a);
 }

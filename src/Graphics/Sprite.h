@@ -81,10 +81,6 @@ public:
 
 	void Draw()
 	{
-		glDisable(GL_CULL_FACE);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		mShader.Bind();
 
 		mTexture.Bind(0);
@@ -93,13 +89,13 @@ public:
 		glm::vec3 cameraRightWorldSpace = glm::vec3(mView[0][0], mView[1][0], mView[2][0]);
 		glm::vec3 cameraUpWorldSpace = glm::vec3(mView[0][1], mView[1][1], mView[2][1]);
 		
-		mShader.setInt("fogParameters.type", mFog.Type);
+		/*mShader.setInt("fogParameters.type", mFog.Type);
 		mShader.setVec4("fogParameters.colour", mFog.Colour);
 		mShader.setFloat("fogParameters.linearStart", mFog.LinearStart);
 		mShader.setFloat("fogParameters.linearEnd", mFog.LinearEnd);
 		mShader.setFloat("fogParameters.expDensity", mFog.ExpDensity);
 		mShader.setFloat("fogParameters.skyMix", mFog.SkyMix);
-		mShader.setBool("UseFog", mFog.Enabled);
+		mShader.setBool("UseFog", mFog.Enabled);*/
 
 		mShader.setVec3("SpriteCenter", mPosition);
 		mShader.setVec3("CameraRightWorldSpace", cameraRightWorldSpace);
@@ -107,14 +103,11 @@ public:
 		mShader.setVec2("BillboardSize", glm::vec2(mScale));
 		mShader.setMat4("MVP", mProjection * mView * GetModel());
 		mShader.setMat4("VP", mProjection * mView);
-		mShader.setFloat("Opacity", mOpacity);
+		//mShader.setFloat("Opacity", mOpacity);
 		mShader.setBool("IsBillboard", mIsBillboard);
 
 		glBindVertexArray(mVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-
-		glDisable(GL_BLEND);
-		glEnable(GL_CULL_FACE);
 	}
 
 	void SetFogParams(FogComponent &fog)

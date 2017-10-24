@@ -1,62 +1,55 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include "Glad/glad.h"
+
+#define GLM_FORCE_RADIANS
+
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <string>
+#include <map>
 
 #include "Glad/glad.h"
 
 class Shader
 {
 public:
-	unsigned int ID;
-
-	// constructor generates the shader on the fly
-	// ------------------------------------------------------------------------
 	Shader();
-	Shader(const std::string &vertexPath, const std::string &fragmentPath, const std::string &geometryPath = "");
+	Shader(const std::string &vertexFilename, const std::string &fragmentFilename);
 
-	void Initialise(const std::string &vertexPath, const std::string &fragmentPath, const std::string &geometryPath = "");
+	void Initialise(const std::string &vertexFilename, const std::string &fragmentFilename);
 	void Terminate();
 
 	void Bind();
 	void UnBind();
 
-	// utility uniform functions
-	// ------------------------------------------------------------------------
-	void setBool(const std::string &name, bool value) const;
+	void setInt(const std::string &uniform, int value);
+	void setFloat(const std::string &uniform, float value);
+	void setBool(const std::string &uniform, bool value);
+	void setVec2(const std::string &uniform, const glm::vec2 &value);
+	void setVec3(const std::string &uniform, const glm::vec3 &value);
+	void setVec4(const std::string &uniform, const glm::vec4 &value);
+	void setMat2(const std::string &uniform, const glm::mat2 &value, bool transpose = false);
+	void setMat3(const std::string &uniform, const glm::mat3 &value, bool transpose = false);
+	void setMat4(const std::string &uniform, const glm::mat4 &value, bool transpose = false);
 
-	void setInt(const std::string &name, int value) const;
-
-	void setFloat(const std::string &name, float value) const;
-
-	void setVec2(const std::string &name, const glm::vec2 &value) const;
-
-	void setVec2(const std::string &name, float x, float y) const;
-
-	// ------------------------------------------------------------------------
-	void setVec3(const std::string &name, const glm::vec3 &value) const;
-
-	void setVec3(const std::string &name, float x, float y, float z) const;
-
-	// ------------------------------------------------------------------------
-	void setVec4(const std::string &name, const glm::vec4 &value) const;
-
-	void setVec4(const std::string &name, float x, float y, float z, float w);
-	// ------------------------------------------------------------------------
-	void setMat2(const std::string &name, const glm::mat2 &mat) const;
-
-	// ------------------------------------------------------------------------
-	void setMat3(const std::string &name, const glm::mat3 &mat) const;
-
-	// ------------------------------------------------------------------------
-	void setMat4(const std::string &name, const glm::mat4 &mat) const;
+	unsigned int GetUniformLocation(const std::string &uniform);
 
 private:
-	// utility function for checking shader compilation/linking errors.
-	// ------------------------------------------------------------------------
-	void checkCompileErrors(GLuint shader, std::string type);
+	std::string loadFile(const std::string &filename);
+	void compileShader(GLuint shader, const std::string &shaderCode);
+	std::string validateShader(GLuint shader);
+	std::string validateProgram(GLuint program);
 
+private:
+	std::map<std::string, GLuint> mUniformList;
+	std::map<std::string, GLuint> mConstantUniformList;
+
+	GLuint                          mVertexID;
+	GLuint                          mFragmentID;
+	GLuint                          mProgramID;
 };
 
 #endif

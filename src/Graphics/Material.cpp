@@ -62,7 +62,7 @@ void Material::Bind()
 	mShader.setVec4("DiffuseColour", mDiffuseColour);
 	mShader.setVec4("SpecularColour", mSpecularColour);
 	mShader.setVec4("AmbientColour", mAmbientColour);
-	mShader.setVec4("EmissiveColour", mEmissiveColour);
+	mShader.setVec4("EmissiveColour", glm::vec4(0.0f));
 
 	mShader.setFloat("Shininess", mShininess);
 

@@ -62,6 +62,14 @@ public:
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
+		//render(es, events, dt);
+		mWeightSumRenderer.RenderWeightedSum(es, mCamera);
+		//render(es, events, dt);
+	};
+	
+private:
+	void render(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt)
+	{
 		if (mCamera == nullptr)
 			return;
 
@@ -81,8 +89,6 @@ public:
 			lightCount++;
 		}
 
-		mWeightSumRenderer.RenderWeightedSum(es, mCamera);
-
 		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
 		{
 			graphic.Model.SetLights(lightEntities, matComp.Materials);
@@ -98,7 +104,7 @@ public:
 
 			graphic.Model.Draw(matComp.Materials);
 		});
-		
+
 		// NEED TO STOP THIS DOUBLE RENDER!
 		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
 		{
@@ -120,8 +126,8 @@ public:
 		mSkybox.SetView(mCamera->GetViewMatrix());
 		mSkybox.SetFogParams(mFog);
 		mSkybox.Draw();
-	};	
-	
+	}
+
 private:
 	Camera *mCamera;
 	Cubemap mSkybox;

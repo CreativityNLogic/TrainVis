@@ -25,7 +25,7 @@
 			"Diffuse" : "../../assets/textures/trans_blue_d.png",
 			"Specular" : "../../assets/textures/trans_blue_s.png",
 			"Normal" : "../../assets/textures/trans_blue_n.png",
-			"Emissive" : "",
+			"Emissive" : "../../assets/textures/black.png",
 			"DiffuseColour" : [1.0, 1.0, 1.0, 1.0],
 			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
 			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],

@@ -18,16 +18,6 @@ class WeightedSumRendering
 {
 public:
 	WeightedSumRendering() :
-		mDrawBuffers
-	{	
-		GL_COLOR_ATTACHMENT0_EXT,
-		GL_COLOR_ATTACHMENT1_EXT,
-		GL_COLOR_ATTACHMENT2_EXT,
-		GL_COLOR_ATTACHMENT3_EXT,
-		GL_COLOR_ATTACHMENT4_EXT,
-		GL_COLOR_ATTACHMENT5_EXT,
-		GL_COLOR_ATTACHMENT6_EXT
-	},
 		mMaxDepth(1.0f),
 		mMaxPass(4)
 	{
@@ -137,16 +127,14 @@ public:
 		glDisable(GL_DEPTH_TEST);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, mAccumulationFBO);
-		glDrawBuffer(mDrawBuffers[0]);
-
-		glClearColor(0, 0, 0, 0);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 		glBlendEquation(GL_FUNC_ADD);
 		glBlendFunc(GL_ONE, GL_ONE);
 		glEnable(GL_BLEND);
 
-		mWeightedSumInitShader.Bind();
+		glClearColor(0, 0, 0, 0);
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		es.each<TransformComponent, SpriteComponent>([=](entityx::Entity entity, TransformComponent &transform, SpriteComponent &sprite)
 		{
@@ -162,9 +150,58 @@ public:
 
 		glDisable(GL_BLEND);
 
+		unsigned int lightCount = 0;
+		const unsigned MAXLIGHTS = 3;
+
+		std::vector<entityx::Entity> lightEntities;
+
+		auto lights = es.entities_with_components<TransformComponent, LightComponent>();
+		for (auto entity : lights)
+		{
+			if (lightCount > MAXLIGHTS)
+				break;
+
+			lightEntities.push_back(entity);
+
+			lightCount++;
+		}
+
+		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
+		{
+			graphic.Model.SetLights(lightEntities, matComp.Materials);
+			graphic.Model.SetPosition(transform.Position);
+			graphic.Model.SetRotation(transform.Rotation);
+			graphic.Model.SetScale(transform.Scale);
+
+			graphic.Model.SetProjection(camera->GetProjectionMatrix());
+			graphic.Model.SetView(camera->GetViewMatrix());
+			graphic.Model.SetViewPosition(camera->GetPosition());
+
+			//graphic.Model.SetFogParams(mFog);
+
+			graphic.Model.Draw(matComp.Materials);
+		});
+
 		GLuint err = glGetError();
 		if (err)
 			std::cout << "Error: " << err << " at line " << __LINE__ << std::endl;
+
+		// NEED TO STOP THIS DOUBLE RENDER!
+		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
+		{
+			graphic.Model.SetLights(lightEntities, matComp.Materials);
+			graphic.Model.SetPosition(transform.Position);
+			graphic.Model.SetRotation(transform.Rotation);
+			graphic.Model.SetScale(transform.Scale);
+
+			graphic.Model.SetProjection(camera->GetProjectionMatrix());
+			graphic.Model.SetView(camera->GetViewMatrix());
+			graphic.Model.SetViewPosition(camera->GetPosition());
+
+			//graphic.Model.SetFogParams(mFog);
+
+			graphic.Model.Draw(matComp.Materials);
+		});
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glDrawBuffer(GL_BACK);
@@ -199,8 +236,6 @@ private:
 
 	Shader mWeightedSumInitShader;
 	Shader mWeightedSumFinalShader;
-
-	const GLenum mDrawBuffers[7];
 
 	GLfloat mMaxDepth;
 	GLuint mMaxPass;

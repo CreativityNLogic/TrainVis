@@ -121,7 +121,7 @@ float calculateFog(FogParameters params, float fogCoord)
 
 void main()
 {
-	vec4 result;
+	vec4 result = vec4(0.0);
 	
 	if(!IsTransparent)
 	{
@@ -140,5 +140,5 @@ void main()
 		result = mix(result, fogParameters.colour, calculateFog(fogParameters, fogCoord));	
 	}
 	
-	FragColor = result;
+	FragColor = vec4(result.rgb, 1.0);
 }
