@@ -9,7 +9,7 @@ float ssao_intensity;
 float ssao_scale;
 float ssao_bias;
 
-in int iterations;
+int iterations;
 
 struct PS_INPUT{
 	float2 uv : TEXCOORD0;
