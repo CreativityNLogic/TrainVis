@@ -1,0 +1,79 @@
+sampler ssao_norm_buffer;
+sampler ssao_posf_buffer;
+sampler ssao_random;
+sampler ssao_posb_buffer;
+
+float random_size;
+float ssao_radii;
+float ssao_intensity;
+float ssao_scale;
+float ssao_bias;
+
+in int iterations;
+
+struct PS_INPUT{
+	float2 uv : TEXCOORD0;
+};
+
+struct PS_OUTPUT{
+	float4 color : COLOR0;
+};
+
+float3 getPosition(in float2 uv){
+	return texture(ssao_posf_buffer,uv).xyz;
+}
+
+float3 getPositionBack(in float2 uv){
+	return texture(ssao_posb_buffer,uv).xyz;
+}
+
+float doAmbientOcclusionBack(in float2 tcoord,in float2 uv, in float3 p, in float3 cnorm){
+	float3 diff = getPositionBack(tcoord + uv) - p;
+	const float3 v = normalize(diff);
+	const float d = length(diff)*ssao_scale;
+	return max(0.0,dot(cnorm,v)-ssao_bias)*(1.0/(1.0+d));
+}
+
+float3 getNormal(in float2 uv){
+	return normalize(texture(ssao_norm_buffer, uv).xyz * 2.0f - 1.0f);
+}
+
+float2 getRandom(in float2 uv){
+	return normalize(texture(ssao_random, g_screen_size * uv / random_size).xy * 2.0f - 1.0f);
+}
+
+float doAmbientOcclusion(in float2 tcoord,in float2 uv, in float3 p, in float3 cnorm){
+	float3 diff = getPosition(tcoord + uv) - p;
+	const float3 v = normalize(diff);
+	const float d = length(diff)*ssao_scale;
+	return max(0.0,dot(cnorm,v)-ssao_bias)*(1.0/(1.0+d))*ssao_intensity;
+}
+
+PS_OUTPUT main(PS_INPUT i){
+	PS_OUTPUT o = (PS_OUTPUT)0;
+	o.color.rgb = 1.0f;
+	const float2 vec[4] = {float2(1,0),float2(-1,0),
+	float2(0,1),float2(0,-1)};
+	float3 p = getPosition(i.uv);
+	float3 n = getNormal(i.uv);
+	float2 rand = getRandom(i.uv);
+	float ao = 0.0f;
+	float rad = ssao_radii/p.z;
+
+	//ssao calc
+	for (int j = 0; j < iterations; ++j){
+		float2 coord1 = reflect(vec[j],rand)*rad;
+		float2 coord2 = float2(coord1.x*0.707 - coord1.y*0.707,
+		coord1.x*0.707 + coord1.y*0.707);
+		ao += doAmbientOcclusion(i.uv,coord1*0.25, p, n);
+		ao += doAmbientOcclusion(i.uv,coord2*0.5, p, n);
+		ao += doAmbientOcclusion(i.uv,coord1*0.75, p, n);
+		ao += doAmbientOcclusion(i.uv,coord2, p, n);
+		ao += doAmbientOcclusionBack(i.uv,coord1*(0.25+0.125), p, n);
+		ao += doAmbientOcclusionBack(i.uv,coord2*(0.5+0.125), p, n);
+		ao += doAmbientOcclusionBack(i.uv,coord1*(0.75+0.125), p, n);
+		ao += doAmbientOcclusionBack(i.uv,coord2*1.125, p, n);
+	}
+	ao/=(float)iterations*4.0;
+	return o;
+}

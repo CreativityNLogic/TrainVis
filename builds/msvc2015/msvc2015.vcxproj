@@ -53,6 +53,9 @@
     <ClInclude Include="..\..\src\Physics\RigidBody.h" />
     <ClInclude Include="..\..\src\Physics\RigidWorld.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\ssao.shad" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{05A9B67A-0644-4A0D-869B-B7EE75218994}</ProjectGuid>
     <RootNamespace>msvc2015</RootNamespace>

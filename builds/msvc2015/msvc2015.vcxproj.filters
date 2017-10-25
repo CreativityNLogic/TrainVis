@@ -141,4 +141,9 @@
       <Filter>Header Files\Physics\DebugDraw</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\ssao.shad">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
