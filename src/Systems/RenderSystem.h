@@ -21,20 +21,7 @@ class RenderSystem : public entityx::System<RenderSystem>, public entityx::Recei
 public:
 	RenderSystem() : mCamera(nullptr) 
 	{
-		// load textures
-		std::vector<std::string> faces
-		{
-			("../../assets/textures/skybox/right.jpg"),
-			("../../assets/textures/skybox/left.jpg"),
-			("../../assets/textures/skybox/up.jpg"),
-			("../../assets/textures/skybox/down.jpg"),
-			("../../assets/textures/skybox/back.jpg"),
-			("../../assets/textures/skybox/front.jpg")
-		};
-
-		mSkybox.LoadFromFile(faces, false);
-
-		mWeightSumRenderer.Initialise(1920, 1080);
+		mWeightSumRenderer.Initialise(1920, 1080, glm::vec3(0.2f, 0.3f, 0.3f));
 	}
 
 	~RenderSystem() 
@@ -57,81 +44,19 @@ public:
 
 	void setFogParams(FogComponent &fog)
 	{
-		mFog = fog;
+		mWeightSumRenderer.SetFogParams(fog);
 	}
 
 	void update(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt) override
 	{
-		//render(es, events, dt);
-		mWeightSumRenderer.RenderWeightedSum(es, mCamera);
-		//render(es, events, dt);
-	};
-	
-private:
-	void render(entityx::EntityManager &es, entityx::EventManager &events, entityx::TimeDelta dt)
-	{
 		if (mCamera == nullptr)
 			return;
 
-		unsigned int lightCount = 0;
-		const unsigned MAXLIGHTS = 3;
-
-		std::vector<entityx::Entity> lightEntities;
-
-		auto lights = es.entities_with_components<TransformComponent, LightComponent>();
-		for (auto entity : lights)
-		{
-			if (lightCount > MAXLIGHTS)
-				break;
-
-			lightEntities.push_back(entity);
-
-			lightCount++;
-		}
-
-		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
-		{
-			graphic.Model.SetLights(lightEntities, matComp.Materials);
-			graphic.Model.SetPosition(transform.Position);
-			graphic.Model.SetRotation(transform.Rotation);
-			graphic.Model.SetScale(transform.Scale);
-
-			graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
-			graphic.Model.SetView(mCamera->GetViewMatrix());
-			graphic.Model.SetViewPosition(mCamera->GetPosition());
-
-			graphic.Model.SetFogParams(mFog);
-
-			graphic.Model.Draw(matComp.Materials);
-		});
-
-		// NEED TO STOP THIS DOUBLE RENDER!
-		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
-		{
-			graphic.Model.SetLights(lightEntities, matComp.Materials);
-			graphic.Model.SetPosition(transform.Position);
-			graphic.Model.SetRotation(transform.Rotation);
-			graphic.Model.SetScale(transform.Scale);
-
-			graphic.Model.SetProjection(mCamera->GetProjectionMatrix());
-			graphic.Model.SetView(mCamera->GetViewMatrix());
-			graphic.Model.SetViewPosition(mCamera->GetPosition());
-
-			graphic.Model.SetFogParams(mFog);
-
-			graphic.Model.Draw(matComp.Materials);
-		});
-
-		mSkybox.SetProjection(mCamera->GetProjectionMatrix());
-		mSkybox.SetView(mCamera->GetViewMatrix());
-		mSkybox.SetFogParams(mFog);
-		mSkybox.Draw();
-	}
+		mWeightSumRenderer.RenderWeightedSum(es, mCamera);
+	};
 
 private:
 	Camera *mCamera;
-	Cubemap mSkybox;
-	FogComponent mFog;
 	WeightedSumRendering mWeightSumRenderer;
 };
 

@@ -21,7 +21,7 @@ public:
 	{
 		es.each<TransformComponent, SpriteComponent, ParticleComponent>([=](entityx::Entity entity, TransformComponent &transform, SpriteComponent &sprite, ParticleComponent &particle)
 		{
-			particle.Lifetime += dt;
+			particle.Lifetime += (float)dt;
 			
 			if (particle.FadeOut > 0.0f)
 			{
@@ -30,7 +30,7 @@ public:
 				{
 					if (particle.Lifetime > fadeOutStart)
 					{
-						particle.FadeTime += dt;
+						particle.FadeTime += (float)dt;
 						sprite.Sprite.SetOpacity(1.0f - (particle.FadeTime / particle.FadeOut));
 					}
 				}

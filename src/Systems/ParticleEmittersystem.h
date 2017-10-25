@@ -16,7 +16,7 @@ class ParticleEmitterSystem : public entityx::System<ParticleEmitterSystem>
 {
 public:
 	ParticleEmitterSystem(EntityFactory *entityFactory) :
-		mDistribution(-0.1, 0.1)
+		mDistribution(-0.1f, 0.1f)
 	{
 		mEntityFactory = entityFactory;
 	}
@@ -27,7 +27,7 @@ public:
 	{
 		es.each<TransformComponent, EmitterComponent>([=](entityx::Entity entity, TransformComponent &transform, EmitterComponent &emitter)
 		{
-			emitter.EmitterSpawnTime += dt;
+			emitter.EmitterSpawnTime += (float)dt;
 
 			if (emitter.EmitterSpawnTime > emitter.SpawnRate)
 			{

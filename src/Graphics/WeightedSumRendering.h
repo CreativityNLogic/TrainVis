@@ -8,6 +8,8 @@
 #include <glm/glm.hpp>
 
 #include "Shader.h"
+#include "Texture.h"
+#include "Model.h"
 #include "Camera.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
@@ -21,11 +23,23 @@ public:
 		mMaxDepth(1.0f),
 		mMaxPass(4)
 	{
-		mBackgroundColour = glm::vec3(0.2f, 0.3f, 0.3f);
+		std::vector<std::string> faces
+		{
+			("../../assets/textures/skybox/right.jpg"),
+			("../../assets/textures/skybox/left.jpg"),
+			("../../assets/textures/skybox/up.jpg"),
+			("../../assets/textures/skybox/down.jpg"),
+			("../../assets/textures/skybox/back.jpg"),
+			("../../assets/textures/skybox/front.jpg")
+		};
+
+		mSkybox.LoadFromFile(faces, false);
 	}
 
-	void Initialise(unsigned int width, unsigned int height)
+	void Initialise(unsigned int width, unsigned int height, glm::vec3 background)
 	{
+		mBackgroundColour = background;
+
 		InitialiseAccumulations(width, height);
 
 		InitaliseShaders();
@@ -94,6 +108,26 @@ public:
 			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+
+		glGenFramebuffers(1, &mSceneFBO);
+		glBindFramebuffer(GL_FRAMEBUFFER, mSceneFBO);
+
+		glGenTextures(1, &mSceneTexture);
+		glBindTexture(GL_TEXTURE_2D, mSceneTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1920, 1080, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mSceneTexture, 0);
+
+		glGenRenderbuffers(1, &mSceneRBO);
+		glBindRenderbuffer(GL_RENDERBUFFER, mSceneRBO);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1920, 1080); 
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, mSceneRBO); 
+																							
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+		
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void TerminateAccumulations()
@@ -104,10 +138,8 @@ public:
 
 	void InitaliseShaders()
 	{
-		std::string path = "../../assets/shaders/";
-
-		mWeightedSumInitShader.Initialise(path + "wsumInit.vs", path + "wsumInit.fs");
-		mWeightedSumFinalShader.Initialise(path + "wsumFinal.vs", path + "wsumFinal.fs");
+		mWeightedSumInitShader.Initialise("../../assets/shaders/wsumInit.vs", "../../assets/shaders/wsumInit.fs");
+		mWeightedSumFinalShader.Initialise("../../assets/shaders/wsumFinal.vs", "../../assets/shaders/wsumFinal.fs");
 	}
 
 	void TerminateShaders()
@@ -124,31 +156,11 @@ public:
 
 	void RenderWeightedSum(entityx::EntityManager &es, Camera *camera)
 	{
-		glDisable(GL_DEPTH_TEST);
+		glBindFramebuffer(GL_FRAMEBUFFER, mSceneFBO);
+		glEnable(GL_DEPTH_TEST); 
 
-		glBindFramebuffer(GL_FRAMEBUFFER, mAccumulationFBO);
-		glDrawBuffer(GL_COLOR_ATTACHMENT0);
-
-		glBlendEquation(GL_FUNC_ADD);
-		glBlendFunc(GL_ONE, GL_ONE);
-		glEnable(GL_BLEND);
-
-		glClearColor(0, 0, 0, 0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		es.each<TransformComponent, SpriteComponent>([=](entityx::Entity entity, TransformComponent &transform, SpriteComponent &sprite)
-		{
-			sprite.Sprite.SetPosition(transform.Position);
-			sprite.Sprite.SetRotation(transform.Rotation);
-			sprite.Sprite.SetScale(transform.Scale);
-
-			sprite.Sprite.SetProjection(camera->GetProjectionMatrix());
-			sprite.Sprite.SetView(camera->GetViewMatrix());
-
-			sprite.Sprite.Draw();
-		});
-
-		glDisable(GL_BLEND);
+		glClearColor(mBackgroundColour.r, mBackgroundColour.g, mBackgroundColour.b, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		unsigned int lightCount = 0;
 		const unsigned MAXLIGHTS = 3;
@@ -177,14 +189,10 @@ public:
 			graphic.Model.SetView(camera->GetViewMatrix());
 			graphic.Model.SetViewPosition(camera->GetPosition());
 
-			//graphic.Model.SetFogParams(mFog);
+			graphic.Model.SetFogParams(mFog);
 
 			graphic.Model.Draw(matComp.Materials);
 		});
-
-		GLuint err = glGetError();
-		if (err)
-			std::cout << "Error: " << err << " at line " << __LINE__ << std::endl;
 
 		// NEED TO STOP THIS DOUBLE RENDER!
 		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
@@ -198,10 +206,44 @@ public:
 			graphic.Model.SetView(camera->GetViewMatrix());
 			graphic.Model.SetViewPosition(camera->GetPosition());
 
-			//graphic.Model.SetFogParams(mFog);
+			graphic.Model.SetFogParams(mFog);
 
 			graphic.Model.Draw(matComp.Materials);
 		});
+
+		mSkybox.SetProjection(camera->GetProjectionMatrix());
+		mSkybox.SetView(camera->GetViewMatrix());
+		mSkybox.SetFogParams(mFog);
+		mSkybox.Draw();
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, mAccumulationFBO);
+		glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+		glBlendEquation(GL_FUNC_ADD);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glEnable(GL_BLEND);
+
+		glClearColor(0, 0, 0, 0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		es.each<TransformComponent, SpriteComponent>([=](entityx::Entity entity, TransformComponent &transform, SpriteComponent &sprite)
+		{
+			sprite.Sprite.SetPosition(transform.Position);
+			sprite.Sprite.SetRotation(transform.Rotation);
+			sprite.Sprite.SetScale(transform.Scale);
+
+			sprite.Sprite.SetProjection(camera->GetProjectionMatrix());
+			sprite.Sprite.SetView(camera->GetViewMatrix());
+
+			sprite.Sprite.SetFogParams(mFog);
+
+			sprite.Sprite.Draw();
+		});
+
+		glDisable(GL_BLEND);
+		glDisable(GL_DEPTH_TEST);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glDrawBuffer(GL_BACK);
@@ -209,16 +251,15 @@ public:
 		mWeightedSumFinalShader.Bind();
 
 		mWeightedSumFinalShader.setInt("ColorTex", 0);
+		mWeightedSumFinalShader.setInt("SceneTex", 1);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, mAccumulationTextureID[0]);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, mSceneTexture);
 
 		mWeightedSumFinalShader.setVec3("BackgroundColor", mBackgroundColour);
 		
 		DrawQuad();
-
-		err = glGetError();
-		if (err)
-			std::cout << "Error: " << err << " at line " << __LINE__ << std::endl;
 	}
 
 	void Resize(int width, int height)
@@ -227,9 +268,23 @@ public:
 		InitialiseAccumulations(width, height);
 	}
 
+	void SetFogParams(FogComponent fog)
+	{
+		mFog = fog;
+	}
+
+	void SetBackground(glm::vec3 background)
+	{
+		mBackgroundColour = background;
+	}
+
 private:
 	GLuint mQuadVAO;
 	GLuint mQuadVBO;
+
+	GLuint mSceneFBO;
+	GLuint mSceneRBO;
+	GLuint mSceneTexture;
 
 	GLuint mAccumulationTextureID[2];
 	GLuint mAccumulationFBO;
@@ -241,6 +296,9 @@ private:
 	GLuint mMaxPass;
 
 	glm::vec3 mBackgroundColour;
+
+	Cubemap mSkybox;
+	FogComponent mFog;
 };
 
 #endif // WEIGHTEDSUMRENDERING_H
