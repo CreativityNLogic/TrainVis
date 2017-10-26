@@ -50,7 +50,7 @@ bool Application::Initialise()
 	mCamera.SetPosition(glm::vec3(0.0, 3.0f, 10.0f));
 	mCamera.SetCameraSpeed(20.0f);
 	mCamera.SetMouseSensitivity(0.1f);
-	mCamera.SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.01f, 100000.0f);
+	mCamera.SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.1f, 100000.0f);
 
 	auto& renderSys = systems.add<RenderSystem>();
 	renderSys->setCamera(&mCamera);

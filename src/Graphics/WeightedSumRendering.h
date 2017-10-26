@@ -23,6 +23,12 @@ public:
 		mMaxDepth(1.0f),
 		mMaxPass(4)
 	{
+		mCube.LoadFromFile("../../assets/models/Cube.fbx");
+		mCube.SetScale(glm::vec3(10000.0f, 0.1f, 10000.0f));
+		mCube.SetPosition(glm::vec3(0.0f, -10.0f, 0.0f));
+
+		mReflectionShader.Initialise("../../assets/shaders/cubemap.vs", "../../assets/shaders/cubemap.fs");
+
 		std::vector<std::string> faces
 		{
 			("../../assets/textures/skybox/right.jpg"),
@@ -178,6 +184,20 @@ public:
 			lightCount++;
 		}
 
+		mCube.SetView(camera->GetViewMatrix());
+		mCube.SetProjection(camera->GetProjectionMatrix());
+
+		mReflectionShader.Bind();
+		mReflectionShader.setMat4("MVP", mCube.GetProjection() * mCube.GetView() * mCube.GetModel());
+		mReflectionShader.setMat4("Model", mCube.GetModel());
+		mReflectionShader.setMat4("View", mCube.GetView());
+		mReflectionShader.setMat4("Projection", mCube.GetProjection());
+		mReflectionShader.setVec3("cameraPosition", camera->GetPosition());
+
+		mSkybox.Bind(0);
+		mReflectionShader.setInt("skybox", 0);
+		mCube.Draw();
+
 		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
 		{
 			graphic.Model.SetLights(lightEntities, matComp.Materials);
@@ -207,6 +227,22 @@ public:
 			graphic.Model.SetViewPosition(camera->GetPosition());
 
 			graphic.Model.SetFogParams(mFog);
+
+			graphic.Model.Draw(matComp.Materials);
+		});
+
+		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
+		{
+			graphic.Model.SetLights(lightEntities, matComp.Materials);
+			graphic.Model.SetPosition(transform.Position);
+			graphic.Model.SetRotation(transform.Rotation);
+			graphic.Model.SetScale(transform.Scale);
+
+			graphic.Model.SetProjection(camera->GetProjectionMatrix());
+			graphic.Model.SetView(camera->GetViewMatrix());
+			graphic.Model.SetViewPosition(camera->GetPosition());
+
+			//graphic.Model.SetFogParams(mFog);
 
 			graphic.Model.Draw(matComp.Materials);
 		});
@@ -299,6 +335,9 @@ private:
 
 	Cubemap mSkybox;
 	FogComponent mFog;
+
+	Shader mReflectionShader;
+	Model mCube;
 };
 
 #endif // WEIGHTEDSUMRENDERING_H
