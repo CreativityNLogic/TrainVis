@@ -19,7 +19,7 @@ class RenderSystem : public entityx::System<RenderSystem>, public entityx::Recei
 public:
 	RenderSystem() : mCamera(nullptr) 
 	{
-		// load textures
+		// Load textures
 		std::vector<std::string> faces
 		{
 			("../../assets/textures/skybox/right.jpg"),
@@ -31,7 +31,38 @@ public:
 		};
 
 		mSkybox.LoadFromFile(faces, false);
+		
+		// Build and compile shaders
+		Shader shader("lighting.vs", "lighting.fs");
+		Shader hdrShader("hdr.vs", "hdr.fs");
+
+		// Configure floating point framebuffer
+		glGenFramebuffers(1, &hdrFBO);
+
+		// Create floating point color buffer
+		glGenTextures(1, &colorBuffer);
+		glBindTexture(GL_TEXTURE_2D, colorBuffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 1920, 1080, 0, GL_RGBA, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		// Create depth buffer
+		glGenRenderbuffers(1, &rboDepth);
+		glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1920, 1080);
+
+		// Attach buffers
+		glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBuffer, 0);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
+		
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			std::cout << "Framebuffer not complete!" << std::endl;
+		
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	}
+
 	~RenderSystem() {}
 	
 	void configure(entityx::EventManager &event_manager) 
@@ -131,11 +162,22 @@ public:
 
 			sprite->Sprite.Draw();
 		}
+
+		// Render scene into floating point framebuffer
+
+		// ...
+
+		// Render floating point color buffer and tonemap HDR colors
+
+		// ...
+
 	};	
 	
 private:
 	Camera *mCamera;
 	Cubemap mSkybox;
+	unsigned int hdrFBO, colorBuffer, rboDepth;
+	Shader shader, hdrShader;
 };
 
 #endif // RENDERSYSTEM_H

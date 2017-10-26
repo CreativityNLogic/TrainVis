@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\src\Core\BaseApplication.cpp" />
     <ClCompile Include="..\..\src\Core\EntityFactory.cpp" />
     <ClCompile Include="..\..\src\Graphics\Camera.cpp" />
+    <ClCompile Include="..\..\src\Graphics\Cubemap.cpp" />
     <ClCompile Include="..\..\src\Graphics\Glad\glad.c" />
     <ClCompile Include="..\..\src\Graphics\Material.cpp" />
     <ClCompile Include="..\..\src\Graphics\Mesh.cpp" />
@@ -30,16 +31,27 @@
     <ClCompile Include="..\..\src\Graphics\RenderWindow.cpp" />
     <ClCompile Include="..\..\src\Graphics\Shader.cpp" />
     <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
-    <ClCompile Include="..\..\src\Physics\DebugDraw\DDRenderInterfaceCoreGL.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidBody.cpp" />
     <ClCompile Include="..\..\src\Physics\RigidWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application.h" />
+    <ClInclude Include="..\..\src\Components\CameraComponent.h" />
+    <ClInclude Include="..\..\src\Components\EmitterComponent.h" />
+    <ClInclude Include="..\..\src\Components\GraphicsComponent.h" />
+    <ClInclude Include="..\..\src\Components\LightComponent.h" />
+    <ClInclude Include="..\..\src\Components\MaterialComponent.h" />
+    <ClInclude Include="..\..\src\Components\ParticleComponent.h" />
+    <ClInclude Include="..\..\src\Components\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\src\Components\SpriteComponent.h" />
+    <ClInclude Include="..\..\src\Components\TagComponent.h" />
+    <ClInclude Include="..\..\src\Components\TransformComponent.h" />
     <ClInclude Include="..\..\src\Core\BaseApplication.h" />
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
     <ClInclude Include="..\..\src\Core\Input.h" />
+    <ClInclude Include="..\..\src\Core\ResourceManager.h" />
     <ClInclude Include="..\..\src\Graphics\Camera.h" />
+    <ClInclude Include="..\..\src\Graphics\Cubemap.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\glad.h" />
     <ClInclude Include="..\..\src\Graphics\Glad\khrplatform.h" />
     <ClInclude Include="..\..\src\Graphics\Material.h" />
@@ -47,16 +59,22 @@
     <ClInclude Include="..\..\src\Graphics\Model.h" />
     <ClInclude Include="..\..\src\Graphics\RenderWindow.h" />
     <ClInclude Include="..\..\src\Graphics\Shader.h" />
+    <ClInclude Include="..\..\src\Graphics\Sprite.h" />
     <ClInclude Include="..\..\src\Graphics\Texture.h" />
     <ClInclude Include="..\..\src\Graphics\VertexData.h" />
-    <ClInclude Include="..\..\src\Physics\DebugDraw\debug_draw.hpp" />
+    <ClInclude Include="..\..\src\Physics\DebugDraw.h" />
+    <ClInclude Include="..\..\src\Physics\MotionState.h" />
     <ClInclude Include="..\..\src\Physics\RigidBody.h" />
     <ClInclude Include="..\..\src\Physics\RigidWorld.h" />
+    <ClInclude Include="..\..\src\Systems\MovementSystem.h" />
+    <ClInclude Include="..\..\src\Systems\ParticleEmittersystem.h" />
+    <ClInclude Include="..\..\src\Systems\ParticleSystem.h" />
+    <ClInclude Include="..\..\src\Systems\RenderSystem.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{05A9B67A-0644-4A0D-869B-B7EE75218994}</ProjectGuid>
     <RootNamespace>msvc2015</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
