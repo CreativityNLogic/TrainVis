@@ -77,6 +77,10 @@ std::string Shader::validateShader(GLuint shaderID)
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
 	glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
 	std::vector<char> shaderErrorMessage(infoLogLength);
+
+	if (!result)
+		return "";
+
 	glGetShaderInfoLog(shaderID, infoLogLength, NULL, &shaderErrorMessage[0]);
 	return std::string(shaderErrorMessage.begin(), shaderErrorMessage.end());
 }
@@ -89,6 +93,10 @@ std::string Shader::validateProgram(GLuint programID)
 	glGetProgramiv(programID, GL_LINK_STATUS, &result);
 	glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
 	std::vector<char> programErrorMessage(std::max(infoLogLength, int(1)));
+
+	if (!result)
+		return "";
+
 	glGetProgramInfoLog(programID, infoLogLength, NULL, &programErrorMessage[0]);
 	return std::string(programErrorMessage.begin(), programErrorMessage.end());
 }
