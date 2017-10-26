@@ -1,0 +1,27 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "TrainTrackBridge"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/TrainTrackBridge.fbx"
+	},
+	"MaterialComponent" :
+	{
+		"Track" :
+		{
+			"Shader" : ["../../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs"],
+			"Diffuse" : "../../assets/textures/track/track_d.png",
+			"Specular" : "../../assets/textures/track/track_s.png",
+			"Normal" : "../../assets/textures/track/track_n.png",
+			"Emissive" : "../../assets/textures/black.png",
+			"DiffuseColour" : [1.0, 1.0, 1.0, 1.0],
+			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
+			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],
+			"EmissiveColour" : [1.0, 1.0, 1.0, 1.0],
+			"Shininess" : 256,
+			"Transparent" : false
+		}
+	}
+}

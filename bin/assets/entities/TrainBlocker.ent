@@ -1,0 +1,19 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Box"
+	},
+	"RigidBodyComponent" : 
+	{
+		"Group" : "STATIC",
+		"Mask" : "STATIC_STATIC",
+		"Origin" : [0.0, 0.0, 0.0],
+		"Shape" : 
+		{
+			"Type" : "Box",
+			"Extents" : [1.0, 1.0, 100000.0]
+		},
+		"Inertia" : [0.0, 0.0, 0.0],
+		"Mass" : 0.0
+	}
+}

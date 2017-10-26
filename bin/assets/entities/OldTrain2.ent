@@ -1,0 +1,47 @@
+{
+	"TagComponent" :
+	{
+		"Tag" : "Train"
+	},
+	"GraphicsComponent" : 
+	{
+		"Filename" : "../../assets/models/OldTrain2.fbx"
+	},
+	"RigidBodyComponent" :
+	{
+		"Group" : "STATIC",
+		"Mask" : "STATIC_STATIC",
+		"Origin" : [0.0, 3.5, 0.0],
+		"Shape" : 
+		{
+			"Type" : "Box",
+			"Extents" : [2.0, 2.5, 8.0]
+		},
+		"Inertia" : [0.0, 0.0, 0.0],
+		"Mass" : 1000.0
+	},
+	"MaterialComponent" :
+	{
+		"Train" :
+		{
+			"Shader" : ["../../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs"],
+			"Diffuse" : "../../assets/textures/train/train_d.png",
+			"Specular" : "../../assets/textures/train/train_s.png",
+			"Normal" : "../../assets/textures/train/train_n.png",
+			"Emissive" : "../../assets/textures/black.png",
+			"DiffuseColour" : [1.0, 1.0, 1.0, 1.0],
+			"SpecularColour" : [1.0, 1.0, 1.0, 1.0],
+			"AmbientColour" : [1.0, 1.0, 1.0, 1.0],
+			"EmissiveColour" : [1.0, 1.0, 1.0, 1.0],
+			"Shininess" : 256,
+			"Transparent" : false
+		}
+	},
+	"EmitterComponent" :
+	{
+		"ParticleData" : "../../assets/entities/SmokeParticle.ent",
+		"Velocity" : [0.0, 1.0, 0.0],
+		"Offset" : [0.0, 3.0, 5.2],
+		"SpawnRate" : 0.1
+	}
+}

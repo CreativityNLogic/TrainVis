@@ -5,7 +5,7 @@
 	},
 	"GraphicsComponent" : 
 	{
-		"Filename" : "../../assets/models/Ground.fbx"
+		"Filename" : "../../assets/models/Terrain.fbx"
 	},
 	"RigidBodyComponent" : 
 	{

@@ -35,29 +35,9 @@
 				"Rotation" : [0.0, 0.0, 0.0]
 			}
 		},
-		"Box0" : 
-		{ 
-			"Data" : "../../assets/entities/Box.ent", 
-			"Transform" : 
-			{ 
-				"Position" : [0.0, 30.0, -2.0], 
-				"Scale" : [1.0, 1.0, 1.0], 
-				"Rotation" : [0.0, 0.0, 0.0]
-			}
-		},
-		"Box1" : 
-		{ 
-			"Data" : "../../assets/entities/Box.ent", 
-			"Transform" : 
-			{ 
-				"Position" : [0.0, 30.0, 2.0], 
-				"Scale" : [1.0, 1.0, 1.0], 
-				"Rotation" : [0.0, 0.0, 0.0]
-			}
-		},
 		"Train" : 
 		{ 
-			"Data" : "../../assets/entities/Train.ent", 
+			"Data" : "../../assets/entities/OldTrain2.ent", 
 			"Transform" : 
 			{ 
 				"Position" : [0.0, 0.0, 0.0], 
@@ -71,6 +51,36 @@
 			"Transform" : 
 			{ 
 				"Position" : [0.0, 0.5, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"TrainTrackBridge" : 
+		{ 
+			"Data" : "../../assets/entities/TrainTrackBridge.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [0.0, 0.5, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"TrainBlocker0" : 
+		{ 
+			"Data" : "../../assets/entities/TrainBlocker.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [3.5, 1.5, 0.0], 
+				"Scale" : [1.0, 1.0, 1.0], 
+				"Rotation" : [0.0, 0.0, 0.0]
+			}
+		},
+		"TrainBlocker1" : 
+		{ 
+			"Data" : "../../assets/entities/TrainBlocker.ent", 
+			"Transform" : 
+			{ 
+				"Position" : [-3.5, 1.5, 0.0], 
 				"Scale" : [1.0, 1.0, 1.0], 
 				"Rotation" : [0.0, 0.0, 0.0]
 			}
