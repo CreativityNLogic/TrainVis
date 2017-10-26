@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\src\Graphics\Texture.cpp" />
     <ClInclude Include="..\..\src\Core\EntityFactory.h" />
     <ClInclude Include="..\..\src\Core\ResourceManager.h" />
+    <ClInclude Include="..\..\src\Graphics\Animation\Animation.h" />
     <ClInclude Include="..\..\src\Graphics\WeightedSumRendering.h" />
     <ClInclude Include="..\..\src\Graphics\Sprite.h" />
     <ClInclude Include="..\..\src\Graphics\Cubemap.h" />

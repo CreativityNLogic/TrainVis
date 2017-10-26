@@ -159,6 +159,9 @@
     <ClInclude Include="..\..\src\Graphics\WeightedSumRendering.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Graphics\Animation\Animation.h">
+      <Filter>Header Files\Graphics\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -196,6 +199,9 @@
     </Filter>
     <Filter Include="Header Files\Graphics\Glad">
       <UniqueIdentifier>{68b63f5f-6281-411b-9bb0-88dc37d27bdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Animation">
+      <UniqueIdentifier>{010642a7-5881-4b03-ab70-01d4bff17c5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
