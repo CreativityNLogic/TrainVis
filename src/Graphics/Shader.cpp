@@ -29,13 +29,13 @@ void Shader::Initialise(const std::string &vertexFilename, const std::string &fr
 	if (fragmentShaderCode.empty())
 		return;
 
-	//std::cout << "Compiling shader : " << vertexFilename << std::endl;
+	std::cout << "Compiling shader : " << vertexFilename << std::endl;
 	compileShader(mVertexID, vertexShaderCode);
 
-	//std::cout << "Compiling shader : " << fragmentFilename << std::endl;
+	std::cout << "Compiling shader : " << fragmentFilename << std::endl;
 	compileShader(mFragmentID, fragmentShaderCode);
 
-	//std::cout << "Linking program..." << std::endl;
+	std::cout << "Linking program..." << std::endl;
 	mProgramID = glCreateProgram();
 	glAttachShader(mProgramID, mVertexID);
 	glAttachShader(mProgramID, mFragmentID);

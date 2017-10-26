@@ -86,7 +86,7 @@ void Application::Update(double deltaTime)
 	if (mRenderWindow->IsKeyPressed(Key::ESCAPE))
 		Quit();
 
-	mRenderWindow->Clear(0.2f, 0.3f, 0.3f, 1.0f);
+	//mRenderWindow->Clear(0.2f, 0.3f, 0.3f, 1.0f);
 	
 	//===============================================
 	// Place code here which will update per frame

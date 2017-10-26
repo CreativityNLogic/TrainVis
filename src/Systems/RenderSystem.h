@@ -15,7 +15,7 @@
 #include "../Graphics/Sprite.h"
 #include "../Graphics/Cubemap.h"
 #include "../Graphics/WeightedSumRendering.h"
-
+#include "../Graphics/Model.h"
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
 {
 public:
