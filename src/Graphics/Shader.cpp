@@ -78,7 +78,7 @@ std::string Shader::validateShader(GLuint shaderID)
 	glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
 	std::vector<char> shaderErrorMessage(infoLogLength);
 
-	if (!result)
+	if (!result || infoLogLength == 0)
 		return "";
 
 	glGetShaderInfoLog(shaderID, infoLogLength, NULL, &shaderErrorMessage[0]);
@@ -92,9 +92,9 @@ std::string Shader::validateProgram(GLuint programID)
 
 	glGetProgramiv(programID, GL_LINK_STATUS, &result);
 	glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
-	std::vector<char> programErrorMessage(std::max(infoLogLength, int(1)));
+	std::vector<char> programErrorMessage(infoLogLength);
 
-	if (!result)
+	if (!result || infoLogLength == 0)
 		return "";
 
 	glGetProgramInfoLog(programID, infoLogLength, NULL, &programErrorMessage[0]);

@@ -52,7 +52,7 @@ bool Application::Initialise()
 	mCamera.SetMouseSensitivity(0.1f);
 	mCamera.SetProjection(90.0f, (float)mRenderWindow->GetWindowSize().x / (float)mRenderWindow->GetWindowSize().y, 0.1f, 100000.0f);
 
-	auto& renderSys = systems.add<RenderSystem>();
+	auto& renderSys = systems.add<RenderSystem>(mRenderWindow.get());
 	renderSys->setCamera(&mCamera);
 	renderSys->setFogParams(mEntityFactory->GetFog());
 

@@ -19,9 +19,9 @@
 class RenderSystem : public entityx::System<RenderSystem>, public entityx::Receiver<RenderSystem>
 {
 public:
-	RenderSystem() : mCamera(nullptr) 
+	RenderSystem(RenderWindow *window) : mCamera(nullptr) 
 	{
-		mWeightSumRenderer.Initialise(1920, 1080, glm::vec3(0.2f, 0.3f, 0.3f));
+		mWeightSumRenderer.Initialise(window->GetWindowSize().x, window->GetWindowSize().y, glm::vec3(0.2f, 0.3f, 0.3f));
 	}
 
 	~RenderSystem() 
