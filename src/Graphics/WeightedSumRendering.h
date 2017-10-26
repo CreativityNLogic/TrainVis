@@ -21,7 +21,7 @@ class WeightedSumRendering
 public:
 	WeightedSumRendering() :
 		mMaxDepth(1.0f),
-		mMaxPass(5),
+		mMaxPass(4),
 		mReflectionShader("../../assets/shaders/cubemap.vs", "../../assets/shaders/cubemap.fs")
 	{
 		mCube.LoadFromFile("../../assets/models/Cube.fbx");
@@ -229,15 +229,21 @@ public:
 			graphic.Model.Draw(matComp.Materials);
 		});
 
+		mReflectionShader.Bind();
+		mReflectionShader.setMat4("Model", mCube.GetModel());
+		mReflectionShader.setMat4("View", mCube.GetView());
+		mReflectionShader.setMat4("Projection", mCube.GetProjection());
+
 		mReflectionShader.setMat4("MVP", mCube.GetModel() * mCube.GetView() * mCube.GetProjection());
 		mReflectionShader.setVec3("cameraPosition", camera->GetPosition());
 		mCube.SetView(camera->GetViewMatrix());
 		mCube.SetProjection(camera->GetProjectionMatrix());
 		mReflectionShader.setInt("skybox", 0);
-		mSkybox.Bind(0);
-		mCube.Draw();
 		glActiveTexture(GL_TEXTURE0);
 		glDepthFunc(GL_LESS);
+		mSkybox.Bind(0);
+		mCube.Draw();
+	//	glDepthFunc(GL_LESS);
 
 
 
