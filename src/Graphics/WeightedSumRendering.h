@@ -21,8 +21,10 @@ class WeightedSumRendering
 public:
 	WeightedSumRendering() :
 		mMaxDepth(1.0f),
-		mMaxPass(4)
+		mMaxPass(5),
+		mReflectionShader("../../assets/shaders/cubemap.vs", "../../assets/shaders/cubemap.fs")
 	{
+		mCube.LoadFromFile("../../assets/models/Cube.fbx");
 		std::vector<std::string> faces
 		{
 			("../../assets/textures/skybox/right.jpg"),
@@ -211,6 +213,36 @@ public:
 			graphic.Model.Draw(matComp.Materials);
 		});
 
+		es.each<TransformComponent, GraphicsComponent, MaterialComponent>([=](entityx::Entity entity, TransformComponent &transform, GraphicsComponent &graphic, MaterialComponent &matComp)
+		{
+			graphic.Model.SetLights(lightEntities, matComp.Materials);
+			graphic.Model.SetPosition(transform.Position);
+			graphic.Model.SetRotation(transform.Rotation);
+			graphic.Model.SetScale(transform.Scale);
+
+			graphic.Model.SetProjection(camera->GetProjectionMatrix());
+			graphic.Model.SetView(camera->GetViewMatrix());
+			graphic.Model.SetViewPosition(camera->GetPosition());
+
+			//graphic.Model.SetFogParams(mFog);
+
+			graphic.Model.Draw(matComp.Materials);
+		});
+
+		mReflectionShader.setMat4("MVP", mCube.GetModel() * mCube.GetView() * mCube.GetProjection());
+		mReflectionShader.setVec3("cameraPosition", camera->GetPosition());
+		mCube.SetView(camera->GetViewMatrix());
+		mCube.SetProjection(camera->GetProjectionMatrix());
+		mReflectionShader.setInt("skybox", 0);
+		mSkybox.Bind(0);
+		mCube.Draw();
+		glActiveTexture(GL_TEXTURE0);
+		glDepthFunc(GL_LESS);
+
+
+
+
+
 		mSkybox.SetProjection(camera->GetProjectionMatrix());
 		mSkybox.SetView(camera->GetViewMatrix());
 		mSkybox.SetFogParams(mFog);
@@ -299,6 +331,9 @@ private:
 
 	Cubemap mSkybox;
 	FogComponent mFog;
+
+	Shader mReflectionShader;
+	Model mCube;
 };
 
 #endif // WEIGHTEDSUMRENDERING_H
